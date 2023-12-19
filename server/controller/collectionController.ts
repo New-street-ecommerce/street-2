@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-
+import { Request, Response } from 'express';
 
 const prisma = new PrismaClient()
 
@@ -32,19 +32,20 @@ const productController = {
 
 
 
-      addcol:async (req:any,res:any)=>{
+      addcol: async (req: Request, res: Response) => {
         try {
-      const response: any = await prisma.collection.create({
-        data: {
-          name: req.body.name, 
-           
-        },
-      });
-      res.status(200).json(response);
-    } catch (error) {
-      res.status(500).json({ error });
-    }
-}
+          const response: any = await prisma.collection.create({
+            data: {
+              name: req.body.name,
+              brandId: req.body.brandId,
+              
+            },
+          });
+          res.status(200).json(response);
+        } catch (error) {
+          res.status(500).json({ error });
+        }
+      }
 
 }
 

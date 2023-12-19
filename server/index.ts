@@ -2,6 +2,8 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 
+
+
 dotenv.config()
 
 const app = express()
@@ -15,7 +17,7 @@ app.get('/', (req, res) => {
 // app.use()
 
 
-//products
+// products
  import routeProd from "./router/products"
 app.use('/api/product',routeProd)
 

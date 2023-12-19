@@ -1,28 +1,29 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Product as PrismaProduct } from '@prisma/client';
 
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  isNew: boolean;
+  pictures: string[];
+  collectionId: number;
+  collection: any;
+  clients: any[];
+  users: any[];
+}
+interface ProductController {
+  getAll: (req: any, res: any) => void;
+  getCat: (req: any, res: any) => void;
+  getCol: (req: any, res: any) => void;
+  getBrand: (req: any, res: any) => void;
+  addProduct: (req: any, res: any) => void;
+}
 
-
-const filterPrice = (minPrice:Number, maxPrice:Number, callback:Function) => {
-    prisma.product.findMany({
-        where: {
-          price: {
-            [prisma.Op.between]: [minPrice, maxPrice],
-          },
-        },
-      })
-      .then((results:Object) => {
-        callback(null, results);
-      })
-      .catch((error:Error) => {
-        callback(error, null);
-      });
-  };
- const productController = {
-
-  getall: async (req: any, res: any) => {
+const productController: ProductController = {
+  getAll: async (req: any, res: any) => {
     try {
       const response = await prisma.product.findMany();
       res.status(200).json(response);
@@ -31,10 +32,10 @@ const filterPrice = (minPrice:Number, maxPrice:Number, callback:Function) => {
     }
   },
 
-  getCat: async (req:any, res:any) => {
+  getCat: async (req: any, res: any) => {
     const catg = req.params.catg;
     try {
-      const allcat = await prisma.product.findMany({ where: { category: catg } });
+      const allcat = await prisma.product.findMany({ where: { name: catg } });
       if (allcat.length > 0) {
         res.status(200).send(allcat);
       } else {
@@ -42,51 +43,47 @@ const filterPrice = (minPrice:Number, maxPrice:Number, callback:Function) => {
       }
     } catch (err) {
       console.error(err);
-      res.status(400).send(err);
+      res.status(500).send(err);
     }
   },
 
-  getCol:async (req:any,res:any)=>{},
-  getbrand:async (req:any,res:any)=>{},
-
-  
-  filterbyPrice:async (req:any,res:any)=>{
-    const minPrice = req.params.minPrice;
-    const maxPrice = req.params.maxPrice;
-  
-    console.log(`Received request with minPrice: ${minPrice}, maxPrice: ${maxPrice}`);
-  
-    filterPrice(minPrice, maxPrice, (err:Error, results:any) => {
-      if (err) {
-        console.error(err, "Error filtering by price");
-        res.status(500).json({ error: 'Error filtering by price' });
-      } else {
-        res.json(results);
-      }
-    });
-  },
-
-
-  addProduct : async (req: any, res: any) => {
+  getCol: async (req: any, res: any) => {
+    const col = req.params.col;
     try {
-      const response: any = await prisma.product.create({
-        data: {
-          name: req.body.name, 
-          price: req.body.price, 
-          isNew: req.body.isNew, 
-          pictures: req.body.pictures, 
-        },
-      });
-      res.status(200).json(response);
-    } catch (error) {
-      res.status(500).json({ error });
-    }
+      const allcol = await prisma.product.findMany({ where: { name: col } });
+      if(allcol.length){
+      res.status(200).json(allcol);
+    } else {
+      res.status(200).send([])
+    }} catch(error) {
+    console.error(error);
+    res.status(500).send(error)
+  }
+},
+
+  getBrand: async (req: any, res: any) => {
+    // Implement based on requirements
   },
 
-  
+    addProduct: async (req: any, res: any) => {
+      const { name, price, isNew, pictures, collectionId }: Product = req.body; // Assuming ProductInput is the expected Prisma input type for creating a product
+
+      try {
+        const response = await prisma.product.create({
+          data: {
+            name,
+            price,
+            isNew,
+            pictures,
+            collection: { connect: { id: collectionId } },
+          },
+        });
+        res.status(200).json(response);
+      } catch (error) {
+        res.status(500).json({ error: 'An error occurred while adding the product.' })
+      }
+    },
+    }
 
 
-
-
-};
-export default productController
+export default productController;
