@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,92 +7,85 @@ datasource db {
   url      = "postgresql://postgres:root@localhost:5432/street2"
 }
 
-
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String
-  username String
-  password String
-  picture String?
-  dateOfBirth DateTime?
-  questions   Question[]
-  cart Product[] @relation("cart")
-  favList Product[] @relation("favList")
-  favoriteBrands Brand[]
-  favoriteArtists Artist[]
-  comments Comment[]
-  
+  id              Int        @id @default(autoincrement())
+  email           String     @unique
+  name            String
+  username        String
+  password        String
+  picture         String?
+  dateOfBirth     DateTime?
+  comments        Comment[]
+  questions       Question[]
+  favoriteArtists Artist[]   @relation("ArtistToUser")
+  favoriteBrands  Brand[]    @relation("BrandToUser")
+  cart            Product[]  @relation("cart")
+  favList         Product[]  @relation("favList")
 }
 
 model Artist {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String
-  username String
-  password String
-  bio String?
-  profilePic String?
-  coverPic String?
+  id          Int       @id @default(autoincrement())
+  email       String    @unique
+  name        String
+  username    String
+  password    String
+  bio         String?
+  profilePic  String?
+  coverPic    String?
   dateOfBirth DateTime?
-  posts   Post[]
-  followers User[]
-  
+  posts       Post[]
+  followers   User[]    @relation("ArtistToUser")
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  content   String
-  picture String
-  artist    Artist     @relation(fields: [artistId], references: [id])
-  artistId  Int
+  id       Int       @id @default(autoincrement())
+  content  String
+  picture  String
+  artistId Int
   comments Comment[]
+  artist   Artist    @relation(fields: [artistId], references: [id])
 }
 
 model Brand {
-  id      Int      @id @default(autoincrement())
-  name String
-  picture String
+  id          Int          @id @default(autoincrement())
+  name        String
+  picture     String
   collections Collection[]
-  followers User[]
+  followers   User[]       @relation("BrandToUser")
 }
 
 model Collection {
-  id      Int      @id @default(autoincrement())
-  name String
-  brand    Brand     @relation(fields: [brandId], references: [id])
+  id       Int       @id @default(autoincrement())
+  name     String
   brandId  Int
+  brand    Brand     @relation(fields: [brandId], references: [id])
   products Product[]
 }
 
 model Product {
-  id      Int      @id @default(autoincrement())
-  name String
-  price Float
-  isNew Boolean @default(true)
-  pictures String[]
-  collection    Collection     @relation(fields: [collectionId], references: [id])
-  collectionId  Int
-  clients User[] @relation("cart")
-  users User[] @relation("favList")
-
-
+  id           Int        @id @default(autoincrement())
+  name         String
+  price        Float
+  isNew        Boolean    @default(true)
+  pictures     String[]
+  collectionId Int
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  clients      User[]     @relation("cart")
+  users        User[]     @relation("favList")
 }
 
 model Question {
-  id      Int      @id @default(autoincrement())
-  question  String
-  user    User     @relation(fields: [userId], references: [id])
-  userId Int
+  id       Int    @id @default(autoincrement())
+  question String
+  userId   Int
+  user     User   @relation(fields: [userId], references: [id])
 }
 
 model Comment {
-  id      Int      @id @default(autoincrement())
+  id      Int    @id @default(autoincrement())
   content String
-  user    User     @relation(fields: [userId], references: [id])
-  userId Int
-  post    Post     @relation(fields: [postId], references: [id])
-  postId Int
-
+  userId  Int
+  postId  Int
+  post    Post   @relation(fields: [postId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
 }
-
