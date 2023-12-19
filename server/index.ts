@@ -17,8 +17,9 @@ app.get('/', (req, res) => {
 
 //products
  import routeProd from "./router/products"
-import routecol from "./router/collection"
 app.use('/api/product',routeProd)
+
+import routecol from "./router/collection"
 app.use('/api/product/collection',routecol)
 
 
