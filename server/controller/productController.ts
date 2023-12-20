@@ -14,15 +14,19 @@ interface Product {
   clients: any[];
   users: any[];
 }
-interface ProductController {
-  getAll: (req: any, res: any) => void;
-  // getCat: (req: any, res: any) => void;
-  getCol: (req: any, res: any) => void;
-  
-  addProduct: (req: any, res: any) => void;
-}
+// interface ProductController {
+//   getAll: (req: any, res: any) => void;
 
-const productController: ProductController = {
+//   // getCat: (req: any, res: any) => void;
+ 
+//   getCol: (req: any, res: any) => void;
+  
+//   addProduct: (req: any, res: any) => void;
+
+//   filterbyPrice: (req: any, res: any) => void;
+// }
+
+const  ProductController = {
   getAll: async (req: any, res: any) => {
     try {
       const response = await prisma.product.findMany();
@@ -61,25 +65,32 @@ const productController: ProductController = {
   }
 },
 
-  // getBrand: async (req, res) => {
-  //   const { productCat } = req.params;
-  //   try {
-  //     const result = await prisma.product.findMany({  where: { : itemCategory },
-  //     });
+ filterbyPrice : async (req: any, res: any) => {
+  const minPrice = parseFloat(req.params.minprice);
+  const maxPrice = parseFloat(req.params.maxprice);
+
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        price: {
+          gte: minPrice,
+          lte: maxPrice,
+        },
+      },
+    });
+
+    res.status(200).json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+},
+
   
-  //     if (!!result.length) {
-  //       res.status(200).send(result);
-  //     } else {
-  //       res.status(230).send([]);
-  //     }
-  //   } catch (err) {
-  //     res.status(400).send(err);
-  //   }
-  // };
+
 
     addProduct: async (req: any, res: any) => {
-      const { name, price, isNew, pictures, collectionId }: Product = req.body; // Assuming ProductInput is the expected Prisma input type for creating a product
-
+      const { name, price, isNew, pictures, collectionId }: Product = req.body; 
       try {
         const response = await prisma.product.create({
           data: {
@@ -98,4 +109,4 @@ const productController: ProductController = {
     }
 
 
-export default productController;
+export default ProductController;
