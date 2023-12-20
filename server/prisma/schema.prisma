@@ -19,7 +19,7 @@ model User {
   questions       Question[]
   favoriteArtists Artist[]   @relation("ArtistToUser")
   favoriteBrands  Brand[]    @relation("BrandToUser")
-  cart            Product[]  @relation("cart")
+  cart            Cart[]  
   favList         Product[]  @relation("favList")
 }
 
@@ -71,7 +71,7 @@ model Product {
   collectionId Int
   category String
   collection   Collection @relation(fields: [collectionId], references: [id])
-  clients      User[]     @relation("cart")
+  cart      Cart[]    
   users        User[]     @relation("favList")
 }
 
@@ -90,3 +90,11 @@ model Comment {
   post    Post   @relation(fields: [postId], references: [id])
   user    User   @relation(fields: [userId], references: [id])
 }
+
+model Cart {
+  id Int @id @default(autoincrement())
+  userId Int
+  productId Int
+  user User  @relation(fields: [userId], references: [id])
+  product Product  @relation(fields: [productId], references: [id])
+} 

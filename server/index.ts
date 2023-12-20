@@ -2,8 +2,11 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import artistRouter from './router/artistRouter'
-import userRouter from "./router/userRouter"
+
 // import ProductRoute from './routes/ProductRoute.js'
+import brandRouter from "./router/brandRouter"
+import cartRouter from "./router/cartRouter"
+import userRouter from "./router/userRouter"
 dotenv.config()
 
 const app = express()
@@ -17,6 +20,12 @@ app.get('/', (req, res) => {
 
 app.use('/artist',artistRouter)
 app.use("/users",userRouter)
+
+
+//khalil
+app.use("/", brandRouter)
+app.use("/", cartRouter)
+
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
