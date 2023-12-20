@@ -6,7 +6,7 @@ CREATE TABLE "User" (
     "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "picture" TEXT,
-    "dateOfBirth" TIMESTAMP(3),
+    "dateOfBirth" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -62,6 +62,7 @@ CREATE TABLE "Product" (
     "isNew" BOOLEAN NOT NULL DEFAULT true,
     "pictures" TEXT[],
     "collectionId" INTEGER NOT NULL,
+    "category" TEXT NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );

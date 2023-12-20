@@ -4,6 +4,8 @@ import dotenv from 'dotenv'
 
 
 
+import userRouter from "./router/userRouter"
+// import ProductRoute from './routes/ProductRoute.js'
 dotenv.config()
 
 const app = express()
@@ -14,7 +16,7 @@ app.use(express.json())
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
-// app.use()
+app.use("/users",userRouter)
 
 
 // products
