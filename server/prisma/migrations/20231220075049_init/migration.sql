@@ -69,7 +69,6 @@ CREATE TABLE "Product" (
 -- CreateTable
 CREATE TABLE "Question" (
     "id" SERIAL NOT NULL,
-    "id" SERIAL NOT NULL,
     "question" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
 
