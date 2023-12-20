@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import userRouter from "./router/userRouter"
 // import ProductRoute from './routes/ProductRoute.js'
 dotenv.config()
 
@@ -12,7 +13,7 @@ app.use(express.json())
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
-// app.use()
+app.use("/users",userRouter)
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`)

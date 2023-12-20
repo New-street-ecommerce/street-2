@@ -14,7 +14,7 @@ model User {
   username        String
   password        String
   picture         String?
-  dateOfBirth     DateTime?
+  dateOfBirth     DateTime? @default(now())
   comments        Comment[]
   questions       Question[]
   favoriteArtists Artist[]   @relation("ArtistToUser")
