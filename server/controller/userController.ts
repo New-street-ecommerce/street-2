@@ -37,7 +37,7 @@ const signIn = async (req:Request,res:Response) => {
        const user = await prisma.user.findUnique({where: {email:req.body.email}})
        if (!user){
         res.status(409).send("User does not exist")}
-        else {res.status(200).send('jnjnjn')}
+        else {res.status(200).send(user)}
        
     }
 catch(error){

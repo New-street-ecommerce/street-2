@@ -45,6 +45,7 @@ interface Product {
   name: string;
   price: number;
   isNew: boolean;
+  category: string
   pictures: string[];
 }
 
