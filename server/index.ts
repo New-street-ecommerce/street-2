@@ -1,12 +1,14 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+
 import artistRouter from './router/artistRouter'
 
+import userRouter from "./router/userRouter"
 // import ProductRoute from './routes/ProductRoute.js'
 import brandRouter from "./router/brandRouter"
 import cartRouter from "./router/cartRouter"
-import userRouter from "./router/userRouter"
+
 dotenv.config()
 
 const app = express()
@@ -20,6 +22,17 @@ app.get('/', (req, res) => {
 
 app.use('/artist',artistRouter)
 app.use("/users",userRouter)
+
+
+// products
+ import routeProd from "./router/products"
+app.use('/api/product',routeProd)
+
+import routecol from "./router/collection"
+app.use('/api/product/collection',routecol)
+
+
+
 
 
 //khalil
