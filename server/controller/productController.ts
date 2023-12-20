@@ -9,6 +9,7 @@ interface Product {
   price: number;
   isNew: boolean;
   pictures: string[];
+  category: string;
   collectionId: number;
   collection: any;
   clients: any[];
@@ -52,9 +53,11 @@ const  ProductController = {
   // },
 
   getCol: async (req: any, res: any) => {
-    const col = req.params.col;
+    const col = req.params.coll;
+    console.log(req.params.coll)
     try {
       const allcol = await prisma.product.findMany({ where: { collectionId: col } });
+      console.log(allcol)
       if(allcol.length){
       res.status(200).json(allcol);
     } else {
@@ -90,7 +93,7 @@ const  ProductController = {
 
 
     addProduct: async (req: any, res: any) => {
-      const { name, price, isNew, pictures, collectionId }: Product = req.body; 
+      const { name, price, isNew, pictures,category, collectionId }: Product = req.body; 
       try {
         const response = await prisma.product.create({
           data: {
@@ -98,6 +101,7 @@ const  ProductController = {
             price,
             isNew,
             pictures,
+            category,
             collection: { connect: { id: collectionId } },
           },
         });

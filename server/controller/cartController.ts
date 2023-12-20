@@ -1,24 +1,26 @@
 import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
+import { Cart } from '../types';
+
 
 const prisma = new PrismaClient();
 
 const addToBasket = async (req: Request, res: Response): Promise<void> => {
   try {
     
-    const userId = parseInt(req.body.userId, 10);
-    const itemId = parseInt(req.body.itemId, 10);
+  const { userId,productId}:Cart = req.body
+   console.log(req.body)
 
     const item = await prisma.cart.create({
-      data: {
+      data:  {
+        productId,
         userId,
-        productId: itemId,
       },
     });
 
     res.status(201).send("successful");
   } catch (error) {
-    res.send("failed");
+    res.send(error);
   }
 };
 

@@ -6,7 +6,7 @@ CREATE TABLE "User" (
     "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "picture" TEXT,
-    "dateOfBirth" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "dateOfBirth" TIMESTAMP(3),
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -87,6 +87,24 @@ CREATE TABLE "Comment" (
 );
 
 -- CreateTable
+CREATE TABLE "Cart" (
+    "id" SERIAL NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "productId" INTEGER NOT NULL,
+
+    CONSTRAINT "Cart_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "FavList" (
+    "Id" SERIAL NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "productId" INTEGER NOT NULL,
+
+    CONSTRAINT "FavList_pkey" PRIMARY KEY ("Id")
+);
+
+-- CreateTable
 CREATE TABLE "_ArtistToUser" (
     "A" INTEGER NOT NULL,
     "B" INTEGER NOT NULL
@@ -94,18 +112,6 @@ CREATE TABLE "_ArtistToUser" (
 
 -- CreateTable
 CREATE TABLE "_BrandToUser" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
-);
-
--- CreateTable
-CREATE TABLE "_cart" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
-);
-
--- CreateTable
-CREATE TABLE "_favList" (
     "A" INTEGER NOT NULL,
     "B" INTEGER NOT NULL
 );
@@ -128,18 +134,6 @@ CREATE UNIQUE INDEX "_BrandToUser_AB_unique" ON "_BrandToUser"("A", "B");
 -- CreateIndex
 CREATE INDEX "_BrandToUser_B_index" ON "_BrandToUser"("B");
 
--- CreateIndex
-CREATE UNIQUE INDEX "_cart_AB_unique" ON "_cart"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_cart_B_index" ON "_cart"("B");
-
--- CreateIndex
-CREATE UNIQUE INDEX "_favList_AB_unique" ON "_favList"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_favList_B_index" ON "_favList"("B");
-
 -- AddForeignKey
 ALTER TABLE "Post" ADD CONSTRAINT "Post_artistId_fkey" FOREIGN KEY ("artistId") REFERENCES "Artist"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -159,6 +153,18 @@ ALTER TABLE "Comment" ADD CONSTRAINT "Comment_postId_fkey" FOREIGN KEY ("postId"
 ALTER TABLE "Comment" ADD CONSTRAINT "Comment_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Cart" ADD CONSTRAINT "Cart_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Cart" ADD CONSTRAINT "Cart_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "FavList" ADD CONSTRAINT "FavList_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "FavList" ADD CONSTRAINT "FavList_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "_ArtistToUser" ADD CONSTRAINT "_ArtistToUser_A_fkey" FOREIGN KEY ("A") REFERENCES "Artist"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -169,15 +175,3 @@ ALTER TABLE "_BrandToUser" ADD CONSTRAINT "_BrandToUser_A_fkey" FOREIGN KEY ("A"
 
 -- AddForeignKey
 ALTER TABLE "_BrandToUser" ADD CONSTRAINT "_BrandToUser_B_fkey" FOREIGN KEY ("B") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_cart" ADD CONSTRAINT "_cart_A_fkey" FOREIGN KEY ("A") REFERENCES "Product"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_cart" ADD CONSTRAINT "_cart_B_fkey" FOREIGN KEY ("B") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_favList" ADD CONSTRAINT "_favList_A_fkey" FOREIGN KEY ("A") REFERENCES "Product"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_favList" ADD CONSTRAINT "_favList_B_fkey" FOREIGN KEY ("B") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

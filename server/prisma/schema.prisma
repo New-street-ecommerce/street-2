@@ -14,13 +14,13 @@ model User {
   username        String
   password        String
   picture         String?
-  dateOfBirth     DateTime? @default(now())
+  dateOfBirth     DateTime?
+  cart            Cart[]
   comments        Comment[]
+  FavList         FavList[]
   questions       Question[]
   favoriteArtists Artist[]   @relation("ArtistToUser")
   favoriteBrands  Brand[]    @relation("BrandToUser")
-  cart            Cart[]  
-  favList         Product[]  @relation("favList")
 }
 
 model Artist {
@@ -69,10 +69,10 @@ model Product {
   isNew        Boolean    @default(true)
   pictures     String[]
   collectionId Int
-  category String
+  category  String
+  cart         Cart[]
+  FavList      FavList[]
   collection   Collection @relation(fields: [collectionId], references: [id])
-  cart      Cart[]    
-  users        User[]     @relation("favList")
 }
 
 model Question {
@@ -92,9 +92,17 @@ model Comment {
 }
 
 model Cart {
-  id Int @id @default(autoincrement())
-  userId Int
+  id        Int     @id @default(autoincrement())
+  userId    Int
   productId Int
-  user User  @relation(fields: [userId], references: [id])
-  product Product  @relation(fields: [productId], references: [id])
-} 
+  product   Product @relation(fields: [productId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
+}
+
+model FavList {
+  Id        Int     @id @default(autoincrement())
+  userId    Int
+  productId Int
+  Product   Product @relation(fields: [productId], references: [id])
+  User      User    @relation(fields: [userId], references: [id])
+}

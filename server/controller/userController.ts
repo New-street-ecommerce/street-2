@@ -1,9 +1,18 @@
 import { PrismaClient } from '@prisma/client'
 import { Request, Response } from 'express'
 const prisma = new PrismaClient()
-import { User } from '../types'
+// import { User } from '../types'
 
+interface User {
+  id: number;
+  email: string;
+  name: string;
+  username: string;
+  password: string;
+  picture: string;
+  dateOfBirth: string;
 
+}
 const signUp = async (req: Request,res: Response)=> {
     
 try {
@@ -41,7 +50,7 @@ const signIn = async (req:Request,res:Response) => {
        
     }
 catch(error){
-    res.status(500).send(error)
+    res.send(error)
 }
 }
 

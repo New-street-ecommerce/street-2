@@ -21,23 +21,23 @@ app.get('/', (req, res) => {
 })
 
 app.use('/artist',artistRouter)
-app.use("/users",userRouter)
+app.use("/user",userRouter)
 
 
 // products
  import routeProd from "./router/products"
-app.use('/api/product',routeProd)
+app.use('/product',routeProd)
 
 import routecol from "./router/collection"
-app.use('/api/product/collection',routecol)
+app.use('/collection',routecol)
 
 
 
 
 
 //khalil
-app.use("/", brandRouter)
-app.use("/", cartRouter)
+app.use("/brand", brandRouter)
+app.use("/cart", cartRouter)
 
 
 app.listen(port, () => {

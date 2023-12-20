@@ -61,6 +61,11 @@ interface Comment {
   postId: number;
 }
 
+interface Cart {
+  userId: number;
+  productId: number;
+}
+
 export {
-  User,Artist,Post,Question,Collection,Comment,Brand,Product
+  User,Artist,Post,Question,Collection,Comment,Brand,Product,Cart
 }
