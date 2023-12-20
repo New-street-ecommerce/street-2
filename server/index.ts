@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import artistRouter from './router/artistRouter'
 
 // import ProductRoute from './routes/ProductRoute.js'
 import brandRouter from "./router/brandRouter"
@@ -16,6 +17,9 @@ app.use(express.json())
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
+
+app.use('/artist',artistRouter)
+app.use("/users",userRouter)
 
 
 //khalil
