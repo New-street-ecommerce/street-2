@@ -14,7 +14,7 @@ model User {
   username        String
   password        String
   picture         String?
-  dateOfBirth     DateTime?
+  dateOfBirth     DateTime? @default(now())
   comments        Comment[]
   questions       Question[]
   favoriteArtists Artist[]   @relation("ArtistToUser")
@@ -69,6 +69,7 @@ model Product {
   isNew        Boolean    @default(true)
   pictures     String[]
   collectionId Int
+  category String
   collection   Collection @relation(fields: [collectionId], references: [id])
   cart      Cart[]    
   users        User[]     @relation("favList")
