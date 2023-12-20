@@ -19,6 +19,8 @@ const productController = {
         const col = req.params.col;
     try {
       const ress = await prisma.collection.findMany({ where: { name: col } });
+      console.log(ress);
+      
       if (ress.length > 0) {
         res.status(200).send(ress);
       } else {
