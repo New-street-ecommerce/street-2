@@ -17,13 +17,13 @@ const prisma = new PrismaClient()
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
-  export {createBrand}
-  // getBrands: async (req, res) => {
-  //   try {
-  //     const brands = await Brand.findAll();
-  //     res.status(200).json(brands);
-  //   } catch (error) {
-  //     console.error(error);
-  //     res.status(500).json({ error: "Internal Server Error" });
-  //   }
-  // },
+const  getBrands =  async (req: Request, res: Response) => {
+    try {
+      const brands  = await prisma.brand.findMany();
+      res.status(200).json(brands);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+  export {createBrand, getBrands}
