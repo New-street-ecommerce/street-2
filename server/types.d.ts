@@ -1,81 +1,66 @@
 interface User {
-  id: Int;
-  email: String;
-  name: String;
-  username: String;
-  password: String;
-  picture: String;
-  dateOfBirth: DateTime;
-  comments: Comment[];
-  questions: Question[];
-  favoriteArtists: Artist[];
-  favoriteBrands: Brand[];
-  cart: Product[];
-  favList: Product[];
+  id: number;
+  email: string;
+  name: string;
+  username: string;
+  password: string;
+  picture: string;
+  dateOfBirth: string;
+
 }
 
 interface Artist {
   id: number;
-  email: string
-  name: string
-  username: string
-  password: string
-  bio: string
-  dateOfBirth: DateTime;
-  profilePic: string
-  coverPic: string
-  posts: Post[];
-  followers: User[];
+  email: string;
+  name: string;
+  username: string;
+  password: string;
+  bio: string;
+  dateOfBirth: string;
+  profilePic: string;
+  coverPic: string;
 }
 
 interface Post {
-  id: Int;
-  content: String;
-  picture: String;
-  artistId: Int;
-  comments: Comment[];
-  artist: Artist;
+  id: number;
+  content: string;
+  picture: string;
+  artistId: number;
 }
 
 interface Brand {
-  id: Int;
-  name: String;
-  picture: String;
-  collections: Collection[];
-  followers: User[];
+  id: number;
+  name: string;
+  picture: string;
 }
 
 interface Collection {
-  id: Int;
-  name: String;
-  brandId: Int;
-  brand: Brand;
-  products: Product[];
+  id: number;
+  name: string;
+  brandId: number;
 }
 
 interface Product {
-  id: Int;
-  name: String;
-  price: Float;
-  isNew: Boolean;
-  pictures: String[];
-  collectionId: Int;
-  collection: Collection;
-  clients: User[];
-  users: User[];
+  id: number;
+  name: string;
+  price: number;
+  isNew: boolean;
+  category: string
+  pictures: string[];
 }
 
 interface Question {
-  id: Int;
-  question: String;
-  userId: Int;
-  user: User;
+  id: number;
+  question: string;
+  userId: number;
 }
 interface Comment {
-  id: Int;
-  content: String;
-  userId: Int;
-  postId: Int;
-  post: Post;
-  user: User;
+  id: number;
+  content: string;
+  userId: number;
+  postId: number;
+}
+
+export {
+  User,Artist,Post,Question,Collection,Comment,Brand,Product
 }
