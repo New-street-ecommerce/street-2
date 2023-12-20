@@ -6,6 +6,9 @@ import artistRouter from './router/artistRouter'
 
 import userRouter from "./router/userRouter"
 // import ProductRoute from './routes/ProductRoute.js'
+import brandRouter from "./router/brandRouter"
+import cartRouter from "./router/cartRouter"
+
 dotenv.config()
 
 const app = express()
@@ -29,6 +32,12 @@ import routecol from "./router/collection"
 app.use('/api/product/collection',routecol)
 
 
+
+
+
+//khalil
+app.use("/", brandRouter)
+app.use("/", cartRouter)
 
 
 app.listen(port, () => {
