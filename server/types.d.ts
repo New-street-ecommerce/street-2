@@ -15,15 +15,15 @@ interface User {
 }
 
 interface Artist {
-  id: Int;
-  email: String;
-  name: String;
-  username: String;
-  password: String;
-  bio: String;
+  id: number;
+  email: string
+  name: string
+  username: string
+  password: string
+  bio: string
   dateOfBirth: DateTime;
-  profilePic: String;
-  coverPic: String;
+  profilePic: string
+  coverPic: string
   posts: Post[];
   followers: User[];
 }
