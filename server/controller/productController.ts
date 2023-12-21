@@ -90,7 +90,9 @@ const  ProductController = {
 },
 
   
+NewRelease: async (req:any , res:any)=>{
 
+},
 
     addProduct: async (req: any, res: any) => {
       const { name, price, isNew, pictures,category, collectionId }: Product = req.body; 
