@@ -4,30 +4,29 @@ import axios from 'axios'
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-=
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { useQuery } from "@tanstack/react-query";
+import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { PassThrough } from "stream";
 
 const auth = getAuth(app);
+const register = async (email:string, password:string)=> {
+    let user = null,
+        error = null;
+   
+        const res:any = await createUserWithEmailAndPassword(auth, email, password);
+        const users = (await res.json());
+        localStorage.setItem("user", JSON.stringify(user))
+        return users
+    }
 const signUp =  () => {
     const [registerEmail, setRegisterEmail] = useState("");
     const [registeruserName, setRegisterUserName] = useState("");
     const [registerName, setRegisterName] = useState("");
     const [dateOfB, setDateOfB] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
-    // const [isArtist, setIsArtist] = useState(false);
-    // const navigate = useNavigate();
 
 
-const register = async (email:string, password:string)=> {
-    let user = null,
-        error = null;
-    try {
-        user = await createUserWithEmailAndPassword(auth, email, password);
-        localStorage.setItem("user", JSON.stringify(user))
-        console.log("User signed up successfully:", user)
-    } catch (error) {
-        return error
-    }
+
 
    
 
@@ -111,7 +110,7 @@ const register = async (email:string, password:string)=> {
                             id="userName"
                             name="userName"
                             onChange={(e) => setRegisterUserName(e.target.value)}
-                            className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                            // className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                           />
                         </div>
                       </div>
@@ -143,7 +142,7 @@ const register = async (email:string, password:string)=> {
                             name="dob"
                             onChange={(e) => setDateOfB(e.target.value)}
                             id="dob"
-                            className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                            // className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                           />
                         </div>
                       </div>
@@ -179,7 +178,7 @@ const register = async (email:string, password:string)=> {
                     <div className="mt-6 flex items-center justify-between"></div>
                     <button
                       onClick={()=>{
-                        register(email,password)
+                        register(registerEmail,registerPassword)
                          signUp()
                       }}
                       className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[linear-gradient(214deg,#B75CFF_6.04%,#671AE4_92.95%)] mt-6 px-5 py-1 rounded-[121px] self-end"
@@ -196,4 +195,3 @@ const register = async (email:string, password:string)=> {
       );
     };
     
-}

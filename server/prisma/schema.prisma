@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:root@localhost:5432/street2"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -70,7 +70,7 @@ model Product {
   pictures     String[]
   collectionId Int
   category  String
-  cart         Cart[]
+  cart         Cart[] 
   FavList      FavList[]
   collection   Collection @relation(fields: [collectionId], references: [id])
 }
