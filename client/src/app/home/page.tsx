@@ -4,8 +4,11 @@ import axios from "axios";
 import { FcLikePlaceholder, FcLike } from "react-icons/fc";
 import { useQuery} from "@tanstack/react-query"
 import Link from 'next/link';
+import Typescript from "./type";
+import  from "./api"
 
 const Home = () => {
+  const { isLoading, error, data } =  api.
   const [products, setProducts] = useState([]);
   const [like, setLike] = useState(false);
   const [brand, setBrand] = useState([]);
