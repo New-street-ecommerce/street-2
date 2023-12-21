@@ -11,3 +11,4 @@ export const TanstackProvider = ({children}:{children:React.ReactNode}) => {
     </QueryClientProvider>
   )
 }
+ 
