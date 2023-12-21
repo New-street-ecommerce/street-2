@@ -1,15 +1,37 @@
-import { useQuery } from "@tanstack/react-query";
-import { createUserWithEmailAndPassword, getAuth} from "firebase/auth";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
+import {app} from "../firebase/config";
+interface User {
+  id: number;
+  email: string;
+  name: string;
+  username: string;
+  password: string;
+  picture: string;
+  dateOfBirth: string;
+}
 
-const auth =getAuth()
-const register = async (email:string, password:string) => {
-    let user = null,
-        error = null;
-   
-        const res:any = await createUserWithEmailAndPassword(auth, email, password);
-        const users = (await res.json());
-        localStorage.setItem("user", JSON.stringify(user))
-        return users
-    }
-    
+export const register = () => {
+  const query = useMutation({
+    mutationFn: async (object: {email: string, password: string}) => {
+    console.log(object.password,object.email);
+      const auth = getAuth(app);
+      
+      const res: any = await createUserWithEmailAndPassword(
+        auth,
+        object.email,
+        object.password
+      );
+      
+      localStorage.setItem("user", JSON.stringify(res));
+      return res;
+    },
+    onError: (error, variables, context) => {
+        // Boom ba ye!
+        console.log(error);
+        
+      },
+  });
+  return query;
+};
