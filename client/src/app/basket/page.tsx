@@ -51,7 +51,7 @@ const ShoppingCart = () => {
 
 
     const getTotalPrice = (ele: any) => {
-      return (ele.price * quantity).toFixed(2);
+      return (ele.product.price * quantity).toFixed(2);
     };
 
     const incrementQuantity = () => {
@@ -78,7 +78,7 @@ const ShoppingCart = () => {
       </div>
 
       {cartVisible && (
-        <div className="fixed top-30 right-4 bg-white p-4 rounded shadow-md w-80">
+        <div className="top-30 right-4 bg-white p-4 rounded shadow-md w-80 float-right">
           <h2 className="text-xl font-semibold mb-4"> Cart</h2>
 
           {data?.map((ele, i) => (
@@ -101,7 +101,7 @@ const ShoppingCart = () => {
                   </p>
                 </div>
                 <span className="text-gray-600">Total:</span>
-                {/* <span className="text-xl font-bold">${getTotalPrice(ele)}</span> */}
+                <span className="text-xl font-bold">${getTotalPrice(ele)}</span>
               </div>
 
               <div className="flex items-center">

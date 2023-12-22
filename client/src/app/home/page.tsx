@@ -20,6 +20,8 @@ interface Product {
 
 
 const Home = () => {
+  const [question, setQuestion] = useState("");
+  const [like, setLike] = useState(false);
   const {
     data: products,
     isLoading,
@@ -44,8 +46,7 @@ const Home = () => {
       );
     }
 console.log(products)
-  // const like = false;
-  // const question = "";
+
   // const questionPosting = async () => {
   //   try {
   //     if (question.trim() === "") {
@@ -66,7 +67,7 @@ console.log(products)
 
   return (
     <>
-      {/* main and creators buttons */}
+      
       <div className="flex justify-center pt-[104px] ">
         <div className="flex w-full   justify-around">
           <div className="flex items-center justify-center gap-4 p-4 bg-purple-600 rounded-full w-[164px] h-[45px]">
@@ -84,10 +85,10 @@ console.log(products)
           </div>
         </div>
       </div>
-      {/* text and images */}
+      
       <div className="mx-auto mt-8 flex flex-col items-center justify-evenly pt-20 gap-20 ">
         <div className="flex justify-evenly ">
-          {/* text */}
+          
           <div className="w-full text-white text-6xl font-extrabold font-['SF Pro Display'] leading-[81px] tracking-wide">
             Clothes are the
             <br />
@@ -168,7 +169,7 @@ console.log(products)
         </div>
       </div>
 
-      {/* brand images */}
+    
       <div className="flex justify-evenly mb-[100px]">
         <div className="max-w-[994px] ">
           <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
@@ -196,7 +197,7 @@ console.log(products)
           </div>
         </div>
       </div>
-      {/* The about  */}
+      
       <div className="p-4 mx-auto flex flex-col gap-8 items-center mb-[100px]">
         <h1 className="text-white text-5xl font-bold ">About Us</h1>
         <p className="text-gray-500 text-center">
@@ -306,11 +307,11 @@ console.log(products)
             <div className="flex items-center">
               <div
                 className="mr-4 "
-                // onClick={() => {
+                 onClick={() => {
                   
-                // }}
+                }}
               >
-                {/* {like ? <FcLikePlaceholder /> : <FcLike />} */}
+                {like ? <FcLikePlaceholder /> : <FcLike />} 
               </div>
               <button className="mt-2 ml-2 bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md self-center">
                 Buy Now
