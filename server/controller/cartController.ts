@@ -5,6 +5,19 @@ import { Cart } from '../types';
 
 const prisma = new PrismaClient();
 
+const removeFromBasket = async (req: Request, res: Response): Promise<void> => {
+ try { 
+   const query = await prisma.cart.delete({
+    where: {
+      id: parseInt(req.params.id)
+    },
+  })
+  res.send(query)
+}catch(error){
+  res.send(error)
+}
+}
+
 const addToBasket = async (req: Request, res: Response): Promise<void> => {
   try {
     
@@ -31,6 +44,9 @@ const getBasket = async (req: Request, res: Response): Promise<void> => {
           where: {
             userId: parseInt(req.params.id, 10),
           },
+          include:{
+            product: true
+          },
         
      
     });
@@ -41,4 +57,4 @@ const getBasket = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { addToBasket, getBasket };
+export { addToBasket, getBasket, removeFromBasket };
