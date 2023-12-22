@@ -17,7 +17,7 @@ interface Product {
     clients: any[];
     users: any[];
   }
-  const Sidebar = ({ isNewRelease,setNewRelease,fetchNew,setMinPrice, setMaxPrice, refetch }) => {
+  const Sidebar = ({ isNewRelease,setNewRelease,fetchNew,setMinPrice, setMaxPrice, refetch }:any) => {
     const [isCategoryOpen, setCategoryOpen] = useState(false);
     const [isPriceFilterOpen, setPriceFilterOpen] = useState(false);
     const [min, setMin] = useState(0);
@@ -40,7 +40,7 @@ interface Product {
     };
   
     const handleNewRelease = () => {
-      setNewRelease((prevIsNewRelease) => !prevIsNewRelease);
+      setNewRelease((prevIsNewRelease:any) => !prevIsNewRelease);
     };
   
     const fetchProductsByCategory = (category: string) => {

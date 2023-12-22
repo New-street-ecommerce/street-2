@@ -1,22 +1,13 @@
 import { PrismaClient } from '@prisma/client'
 import { Request, Response } from 'express'
 const prisma = new PrismaClient()
-// import { User } from '../types'
+import { User } from '../types'
 
-interface User {
-  id: number;
-  email: string;
-  name: string;
-  username: string;
-  password: string;
-  picture: string;
-  dateOfBirth: string;
 
-}
 const signUp = async (req: Request,res: Response)=> {
     
 try {
-    const {email,name,username,password,dateOfBirth}:User= req.body;
+    const {email,name,username,dateOfBirth}:User= req.body;
     const user = await prisma.user.findUnique({
   where: {
     email,
@@ -29,7 +20,6 @@ if (user !== null) {
     email,
     name,
     username,
-    password,
     dateOfBirth
   }
     })

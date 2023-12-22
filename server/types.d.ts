@@ -3,7 +3,6 @@ interface User {
   email: string;
   name: string;
   username: string;
-  password: string;
   picture: string;
   dateOfBirth: string;
 
@@ -14,7 +13,6 @@ interface Artist {
   email: string;
   name: string;
   username: string;
-  password: string;
   bio: string;
   dateOfBirth: string;
   profilePic: string;
