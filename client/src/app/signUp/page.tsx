@@ -1,8 +1,8 @@
 "use client";
-import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+
 
 import { register, registerDb } from "../Providers/useApi";
 

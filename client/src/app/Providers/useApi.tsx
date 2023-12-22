@@ -41,6 +41,8 @@ export const login = () => {
         mutationFn: async(object: {email:string,password:string})=>{
             const auth= getAuth(app)
             const res:any = await signInWithEmailAndPassword(auth, object.email, object.password)
+            localStorage.setItem("user", JSON.stringify(res))
+            console.log(res)
             return res
         },
         onError: (error,variables,context) => {
@@ -67,8 +69,9 @@ export const registerDb = ()=> {
 
 export const loginDb = ()=> {
     const query= useMutation({
-        mutationFn: async(object: {email:string,name:string,userName:string,password:string,dateOfBirth:string})=>{
-             const  res :any = axios.post("http://localhost:5000/user/signin",object)
+        mutationFn: async(object: {email:string})=>{
+             const  res :any = await axios.post("http://localhost:5000/user/signin",object)
+             console.log(res)
              return res
         },
         onError: (error,variables,context) => {
