@@ -14,7 +14,6 @@ interface Artist {
   email: string;
   name: string;
   username: string;
-  password: string;
   bio: string;
   dateOfBirth: string;
   profilePic: string;
@@ -113,7 +112,7 @@ export const updateCoverPic = async (req: Request, res: Response) => {
 
 export const signUp = async (req: Request, res: Response) => {
   try {
-    const { email, name, username, password, dateOfBirth }: Artist = req.body;
+    const { email, name, username, dateOfBirth }: Artist = req.body;
     const Artist = await prisma.artist.findUnique({
       where: {
         email,
@@ -127,7 +126,6 @@ export const signUp = async (req: Request, res: Response) => {
         email,
         name,
         username,
-        password,
         dateOfBirth,
       },
     });

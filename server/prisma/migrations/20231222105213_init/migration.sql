@@ -5,7 +5,7 @@ CREATE TABLE "User" (
     "name" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "picture" TEXT,
-    "dateOfBirth" TIMESTAMP(3),
+    "dateOfBirth" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -19,7 +19,7 @@ CREATE TABLE "Artist" (
     "bio" TEXT,
     "profilePic" TEXT,
     "coverPic" TEXT,
-    "dateOfBirth" TIMESTAMP(3),
+    "dateOfBirth" TEXT,
 
     CONSTRAINT "Artist_pkey" PRIMARY KEY ("id")
 );

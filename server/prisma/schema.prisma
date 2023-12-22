@@ -13,7 +13,7 @@ model User {
   name            String
   username        String
   picture         String?
-  dateOfBirth     DateTime?
+  dateOfBirth     String?
   cart            Cart[]
   comments        Comment[]
   FavList         FavList[]
@@ -30,7 +30,7 @@ model Artist {
   bio         String?
   profilePic  String?
   coverPic    String?
-  dateOfBirth DateTime?
+  dateOfBirth String?
   posts       Post[]
   followers   User[]    @relation("ArtistToUser")
 }

@@ -1,18 +1,9 @@
 import { PrismaClient } from '@prisma/client'
 import { Request, Response } from 'express'
 const prisma = new PrismaClient()
-// import { User } from '../types'
+import { User } from '../types'
 
-interface User {
-  id: number;
-  email: string;
-  name: string;
-  username: string;
-  password: string;
-  picture: string;
-  dateOfBirth: Date;
 
-}
 const signUp = async (req: Request,res: Response)=> {
     
 try {
@@ -36,7 +27,7 @@ if (user !== null) {
 
 }
 catch (error){
-res.send(error)
+res.status(500).send(error)
 }
 }
 

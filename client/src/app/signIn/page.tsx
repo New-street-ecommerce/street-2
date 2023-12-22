@@ -1,10 +1,11 @@
 "use client"
 import Image from 'next/image'
 import Link from 'next/link'
-import signIn from '../firebase/auth/signin'
+import { login,loginDb } from '../Providers/useApi'
 
 const  SignIn= ()=>  {
-
+const mutation = login()
+const mutationdB = loginDb()
 
     return (
         <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
@@ -116,8 +117,8 @@ const  SignIn= ()=>  {
 
                 <Link href={"/"}
                   onClick={()=>{
-                    signIn("hermassi@gmail.com", '123456')
-                  }}
+                    // signIn("hermassi@gmail.com", '123456') 
+                 }}
                   className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[linear-gradient(214deg,#B75CFF_6.04%,#671AE4_92.95%)] mt-6 px-5 py-1 rounded-[121px] self-end"
                 >
                   Login

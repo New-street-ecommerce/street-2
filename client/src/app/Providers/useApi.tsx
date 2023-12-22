@@ -52,7 +52,7 @@ export const login = () => {
 
 export const registerDb = ()=> {
     const query= useMutation({
-        mutationFn: async(object: {email:string,password:string,name:string,userName:string,dateOfBirth:string})=>{
+        mutationFn: async(object: {email:string,name:string,userName:string,dateOfBirth:string})=>{
              const  res :any = await axios.post("http://localhost:5000/user/signup",object)
              console.log(res)
              console.log(object)
