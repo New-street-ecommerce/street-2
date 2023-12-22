@@ -10,7 +10,7 @@ export default async function signUp(email:string, password:string) {
     try {
         result = await createUserWithEmailAndPassword(auth, email, password);
     } catch (e) {
-        error = e;
+         error = e;
     }
 
     return { result, error };
