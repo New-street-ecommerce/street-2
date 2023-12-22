@@ -1,7 +1,17 @@
 "use client"
 import Image from 'next/image'
 import Link from 'next/link'
+import { login,loginDb } from '../Providers/useApi'
+import { useState } from 'react'
+
 const  SignIn= ()=>  {
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [passwordHidden, setPasswordHidden] = useState(true);
+const mutation = login()
+const mutationdB = loginDb()
+
+
     return (
         <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
             <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
@@ -21,13 +31,22 @@ const  SignIn= ()=>  {
             </div>
             <div className="flex flex-col items-stretch w-[36%] h-[36%] ml-5 max-md:w-full max-md:ml-0 mt-[-10%]">
             <div className="bg-login bg-opacity-20 flex grow flex-col w-full py-7 rounded-xl max-md:max-w-full max-md:mt-10">
-              <div className="self-stretch flex flex-col px-9 max-md:max-w-full max-md:px-5">
+              <form   onSubmit={(event) => {  
+                  event.preventDefault();
+                  mutation.mutate({ email: loginEmail
+                  , password: loginPassword });
+                  mutationdB.mutate({email:loginEmail})
+
+                  
+                
+                }}
+                className="self-stretch flex flex-col px-9 max-md:max-w-full max-md:px-5">
                 <div className="text-white text-center text-3xl font-extrabold tracking-wide self-stretch max-md:max-w-full">
                   Sign In
                 </div>
                 <div className="text-indigo-500 text-lg tracking-wide self-stretch mt-16 max-md:max-w-full max-md:mt-10">
                   <span className="text-white">New user?</span>
-                  <Link href={"/SignUp"} className="font-medium text-indigo-500">
+                  <Link href={"/SignUp"} className="font-medium text-CornellRed-500">
                     {" "}
                     Create an account
                   </Link >
@@ -51,7 +70,7 @@ const  SignIn= ()=>  {
                     type="text"
                     placeholder="Enter your email"
                     onChange={(event) => {
-                    //   setLoginEmail(event.target.value);
+                      setLoginEmail(event.target.value);
                     }}
                     className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                   />
@@ -61,9 +80,9 @@ const  SignIn= ()=>  {
                 <div className="relative max-w-xs mt-2">
                   <button
                     className="text-gray-400 absolute right-3 inset-y-0 my-auto active:text-gray-600"
-                    onClick={() => {}}
+                    onClick={() => {setPasswordHidden(!passwordHidden)}}
                   >
-                    {/* {isPasswordHidden ? (
+                    {passwordHidden ? (
                       <svg
                         className="w-6 h-6"
                         xmlns="http://www.w3.org/2000/svg"
@@ -98,24 +117,24 @@ const  SignIn= ()=>  {
                           d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"
                         />
                       </svg>
-                    )} */}
+                    )}
                   </button>
                   <input
-                    // type={isPasswordHidden ? "password" : "text"}
+                    type={passwordHidden ? "password" : "text"}
                     placeholder="Enter your password"
                     onChange={(event) => {
-                    //   setLoginPassword(event.target.value);
+                      setLoginPassword(event.target.value);
                     }}
                     className="w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                   />
                 </div>
 
-                <Link href={"/"}
-                  onClick={()=>{}}
-                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[linear-gradient(214deg,#B75CFF_6.04%,#671AE4_92.95%)] mt-6 px-5 py-1 rounded-[121px] self-end"
+                <button
+                  type="submit"
+                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[linear-gradient(214deg,#200100_10%,#C3141D_90%)] mt-6 px-5 py-1 rounded-[121px] self-end"
                 >
                   Login
-                </Link>
+                </button>
 
                 <div className="text-white text-lg tracking-wide self-center whitespace-nowrap mt-1 max-md:mt-4">
                   Or
@@ -231,13 +250,13 @@ const  SignIn= ()=>  {
                 <h4> User Logged In: </h4>
                 
                 <button
-                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[linear-gradient(214deg,#B75CFF_6.04%,#671AE4_92.95%)] mt-6 px-5 py-1 rounded-[121px] self-end"
+                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[linear-gradient(214deg,#200100_10%,#C3141D_90%)] mt-6 px-5 py-1 rounded-[121px] self-end"
                   onClick={()=>{}}
                 >
                   {" "}
                   Sign Out
                 </button>
-              </div>
+              </form>
             </div>
           </div>
         </div>

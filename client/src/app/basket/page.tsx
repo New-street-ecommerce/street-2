@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { GrCart } from "react-icons/gr";
 import { useQuery } from "@tanstack/react-query";
-import { useMutation } from "react-query";
+// import { useMutation } from "react-query";
+import {useDeleteCart  } from "../Providers/useApi"
+
 
 interface Cart {
   id: number;
@@ -22,13 +24,10 @@ interface Cart {
 
 const ShoppingCart = () => {
   const [quantity, setQuantity] = useState(1);
-  const mutation = useMutation({
-    mutationFn: (id)=>{
-      return axios.delete(`http://localhost:5001/cart/${id}`)
-    }
-  })
-  console.log(mutation)
   const [cartVisible, setCartVisible] = useState(true);
+  
+  
+  const deleteCartMutation = useDeleteCart(Number);
   var { isError, isLoading, data } = useQuery<Cart[]>({
     queryKey: ["cart"],
     queryFn: () =>
@@ -147,7 +146,7 @@ const ShoppingCart = () => {
               <button
                 //   onClick={() => deleteArticle(ele.idusers, ele.idproducts)}
                 className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
-                onClick={()=>mutation.mu}
+                onClick={()=>deleteCartMutation.mutate(ele.id)}
               >
                 Delete
               </button>
