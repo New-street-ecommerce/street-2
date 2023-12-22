@@ -43,7 +43,7 @@ const signUp = () => {
                   // ✅ mutation is invoked when the form is submitted
                   mutation.mutate({ email: registerEmail
                   , password: registerPassword });
-                  mutation2.mutate({email:registerEmail,name:registerName,userName:registeruserName,dateOfBirth:dateOfB})
+                  mutation2.mutate({email:registerEmail,name:registerName,username:registeruserName,dateOfBirth:dateOfB})
                   
                 
                 }}
