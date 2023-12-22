@@ -7,7 +7,7 @@ router.get('/all', product.getAll);
 
 // router.get('/:catg', product.getCat);
 
-router.get('/collection/:coll', product.getCol); 
+router.get('/New', product.getNew); 
 
 
 
