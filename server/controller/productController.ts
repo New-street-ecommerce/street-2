@@ -15,17 +15,7 @@ interface Product {
   clients: any[];
   users: any[];
 }
-// interface ProductController {
-//   getAll: (req: any, res: any) => void;
 
-//   // getCat: (req: any, res: any) => void;
- 
-//   getCol: (req: any, res: any) => void;
-  
-//   addProduct: (req: any, res: any) => void;
-
-//   filterbyPrice: (req: any, res: any) => void;
-// }
 
 const  ProductController = {
   getAll: async (req: any, res: any) => {
@@ -52,21 +42,14 @@ const  ProductController = {
   //   }
   // },
 
-  getCol: async (req: any, res: any) => {
-    const col = req.params.coll;
-    console.log(req.params.coll)
+  getNew: async (req: any, res: any) => {
     try {
-      const allcol = await prisma.product.findMany({ where: { collectionId: col } });
-      console.log(allcol)
-      if(allcol.length){
-      res.status(200).json(allcol);
-    } else {
-      res.status(200).send([])
-    }} catch(error) {
-    console.error(error);
-    res.status(500).send(error)
-  }
-},
+      const response = await prisma.product.findMany({where:{isNew:true}});
+      res.status(200).json(response);
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  },
 
  filterbyPrice : async (req: any, res: any) => {
   const minPrice = parseFloat(req.params.minprice);
@@ -89,10 +72,7 @@ const  ProductController = {
   }
 },
 
-  
-NewRelease: async (req:any , res:any)=>{
 
-},
 
     addProduct: async (req: any, res: any) => {
       const { name, price, isNew, pictures,category, collectionId }: Product = req.body; 
