@@ -4,9 +4,8 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "username" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
     "picture" TEXT,
-    "dateOfBirth" TIMESTAMP(3),
+    "dateOfBirth" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -17,11 +16,10 @@ CREATE TABLE "Artist" (
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "username" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
     "bio" TEXT,
     "profilePic" TEXT,
     "coverPic" TEXT,
-    "dateOfBirth" TIMESTAMP(3),
+    "dateOfBirth" TEXT,
 
     CONSTRAINT "Artist_pkey" PRIMARY KEY ("id")
 );
