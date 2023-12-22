@@ -16,7 +16,7 @@ interface User {
 const signUp = async (req: Request,res: Response)=> {
     
 try {
-    const {email,name,username,password,dateOfBirth}:User= req.body;
+    const {email,name,username,dateOfBirth}:User= req.body;
     const user = await prisma.user.findUnique({
   where: {
     email,
@@ -29,7 +29,6 @@ if (user !== null) {
     email,
     name,
     username,
-    password,
     dateOfBirth
   }
     })
