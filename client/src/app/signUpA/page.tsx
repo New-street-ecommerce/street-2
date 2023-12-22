@@ -2,11 +2,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import main from "../../../assets/main.png"
+import artist from "../../../assets/artist.png"
 
 import { register, registerDb } from "../Providers/useApi";
 
-const signUp = () => {
+const signUpA = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registeruserName, setRegisterUserName] = useState("");
   const [registerName, setRegisterName] = useState("");
@@ -14,17 +14,18 @@ const signUp = () => {
   const [registerPassword, setRegisterPassword] = useState("");
 
   const mutation = register();
-  const mutation2 = registerDb("user");
+  const mutation2 = registerDb("artist");
     
   return (
-    <>
+    
+  
       <div className="relative mt-[8rem] flex w-full h-screen flex-col justify-center items-center px-16 py-12 max-md:max-w-full max-md:px-5">
         <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
           <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
             <div className="flex flex-col items-center w-[49%] max-md:w-full max-md:ml-0">
               <div className="flex flex-col items-center mt-8 max-md:max-w-full max-md:mt-10">
                 <Image
-                  src={main}
+                  src={artist}
                   width={300}
                   height={300}
                   alt="taswira"
@@ -59,7 +60,7 @@ const signUp = () => {
                       {" "}
                     </span>
                     <Link
-                      href={"/signIn"}
+                      href={"/signInA"}
                       className="font-medium text-CadetGray-500"
                     >
                       Sign In
@@ -67,13 +68,13 @@ const signUp = () => {
                   </div>
                   <div className="font-medium font-sfprodisplay ml-1.5 md:ml-0 mt-[22px] text-deep_purple-400 text-lg tracking-[0.36px]">
                     <span className="text-white-A700 text-left font-normal">
-                      Are you an artist?
+                      You are not an artist?
                     </span>
                     <span className="text-deep_purple-400 text-left font-normal">
                       {" "}
                     </span>
                     <Link
-                      href={"/signUpA"}
+                      href={"/signUp"}
                       className="font-medium text-CadetGray-500"
                     >
                       Sign Up
@@ -141,7 +142,7 @@ const signUp = () => {
                     </div>
                   </div>
                   <div className="mt-6">
-                  
+                    
                     <div className="mt-1">
                       <input
                         // className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -160,7 +161,7 @@ const signUp = () => {
                 <div className="mt-6 flex items-center justify-between"></div>
                 <button
                   type="submit"
-                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
+                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[linear-gradient(214deg,#200100_10%,#C3141D_90%)] mt-6 px-5 py-1 rounded-[121px] self-end"
                 >
                   Create Account
                 </button>
@@ -170,8 +171,9 @@ const signUp = () => {
         </div>
         
       </div>
-    </>
+      
+
   );
 };
 
-export default signUp;
+export default signUpA;

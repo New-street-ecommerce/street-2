@@ -3,13 +3,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { login,loginDb } from '../Providers/useApi'
 import { useState } from 'react'
+import main from "../../../assets/main.png"
 
 const  SignIn= ()=>  {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [passwordHidden, setPasswordHidden] = useState(true);
 const mutation = login()
-const mutationdB = loginDb()
+const mutationdB = loginDb("user")
 
 
     return (
@@ -18,11 +19,11 @@ const mutationdB = loginDb()
             <div className="flex flex-col items-stretch w-[49%] max-md:w-full max-md:ml-0">
             <div className="flex flex-col items-center mt-8 max-md:max-w-full max-md:mt-10">
             <Image
-                src="/assets/main.png"
-                width={500}
-                height={500}
+                src={main}
+                width={300}
+                height={300}
                 alt="taswira"
-                priority={true}
+                priority={false}
               />
                 <div className="text-white text-center text-3xl font-bold leading-10 tracking-wide self-stretch mt-14 max-md:max-w-full max-md:mt-10">
                 Explore the world of meta fashion
@@ -44,11 +45,18 @@ const mutationdB = loginDb()
                 <div className="text-white text-center text-3xl font-extrabold tracking-wide self-stretch max-md:max-w-full">
                   Sign In
                 </div>
-                <div className="text-indigo-500 text-lg tracking-wide self-stretch mt-16 max-md:max-w-full max-md:mt-10">
+                <div className="text-white-500 text-lg tracking-wide self-stretch mt-16 max-md:max-w-full max-md:mt-10">
                   <span className="text-white">New user?</span>
-                  <Link href={"/SignUp"} className="font-medium text-CornellRed-500">
+                  <Link href={"/signUp"} className="font-medium text-CornellRed-500">
                     {" "}
                     Create an account
+                  </Link >
+                </div>
+                <div className="text-white-500 text-lg tracking-wide self-stretch mt-16 max-md:max-w-full max-md:mt-10">
+                  <span className="text-white">Are you an Artist?</span>
+                  <Link href={"/signInA"} className="font-medium text-CornellRed-500">
+                    {" "}
+                    Sign In 
                   </Link >
                 </div>
                 <div className="relative max-w-xs">
@@ -131,7 +139,7 @@ const mutationdB = loginDb()
 
                 <button
                   type="submit"
-                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[linear-gradient(214deg,#200100_10%,#C3141D_90%)] mt-6 px-5 py-1 rounded-[121px] self-end"
+                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
                 >
                   Login
                 </button>
@@ -224,33 +232,11 @@ const mutationdB = loginDb()
                     Continue With Apple
                   </button>
                 </div>
-                <div className="flex items-center justify-center mt-6">
-                  <span className="mr-3 text-gray-700 font-medium"></span>
-                  <label className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      className="form-radio h-5 w-5 text-pink-600"
-                      value="User"
-                    //   checked={isUser}
-                      onChange={() =>{} }
-                    />
-                    <span className="ml-2 text-gray-700">Buyer</span>
-                  </label>
-                  <label className="inline-flex items-center ml-6">
-                    <input
-                      type="Checkbox"
-                      className="form-radio h-5 w-5 text-purple-600"
-                      value="Artist"
-                    //   checked={}
-                    //   onChange={() =>{} }
-                    />
-                    <span className="ml-2 text-gray-700">Artist</span>
-                  </label>
-                </div>
-                <h4> User Logged In: </h4>
+               
+                
                 
                 <button
-                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[linear-gradient(214deg,#200100_10%,#C3141D_90%)] mt-6 px-5 py-1 rounded-[121px] self-end"
+                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
                   onClick={()=>{}}
                 >
                   {" "}

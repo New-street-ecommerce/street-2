@@ -52,10 +52,10 @@ export const login = () => {
     return query
 }
 
-export const registerDb = ()=> {
+export const registerDb = (input:string)=> {
     const query= useMutation({
         mutationFn: async(object: {email:string,name:string,username:string,dateOfBirth:string})=>{
-             const  res :any = await axios.post("http://localhost:5000/user/signup",object)
+             const  res :any = await axios.post(`http://localhost:5000/${input}/signup`,object)
              console.log(res)
              console.log(object)
              return res
@@ -67,10 +67,10 @@ export const registerDb = ()=> {
     return query
 }
 
-export const loginDb = ()=> {
+export const loginDb = (input:string)=> {
     const query= useMutation({
         mutationFn: async(object: {email:string})=>{
-             const  res :any = await axios.post("http://localhost:5000/user/signin",object)
+             const  res :any = await axios.post(`http://localhost:5000/${input}/signin`,object)
              console.log(res)
              return res
         },
