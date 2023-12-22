@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-
+import main from "../../../assets/main.png"
 
 import { register, registerDb } from "../Providers/useApi";
 
@@ -21,12 +21,12 @@ const signUp = () => {
       <div className="relative mt-[8rem] flex w-full h-screen flex-col justify-center items-center px-16 py-12 max-md:max-w-full max-md:px-5">
         <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
           <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-            <div className="flex flex-col items-stretch w-[49%] max-md:w-full max-md:ml-0">
+            <div className="flex flex-col items-center w-[49%] max-md:w-full max-md:ml-0">
               <div className="flex flex-col items-center mt-8 max-md:max-w-full max-md:mt-10">
                 <Image
-                  src="/assets/main.png"
-                  width={500}
-                  height={500}
+                  src={main}
+                  width={300}
+                  height={300}
                   alt="taswira"
                   priority={true}
                 />
