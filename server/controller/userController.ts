@@ -10,7 +10,7 @@ interface User {
   username: string;
   password: string;
   picture: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
 
 }
 const signUp = async (req: Request,res: Response)=> {
@@ -37,7 +37,7 @@ if (user !== null) {
 
 }
 catch (error){
-res.status(500).send(error)
+res.send(error)
 }
 }
 

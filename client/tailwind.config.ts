@@ -8,6 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      theme: {
+        colors: {
+          Licorice: '#200100',
+          CornellRed: '#C3141D',
+          Gunmetal: '#102632',
+          Charcoal: '#25414E',
+          CadetGray: '#A1A1A1'
+
+        }
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

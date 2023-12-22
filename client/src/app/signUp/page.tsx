@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
-import { register } from "../Providers/useApi";
+import { register, registerDb } from "../Providers/useApi";
 
 const signUp = () => {
   const [registerEmail, setRegisterEmail] = useState("");
@@ -14,10 +14,11 @@ const signUp = () => {
   const [registerPassword, setRegisterPassword] = useState("");
 
   const mutation = register();
+  const mutation2 = registerDb();
     
   return (
     <>
-      <div className="relative bg-[linear-gradient(113deg,#984D38_-30.3%,#181E41_58.12%)] flex w-full h-screen flex-col justify-center items-center px-16 py-12 max-md:max-w-full max-md:px-5">
+      <div className="relative mt-[8rem] flex w-full h-screen flex-col justify-center items-center px-16 py-12 max-md:max-w-full max-md:px-5">
         <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
           <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
             <div className="flex flex-col items-stretch w-[49%] max-md:w-full max-md:ml-0">
@@ -37,15 +38,14 @@ const signUp = () => {
             <div className="flex flex-col items-stretch w-[36%] h-[36%] ml-5 max-md:w-full max-md:ml-0 mt-[-10%]">
               <form
                 className="bg-login bg-opacity-20 flex grow flex-col w-full py-7 rounded-xl max-md:max-w-full max-md:mt-10"
-                onSubmit={(event) => {
-                    
-                    
+                onSubmit={(event) => {  
                   event.preventDefault();
                   // ✅ mutation is invoked when the form is submitted
                   mutation.mutate({ email: registerEmail
                   , password: registerPassword });
-
-                  //  signUp()
+                  mutation2.mutate({email:registerEmail,name:registerName,userName:registeruserName,password:registerPassword,dateOfBirth:dateOfB})
+                  
+                
                 }}
               >
                 <div className="self-stretch flex flex-col px-9 max-md:max-w-full max-md:px-5">
@@ -60,8 +60,8 @@ const signUp = () => {
                       {" "}
                     </span>
                     <Link
-                      href={"/SignUp"}
-                      className="font-medium text-indigo-500"
+                      href={"/signIn"}
+                      className="font-medium text-CadetGray-500"
                     >
                       Sign In
                     </Link>
@@ -106,13 +106,13 @@ const signUp = () => {
                         className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                       />
                       <input
-                        className="p-3 capitalize shadow-2xl  glass w-full placeholder:text-black outline-none focus:border-solid focus:border-[1px] border-[#035ec5]"
-                        type="text"
-                        placeholder="+216"
+                        // className="p-3 capitalize shadow-2xl  glass w-full placeholder:text-black outline-none focus:border-solid focus:border-[1px] border-[#035ec5]"
+                        // type="text"
+                        placeholder="username"
                         id="userName"
                         name="userName"
                         onChange={(e) => setRegisterUserName(e.target.value)}
-                        // className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                        className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                       />
                     </div>
                   </div>
@@ -138,21 +138,21 @@ const signUp = () => {
                     </label>
                     <div className="mt-1">
                       <input
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        // className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         // required=""
                         type="date"
                         name="dob"
                         onChange={(e) => setDateOfB(e.target.value)}
                         id="dob"
-                        // className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                        className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                       />
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center justify-center mt-6">
-                  <span className="mr-3 text-gray-700 font-medium"></span>
+                  {/* <span className="mr-3 text-gray-700 font-medium"></span>
                   <label className="inline-flex items-center">
-                    {/* <input
+                    <input
                           type="checkbox"
                           className="form-radio h-5 w-5 text-pink-600"
                           value="User"
@@ -160,10 +160,10 @@ const signUp = () => {
                           onChange={() => {setIsUser(!isUser)
                             console.log(isUser)
                           }}
-                        /> */}
+                        />
                     <span className="ml-2 text-gray-700">Buyer</span>
-                  </label>
-                  <label className="inline-flex items-center ml-6">
+                  </label> */}
+                  {/* <label className="inline-flex items-center ml-6">
                     <input
                       type="Checkbox"
                       className="form-radio h-5 w-5 text-purple-600"
@@ -172,13 +172,13 @@ const signUp = () => {
                       onChange={() => {}}
                     />
                     <span className="ml-2 text-gray-700">Artist</span>
-                  </label>
+                  </label> */}
                 </div>
 
                 <div className="mt-6 flex items-center justify-between"></div>
                 <button
                   type="submit"
-                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[linear-gradient(214deg,#B75CFF_6.04%,#671AE4_92.95%)] mt-6 px-5 py-1 rounded-[121px] self-end"
+                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[linear-gradient(214deg,#200100_10%,#C3141D_90%)] mt-6 px-5 py-1 rounded-[121px] self-end"
                 >
                   Create Account
                 </button>
@@ -186,7 +186,7 @@ const signUp = () => {
             </div>
           </div>
         </div>
-        /
+        
       </div>
     </>
   );

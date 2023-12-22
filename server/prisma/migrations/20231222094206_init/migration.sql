@@ -4,7 +4,6 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "username" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
     "picture" TEXT,
     "dateOfBirth" TIMESTAMP(3),
 
@@ -17,7 +16,6 @@ CREATE TABLE "Artist" (
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "username" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
     "bio" TEXT,
     "profilePic" TEXT,
     "coverPic" TEXT,
