@@ -1,7 +1,8 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery,useQueryClient } from "@tanstack/react-query";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import axios from "axios"
 import {app} from "../firebase/config";
+// import { useQueryClient } from "react-query";
 interface User {
   id: number;
   email: string;
@@ -80,3 +81,18 @@ export const loginDb = ()=> {
     })
     return query
 }
+export const useDeleteCart = (id : any) => {
+  const queryClient = useQueryClient();
+  const query = useMutation({
+    mutationKey: ["cart"],
+    mutationFn: (id :any) => {
+      return axios.delete(`http://localhost:5001/cart/${id}`);
+    },
+    onSuccess: () => {
+      // Invalidate and refetch the "cart" query
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
+    },
+  });
+
+  return query;
+};
