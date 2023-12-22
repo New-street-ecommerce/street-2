@@ -45,25 +45,25 @@ const Home = () => {
         </main>
       );
     }
-console.log(products)
 
-  // const questionPosting = async () => {
-  //   try {
-  //     if (question.trim() === "") {
-  //       return;
-  //     }
-  //     const response = await axios.post(
-  //       "http://localhost:3000/api/Question/Ask",
-  //       {
-  //         question: question,
-  //       }
-  //     );
-  //     console.log("Question posted successfully:", response.data);
-  //     setQuestion("");
-  //   } catch (error) {
-  //     console.error("Error posting question:", error);
-  //   }
-  // };
+
+  const questionPosting = async () => {
+    try {
+      if (question.trim() === "") {
+        return;
+      }
+      const response = await axios.post(
+        "http://localhost:3000/api/Question/Ask",
+        {
+          question: question,
+        }
+      );
+      console.log("Question posted successfully:", response.data);
+      setQuestion("");
+    } catch (error) {
+      console.error("Error posting question:", error);
+    }
+  };
 
   return (
     <>
@@ -278,7 +278,7 @@ console.log(products)
         </div>
       </div>
       <div className="justify-center  flex gap-5 max-md:flex-wrap">
-        <button className="text-white text-xl font-medium whitespace-nowrap justify-center  bg-[linear-gradient(214deg,#B75CFF_6.04%,#671AE4_92.95%)]  px-8 py-1.5 rounded-xl max-md:px-5 mt-[100px]">
+        <button className="text-white bg-CornellRed text-xl font-medium whitespace-nowrap justify-center  bg-[linear-gradient(214deg,#B75CFF_6.04%,#671AE4_92.95%)]  px-8 py-1.5 rounded-xl max-md:px-5 mt-[100px]">
           All Collections
         </button>
       </div>
@@ -308,7 +308,7 @@ console.log(products)
               <div
                 className="mr-4 "
                  onClick={() => {
-                  
+                  setLike(!like);
                 }}
               >
                 {like ? <FcLikePlaceholder /> : <FcLike />} 
@@ -340,13 +340,13 @@ console.log(products)
           <input
               className="text-white bg-transparent  text-opacity-50 text-xl font-medium w-[500px] "
               placeholder="Ask us something we will get to you "
-              // value={question}
-              // onChange={(e) => setQuestion(e.target.value)}
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
             />
 
             <button
               className="text-white text-opacity-50 text-xl font-medium self-start"
-              // onClick={questionPosting}
+              onClick={questionPosting}
             >
               +
             </button>
