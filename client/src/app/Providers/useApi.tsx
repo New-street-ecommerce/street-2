@@ -24,7 +24,6 @@ export const register = () => {
         object.password
       );
       
-      localStorage.setItem("user", JSON.stringify(res));
       return res;
     },
     onError: (error, variables, context) => {
@@ -41,7 +40,7 @@ export const login = () => {
         mutationFn: async(object: {email:string,password:string})=>{
             const auth= getAuth(app)
             const res:any = await signInWithEmailAndPassword(auth, object.email, object.password)
-            localStorage.setItem("user", JSON.stringify(res))
+            
             console.log(res)
             return res
         },
@@ -58,6 +57,7 @@ export const registerDb = (input:string)=> {
              const  res :any = await axios.post(`http://localhost:5000/${input}/signup`,object)
              console.log(res)
              console.log(object)
+             localStorage.setItem("user", JSON.stringify(res))
              return res
         },
         onError: (error,variables,context) => {
@@ -71,7 +71,7 @@ export const loginDb = (input:string)=> {
     const query= useMutation({
         mutationFn: async(object: {email:string})=>{
              const  res :any = await axios.post(`http://localhost:5000/${input}/signin`,object)
-             console.log(res)
+             localStorage.setItem("user", JSON.stringify(res))
              return res
         },
         onError: (error,variables,context) => {
@@ -80,3 +80,4 @@ export const loginDb = (input:string)=> {
     })
     return query
 }
+

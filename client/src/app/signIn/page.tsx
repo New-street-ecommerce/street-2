@@ -15,8 +15,8 @@ const mutationdB = loginDb("user")
 
     return (
         <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
-            <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-            <div className="flex flex-col items-stretch w-[49%] max-md:w-full max-md:ml-0">
+            <div className="gap-5 flex max-md:flex-col max-md:items-center max-md:gap-0">
+            <div className="flex flex-col items-center w-[49%] max-md:w-full max-md:ml-0">
             <div className="flex flex-col items-center mt-8 max-md:max-w-full max-md:mt-10">
             <Image
                 src={main}
@@ -237,7 +237,7 @@ const mutationdB = loginDb("user")
                 
                 <button
                   className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
-                  onClick={()=>{}}
+                  onClick={()=>{ localStorage.clear()}}
                 >
                   {" "}
                   Sign Out

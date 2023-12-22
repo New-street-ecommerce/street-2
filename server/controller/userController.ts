@@ -16,14 +16,14 @@ try {
 if (user !== null) {
     return res.status(409).send("userAlreadyExist");
   }
-   await prisma.user.create({data:{
+   const users = await prisma.user.create({data:{
     email,
     name,
     username,
     dateOfBirth
   }
     })
-    return res.status(201).send("succesful")
+    return res.status(201).send(users)
 
 }
 catch (error){

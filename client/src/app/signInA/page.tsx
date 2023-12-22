@@ -15,7 +15,7 @@ const SignInA = () => {
   return (
     <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
       <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-        <div className="flex flex-col items-stretch w-[49%] max-md:w-full max-md:ml-0">
+        <div className="flex flex-col items-center w-[49%] max-md:w-full max-md:ml-0">
           <div className="flex flex-col items-center mt-8 max-md:max-w-full max-md:mt-10">
             <Image
               src={artist}
@@ -222,27 +222,14 @@ const SignInA = () => {
               </div>
               <br />
               <div className="space-y-4 text-sm font-medium">
-                <button
-                  className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100"
-                  style={{ width: "100%" }}
-                >
-                  {/* <Image
-                     
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/76150f2a39957f971b9105d60b750b92d179aec645f32109a9697e21da4d14c6?"
-                      className="aspect-[0.83] object-contain object-center w-[25px] fill-white overflow-hidden shrink-0 max-w-full"
-                      width="48"
-                      height="48"
-                      
-                    /> */}
-                  Continue With Apple
-                </button>
+               
               </div>
             
               
 
               <button
                 className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
-                onClick={() => {}}
+                onClick={() => { localStorage.clear()}}
               >
                 {" "}
                 Sign Out
