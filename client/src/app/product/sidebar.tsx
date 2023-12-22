@@ -17,28 +17,14 @@ interface Product {
     clients: any[];
     users: any[];
   }
-  const Sidebar: React.FC = () => {
+  const Sidebar = ({ isNewRelease,setNewRelease,fetchNew,setMinPrice, setMaxPrice, refetch }) => {
     const [isCategoryOpen, setCategoryOpen] = useState(false);
     const [isPriceFilterOpen, setPriceFilterOpen] = useState(false);
-    const [minPrice, setMinPrice] = useState<number | string>('');
-    const [maxPrice, setMaxPrice] = useState<number | string>('');
+    const [min, setMin] = useState(0);
+    const [max, setMax] = useState(0);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+   
   
-    const { data: filteredProducts, refetch } = useQuery<Product[]>({
-      queryKey: ['products', minPrice, maxPrice],
-      queryFn: () =>
-        fetch(`http://localhost:5000/product/${minPrice}/${maxPrice}`).then((res) =>
-          res.json()
-        ),
-    });
-  
-
-    const { data: newReleaseProducts } = useQuery<Product[]>({
-      queryKey: ['newReleaseProducts'],
-      queryFn: () =>
-        fetch(`http://localhost:5000/product/new-releases`).then((res) =>
-          res.json()
-        ),
-    });
     const toggleCategoryOptions = () => {
       setCategoryOpen(!isCategoryOpen);
     };
@@ -48,21 +34,44 @@ interface Product {
     };
   
     const applyFilter = () => {
+      setMaxPrice(max);
+      setMinPrice(min);
       refetch();
     };
   
+    const handleNewRelease = () => {
+      setNewRelease((prevIsNewRelease) => !prevIsNewRelease);
+    };
+  
+    const fetchProductsByCategory = (category: string) => {
+      setMinPrice(min);
+      setMaxPrice(1000);
+      setSelectedCategory(category);
+      refetch();
+    };
+  
+    const fetchAllProducts = () => {
+      setMinPrice(min);
+      setMaxPrice(1000);
+      setNewRelease(false); // Fix the typo here
+      refetch();
+    };
+
+
+    
+  
+
+  
     return (
-      <div className="w-64 h-screen bg-white border-r border-gray-300">
-        <div className="px-6 py-4">s
-          <h2 className="text-2xl font-bold text-gray-800">Filter</h2>
-        </div>
-        <br />
-        <br />
-        <div className="flex flex-col justify-between h-full">
-          <nav>
+      <div className="w-full md:w-64 h-screen bg-white border-r border-gray-300 flex flex-col md:flex-row">
+        <div className="md:w-64 md:flex-shrink-0">
+          <div className="px-6 py-4">
+            <h2 className="text-2xl font-bold text-gray-800">Filter</h2>
+          </div>
+          <nav className="md:block hidden">
             <ul className="space-y-4 text-gray-800">
               <li>
-                <a href="#" className="flex items-center px-4 py-2 rounded hover:bg-gray-100">
+                <a href="#" className="flex items-center px-4 py-2 rounded hover:bg-gray-100" onClick={fetchAllProducts}>
                   <svg className="w-6 h-6"></svg>
                   <span className="ml-4">All Products</span>
                 </a>
@@ -70,43 +79,50 @@ interface Product {
               <br />
               <br />
               <li>
-                <a href="#" className="flex items-center px-4 py-2 rounded hover:bg-gray-100" onClick={togglePriceFilter}>
+                <a
+                  href="#"
+                  className="flex items-center px-4 py-2 rounded hover:bg-gray-100"
+                  onClick={togglePriceFilter}
+                >
                   <svg className="w-6 h-6"></svg>
                   <span className="ml-4">price</span>
                 </a>
                 {isPriceFilterOpen && (
-                  <div>
-                    <div className="flex items-center px-4 py-2">
+                  <div className="p-4">
+                    <div className="flex items-center space-x-4">
                       <label className="mr-2">Min Price:</label>
                       <input
+                        className="border border-gray-400 px-2 py-1 w-16"
                         type="number"
-                        value={minPrice}
-                        onChange={(e) => setMinPrice(e.target.value)}
+                        value={min}
+                        onChange={(e) => setMin(Number(e.target.value))}
                       />
                     </div>
-                    <div className="flex items-center px-4 py-2">
+                    <div className="flex items-center space-x-4 mt-2">
                       <label className="mr-2">Max Price:</label>
                       <input
+                        className="border border-gray-400 px-2 py-1 w-16"
                         type="number"
-                        value={maxPrice}
-                        onChange={(e) => setMaxPrice(e.target.value)}
+                        value={max}
+                        onChange={(e) => setMax(Number(e.target.value))}
                       />
                     </div>
-                    <button onClick={applyFilter}>Apply</button>
+                    <button
+                      className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+                      onClick={() => applyFilter()}
+                    >
+                      Apply
+                    </button>
                   </div>
                 )}
               </li>
               <br />
               <br />
               <li>
-              <a
-          href="#"
-          className="flex items-center px-4 py-2 rounded hover:bg-gray-100"
-          onClick={() => refetch({ isNew: true })}
-        >
-          <svg className="w-6 h-6"></svg>
-          <span className="ml-4">New Release</span>
-        </a>
+                <a href="#" className="flex items-center px-4 py-2 rounded hover:bg-gray-100" onClick={()=>handleNewRelease()} >
+                  <svg className="w-6 h-6"></svg>
+                  <span className="ml-4">New Release</span>
+                </a>
               </li>
               <br />
               <br />
@@ -125,18 +141,36 @@ interface Product {
                 {isCategoryOpen && (
                   <ul>
                     <li>
-                      <a href="#" className="flex items-center px-4 py-2 rounded hover:bg-gray-100">
-                        <span className="ml-4">Hoodies</span>
+                      <a
+                        href='#'
+                        className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
+                          selectedCategory === 'Hoodies' ? 'bg-gray-100' : ''
+                        }`}
+                        onClick={() => fetchProductsByCategory('Hoodies')}
+                      >
+                        <span className='ml-4'>Hoodies</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#" className="flex items-center px-4 py-2 rounded hover:bg-gray-100">
-                        <span className="ml-4">Pants</span>
+                      <a
+                        href='#'
+                        className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
+                          selectedCategory === 'Pants' ? 'bg-gray-100' : ''
+                        }`}
+                        onClick={() => fetchProductsByCategory('Pants')}
+                      >
+                        <span className='ml-4'>Pants</span>
                       </a>
                     </li>
                     <li>
-                      <a href="#" className="flex items-center px-4 py-2 rounded hover:bg-gray-100">
-                        <span className="ml-4">Sneakers</span>
+                      <a
+                        href='#'
+                        className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
+                          selectedCategory === 'Sneakers' ? 'bg-gray-100' : ''
+                        }`}
+                        onClick={() => fetchProductsByCategory('Sneakers')}
+                      >
+                        <span className='ml-4'>Sneakers</span>
                       </a>
                     </li>
                   </ul>
@@ -146,18 +180,7 @@ interface Product {
           </nav>
         </div>
   
-        {/* Display filtered products */}
-        {filteredProducts && (
-          <div>
-            {filteredProducts.map((product) => (
-              <div key={product.id}>
-                <p>{product.name}</p>
-                <p>{product.price}</p>
-                {/* Render other product details as needed */}
-              </div>
-            ))}
-          </div>
-        )}
+        <div className='flex-1 p-4'></div>
       </div>
     );
   };
