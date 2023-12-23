@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = "postgresql://postgres:root@localhost:5432/street2"
+  provider     = "postgresql"
+  url          = "postgresql://postgres:root@localhost:5432/street2"
 }
 
 model User {
@@ -69,7 +69,7 @@ model Product {
   isNew        Boolean    @default(true)
   pictures     String[]
   collectionId Int
-  category  String
+  category     String
   cart         Cart[]
   FavList      FavList[]
   collection   Collection @relation(fields: [collectionId], references: [id])

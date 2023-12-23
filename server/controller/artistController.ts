@@ -37,43 +37,27 @@ export const addpost = async (req: Request, res: Response) => {
     res.status(400).json({ msg: error.message });
   }
 };
-export const updateName = async (req: Request, res: Response) => {
-  const { name }: { name: string } = req.body;
+export const updateProfil = async (req: Request, res: Response) => {
+  const { name,bio }: { name: string,bio:string } = req.body;
   const { artistId } = req.params;
 
   try {
-    const updatedName = await prisma.artist.update({
+    const updatedProfil = await prisma.artist.update({
       where: {
         id: Number(artistId),
       },
       data: {
         name: name,
+        bio: bio,
       },
     });
 
-    res.status(201).json(updatedName);
+    res.status(201).json(updatedProfil);
   } catch (error: any) {
     res.status(400).json({ msg: error.message });
   }
 };
-export const updateBio = async (req: Request, res: Response) => {
-  const { bio }: { bio: string } = req.body;
-  const { artistId } = req.params;
-  try {
-    const updatedBio = await prisma.artist.update({
-      where: {
-        id: Number(artistId),
-      },
-      data: {
-        bio: bio,
-      },
-    });
-    res.status(201).json(updatedBio);
-  } catch (error: any) {
-    console.log(error);
-    res.status(404).send(error);
-  }
-};
+
 export const updatePfp = async (req: Request, res: Response) => {
   const { profilePic }: { profilePic: string } = req.body;
   const { artistId } = req.params;
@@ -114,26 +98,33 @@ export const updateCoverPic = async (req: Request, res: Response) => {
 export const signUp = async (req: Request, res: Response) => {
   try {
     const { email, name, username, password, dateOfBirth }: Artist = req.body;
-    const Artist = await prisma.artist.findUnique({
+    const existingArtist = await prisma.artist.findUnique({
       where: {
         email,
       },
     });
-    if (Artist !== null) {
-      return res.status(409).send("Artist Already Exist");
+
+    if (existingArtist !== null) {
+      return res.status(409).json({ error: "Artist Already Exists" });
     }
+
+   
+    const parsedDateOfBirth = new Date(dateOfBirth);
+    const isoDateOfBirth = parsedDateOfBirth.toISOString();
+
     await prisma.artist.create({
       data: {
         email,
         name,
         username,
         password,
-        dateOfBirth,
+        dateOfBirth: isoDateOfBirth,
       },
     });
-    return res.status(201).send("succesful");
-  } catch (error) {
-    res.status(500).send(error);
+
+    return res.status(201).json({ message: "Artist created successfully" });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message || "Internal Server Error" });
   }
 };
 
@@ -153,18 +144,12 @@ export const signIn = async (req: Request, res: Response) => {
 };
 
 export const getAllPosts = async (req: Request, res: Response) => {
-  const { artistId } = req.params;
-
   try {
-    const data = await prisma.post.findMany({
-      where: {
-        id: Number(artistId),
-      },
-    });
-
+    const data = await prisma.post.findMany();
     res.status(200).json(data);
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
   }
 };
+
