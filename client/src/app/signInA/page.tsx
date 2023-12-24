@@ -14,15 +14,16 @@ const SignInA = () => {
 
   return (
     <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
-      <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
+      <div className="gap-5 md: flex max-md:flex-col max-md:items-center max-md:gap-0">
         <div className="flex flex-col items-center w-[49%] max-md:w-full max-md:ml-0">
           <div className="flex flex-col items-center mt-8 max-md:max-w-full max-md:mt-10">
             <Image
               src={artist}
-              width={300}
-              height={300}
+              width={400}
+              height={400}
               alt="taswira"
               priority={false}
+              className=""
             />
             <div className="text-white text-center text-3xl font-bold leading-10 tracking-wide self-stretch mt-14 max-md:max-w-full max-md:mt-10">
               Explore the world of meta fashion
@@ -141,20 +142,16 @@ const SignInA = () => {
                   className="w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                 />
               </div>
-
               <button
                 type="submit"
                 className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
               >
                 Login
               </button>
-
               <div className="text-white text-lg tracking-wide self-center whitespace-nowrap mt-1 max-md:mt-4">
                 Or
               </div>
-
               <br />
-
               <div className="space-y-4 text-sm font-medium">
                 <button
                   onClick={() => {}}
@@ -222,11 +219,7 @@ const SignInA = () => {
               </div>
               <br />
               <div className="space-y-4 text-sm font-medium">
-               
               </div>
-            
-              
-
               <button
                 className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
                 onClick={() => { localStorage.clear()}}

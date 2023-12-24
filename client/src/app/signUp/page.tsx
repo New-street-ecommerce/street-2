@@ -18,11 +18,11 @@ const signUp = () => {
     
   return (
     <>
-      <div className="relative mt-[8rem] flex w-full h-screen flex-col justify-center items-center px-16 py-12 max-md:max-w-full max-md:px-5">
-        <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
+      <div className="relative mt-6 flex w-full h-screen flex-col justify-center items-center px-16 py-12 max-md:max-w-full max-md:px-5">
+        <div className="w-full max-w-[1131px]  mb-20 max-md:max-w-full max-md:my-10">
           <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
             <div className="flex flex-col items-center w-[49%] max-md:w-full max-md:ml-0">
-              <div className="flex flex-col items-center mt-8 max-md:max-w-full max-md:mt-10">
+              <div className="flex flex-col items-center mt-2 max-md:max-w-full max-md:mt-10">
                 <Image
                   src={main}
                   width={300}
@@ -35,7 +35,7 @@ const signUp = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-stretch w-[36%] h-[36%] ml-5 max-md:w-full max-md:ml-0 mt-[-10%]">
+            <div className="flex flex-col items-stretch w-[36%] h-[36%] ml-5 max-md:w-full max-md:ml-0 ">
               <form
                 className="bg-login bg-opacity-20 flex grow flex-col w-full py-7 rounded-xl max-md:max-w-full max-md:mt-10"
                 onSubmit={(event) => {  
