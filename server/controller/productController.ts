@@ -83,8 +83,8 @@ const  ProductController = {
             price,
             isNew,
             pictures,
-            category,
             collection: { connect: { id: collectionId } },
+            category,
           },
         });
         res.status(200).json(response);

@@ -1,6 +1,6 @@
 'use client'
 
-import { useQuery,useIsFetching } from '@tanstack/react-query';
+// import { useQuery,useIsFetching } from '@tanstack/react-query';
 import {  useState} from "react";
 import React from 'react';
 
@@ -21,7 +21,7 @@ interface Product {
     const [isCategoryOpen, setCategoryOpen] = useState(false);
     const [isPriceFilterOpen, setPriceFilterOpen] = useState(false);
     const [min, setMin] = useState(0);
-    const [max, setMax] = useState(0);
+    const [max, setMax] = useState(10000);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
    
   
@@ -41,6 +41,7 @@ interface Product {
   
     const handleNewRelease = () => {
       setNewRelease((prevIsNewRelease:any) => !prevIsNewRelease);
+      
     };
   
     const fetchProductsByCategory = (category: string) => {
@@ -52,7 +53,7 @@ interface Product {
   
     const fetchAllProducts = () => {
       setMinPrice(min);
-      setMaxPrice(1000);
+      setMaxPrice(10000);
       setNewRelease(false); // Fix the typo here
       refetch();
     };
@@ -78,7 +79,7 @@ interface Product {
               </li>
               <br />
               <br />
-              <li>
+              <li>  
                 <a
                   href="#"
                   className="flex items-center px-4 py-2 rounded hover:bg-gray-100"
@@ -119,7 +120,7 @@ interface Product {
               <br />
               <br />
               <li>
-                <a href="#" className="flex items-center px-4 py-2 rounded hover:bg-gray-100" onClick={()=>handleNewRelease()} >
+                <a href='javascript:void(0)' className="flex items-center px-4 py-2 rounded hover:bg-gray-100" onClick={()=>handleNewRelease()} >
                   <svg className="w-6 h-6"></svg>
                   <span className="ml-4">New Release</span>
                 </a>
@@ -127,7 +128,7 @@ interface Product {
               <br />
               <br />
               <li>
-                <a href="#" className="flex items-center px-4 py-2 rounded hover:bg-gray-100" onClick={toggleCategoryOptions}>
+                <a href='javascript:void(0)' className="flex items-center px-4 py-2 rounded hover:bg-gray-100" onClick={toggleCategoryOptions}>
                   <svg className="w-6 h-6">
                     <path
                       strokeLinecap="round"
@@ -142,7 +143,7 @@ interface Product {
                   <ul>
                     <li>
                       <a
-                        href='#'
+                       href='javascript:void(0)'
                         className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
                           selectedCategory === 'Hoodies' ? 'bg-gray-100' : ''
                         }`}
@@ -153,7 +154,7 @@ interface Product {
                     </li>
                     <li>
                       <a
-                        href='#'
+                        href='javascript:void(0)'
                         className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
                           selectedCategory === 'Pants' ? 'bg-gray-100' : ''
                         }`}
@@ -164,7 +165,7 @@ interface Product {
                     </li>
                     <li>
                       <a
-                        href='#'
+                       href='javascript:void(0)'
                         className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
                           selectedCategory === 'Sneakers' ? 'bg-gray-100' : ''
                         }`}
