@@ -12,7 +12,7 @@ import cartRouter from "./router/cartRouter"
 dotenv.config()
 
 const app = express()
-const port = process.env.APP_PORT || 5000
+const port = process.env.APP_PORT || 5001
 
 app.use(cors())
 app.use(express.json())

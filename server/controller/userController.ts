@@ -47,4 +47,4 @@ catch(error){
 
 
 
-export {signUp,signIn}
+export {signIn}
