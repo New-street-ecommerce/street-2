@@ -154,11 +154,15 @@ const Page = () => {
                     {likedProducts.includes(product.id) ? <FcLike /> : <FcLikePlaceholder />}
                   </div>
                   <br />
+                 
                   <p className='mt-2 font-light font-semibold text-2xl italic text-black'>{product.category}</p>
-                  <p className='mt-[-170px] ml-[200px] text-xl font-bold text-pink-900'>
+
+                  <p className='mt-[-220px] ml-[300px] text-xl font-bold text-pink-900'>
                     ${product.price}
                   </p>
-                  <button className='mt-[150px] bg-blue-500 text-white py-2 px-4 rounded hover:bg-pink-900 ml-[100px]'>
+                  
+                  <br />
+                  <button className='mt-[150px] bg-blue-500 text-white py-2 px-4 rounded hover:bg-pink-900 ml-[150px]'>
                     Buy
                   </button>
                 </div>
@@ -166,21 +170,21 @@ const Page = () => {
             ))}
         </div>
       </div>
-      {selectedProduct && (
+     {selectedProduct && (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
     <div className="p-4 rounded-md max-w-md relative">
       <button
-        className="absolute top-2 right-2 text-black"
+        className="absolute top-2 right-2 text-red"
         onClick={() => setSelectedProduct(null)}
       >
         Close
       </button>
       <h2 className="text-2xl font-semibold mb-4">{selectedProduct.name}</h2>
-      <div className="relative">
+      <div className="relative group">
         <img
           src={selectedProduct.pictures[selectedImageIndex]}
           alt={`Product ${selectedImageIndex + 1}`}
-          className="w-100 h-100 object-cover rounded-md"
+          className="w-100 h-100 object-cover rounded-md transition-transform transform-gpu group-hover:scale-150"
         />
         <button
           className="absolute top-1/2 right-2 transform -translate-y-1/2 text-white text-xl bg-gray-800 rounded-full p-2"
@@ -195,10 +199,10 @@ const Page = () => {
           {'<'}
         </button>
       </div>
-     
-       </div>
-       </div>
+    </div>
+  </div>
 )}
+
     </div>
   );
 };
