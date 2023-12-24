@@ -1,19 +1,29 @@
 "use client";
-import React, {useState, useEffect } from "react";
 import { MdEdit } from "react-icons/md";
 import { FaCamera } from "react-icons/fa";
 import axios from "axios";
 import Link from "next/link";
+import { useEffect, useState } from 'react';
+import { jwtDecode } from "jwt-decode";
+impot {Storage} 
 const Profil = () => {
   const [postContent, setPostContent] = useState("");
   const [postPicture, setPostPicture] = useState("");
   const [posts, setPosts] = useState([]);
+  const [currentUser, setCurrentUser] = useState<any>()
 
   const handlePost = async () => {
+useEffect(()=>{
+  if(JSON.parse(window.localStorage.getItem("current")as string)){
+ setCurrentUser(jwtDecode(JSON.parse(window.localStorage.getItem("current)as string")));
+  }
+})
+
     const artistId = 1;
+    console.log(artistId);
     try {
       await axios.post(
-        `http://localhost:5000/artist/Profile/Post/${artistId}`,
+        `http://localhost:5001/artist/Profile/Post/${artistId}`,
         {
           content: postContent,
           picture: postPicture,
@@ -30,7 +40,7 @@ const Profil = () => {
   const getAllPosts = () => {
     const artistId = 1;
     axios
-      .get(`http://localhost:5000/artist/getAllPosts/${artistId}`)
+      .get(`http://localhost:5001/artist/getAllPosts/${artistId}`)
       .then((res) => {
         setPosts(res.data);
         console.log("Get all posts successfully");

@@ -12,9 +12,8 @@ model User {
   email           String     @unique
   name            String
   username        String
-  password        String
   picture         String?
-  dateOfBirth     DateTime?
+  dateOfBirth     String?
   cart            Cart[]
   comments        Comment[]
   FavList         FavList[]
@@ -28,11 +27,10 @@ model Artist {
   email       String    @unique
   name        String
   username    String
-  password    String
   bio         String?
   profilePic  String?
   coverPic    String?
-  dateOfBirth DateTime?
+  dateOfBirth String?
   posts       Post[]
   followers   User[]    @relation("ArtistToUser")
 }
@@ -69,8 +67,8 @@ model Product {
   isNew        Boolean    @default(true)
   pictures     String[]
   collectionId Int
-  category     String
-  cart         Cart[]
+  category  String
+  cart         Cart[] 
   FavList      FavList[]
   collection   Collection @relation(fields: [collectionId], references: [id])
 }
