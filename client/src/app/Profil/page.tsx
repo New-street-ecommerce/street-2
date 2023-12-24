@@ -5,20 +5,31 @@ import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
-impot {Storage} 
+import { storage } from "../firebase/config";
+import Modal from 'react-modal'
 const Profil = () => {
   const [postContent, setPostContent] = useState("");
   const [postPicture, setPostPicture] = useState("");
   const [posts, setPosts] = useState([]);
   const [currentUser, setCurrentUser] = useState<any>()
+  const [modalIsOpen , setModalIsOpen] =useState<any>(false)
+  const [modalContentType, setModalContentType] = useState<any>("");
+   
+  const openModal = (type:any) => {
+    setModalContentType(type);
+    setModalIsOpen(true);
+  };
 
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
   const handlePost = async () => {
 useEffect(()=>{
   if(JSON.parse(window.localStorage.getItem("current")as string)){
- setCurrentUser(jwtDecode(JSON.parse(window.localStorage.getItem("current)as string")));
+ setCurrentUser(jwtDecode(JSON.parse(window.localStorage.getItem("current")as string)));
   }
 })
-
+console.log(currentUser,'ghjklljk');
     const artistId = 1;
     console.log(artistId);
     try {
@@ -63,7 +74,7 @@ useEffect(()=>{
         alt="Background"
         className="object-cover w-full h-full"
       />
-      <button className="rounded-full h-9 w-9 bg-violet-700 p-3 flex absolute top-[79%] left-[95%] md:top-[85%]  transform -translate-y-1/2">
+      <button onClick={() => openModal('editProfile')} className="rounded-full h-9 w-9 bg-violet-700 p-3 flex absolute top-[79%] left-[95%] md:top-[85%]  transform -translate-y-1/2">
         <MdEdit className="text-white" />
       </button>
       {/* New Edit Profile Button, adjusted to be under the cover picture */}
@@ -82,10 +93,73 @@ useEffect(()=>{
             alt="Avatar"
             className="rounded-full w-full h-full cursor-pointer"
           />
-          <button className="bg-violet-700 w-6 h-6 rounded-full flex absolute left-[70%] top-[80%] justify-center items-center">
-            <FaCamera className="text-white" />
-            
+          <button   onClick={() => openModal('camera')} className="bg-violet-700 w-6 h-6 rounded-full flex absolute left-[70%] top-[80%] justify-center items-center">
+            <FaCamera className="text-white"  />
           </button>
+          <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Modal 1"
+        className="bg-white"
+      >
+            <div className="p-4 flex flex-col space-y-4">
+              <button
+               
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-[50px]"
+                onClick={()=>closeModal()}
+              >
+                x
+              </button>
+              <h2
+                className="text-2xl font-bold mb-5 text-center font-sans"
+                style={{
+                  fontFamily: "'SF Pro Display Regular', Helvetica, sans-serif",
+                }}
+              >
+                add the picture
+              </h2>
+              <input
+                type="file"
+                accept="image/png"
+                className="self-center mb-5"
+              
+              />
+              
+                <button
+                 
+                  className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
+                >
+                  Upload
+                </button>
+            
+              
+                <>
+                  <button
+                    // onClick={() => uploadCoverImage(cover)}
+                    className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
+                  >
+                    Upload Cover Picture
+                  </button>
+                  <button
+                    
+                    className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]"
+                  >
+                    Up-date Cover Picture
+                  </button>
+                </>
+            
+              
+                <button
+                  
+                  className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
+                >
+                  Upload Profile Picture
+                </button>
+              
+              
+              
+            </div>
+    </Modal>
         </div>
       </div>
 

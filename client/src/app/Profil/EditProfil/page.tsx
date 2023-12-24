@@ -2,13 +2,13 @@
 import React,{useState} from 'react'
 import axios from 'axios'
 import Link from 'next/link';
-import {stora}
+
 const EditProfil = () => {
 const [userName, setUsername] =useState<string>('')
 const [bio,setBio] = useState('')
+
 const hundleUpdate:Function=async()=>{
-   
-    
+
     const artistId=1
     try {
         await axios.put(`http://localhost:5001/artist/Profile/updateProfil/${artistId}`,{
