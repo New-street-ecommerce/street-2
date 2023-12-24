@@ -3,19 +3,21 @@ import { MdEdit } from "react-icons/md";
 import { FaCamera } from "react-icons/fa";
 import axios from "axios";
 import Link from "next/link";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import { storage } from "../firebase/config";
-import Modal from 'react-modal'
+import { getStorage } from "firebase/storage";
+import Modal from "react-modal";
+import EditProfil from "./EditProfil/page";
 const Profil = () => {
   const [postContent, setPostContent] = useState("");
   const [postPicture, setPostPicture] = useState("");
   const [posts, setPosts] = useState([]);
-  const [currentUser, setCurrentUser] = useState<any>()
-  const [modalIsOpen , setModalIsOpen] =useState<any>(false)
+  const [artist, setArtist] = useState({});
+  const [currentUser, setCurrentUser] = useState<any>();
+  const [modalIsOpen, setModalIsOpen] = useState<any>(false);
   const [modalContentType, setModalContentType] = useState<any>("");
-   
-  const openModal = (type:any) => {
+
+  const openModal = (type: string) => {
     setModalContentType(type);
     setModalIsOpen(true);
   };
@@ -24,14 +26,18 @@ const Profil = () => {
     setModalIsOpen(false);
   };
   const handlePost = async () => {
-useEffect(()=>{
-  if(JSON.parse(window.localStorage.getItem("current")as string)){
- setCurrentUser(jwtDecode(JSON.parse(window.localStorage.getItem("current")as string)));
-  }
-})
-console.log(currentUser,'ghjklljk');
+    useEffect(() => {
+      if (JSON.parse(window.localStorage.getItem("user") as string)) {
+        setCurrentUser(
+          jwtDecode(
+            JSON.parse(window.localStorage.getItem("user") as string)
+          )
+        );
+      }
+    });
+    
     const artistId = 1;
-    console.log(artistId);
+    
     try {
       await axios.post(
         `http://localhost:5001/artist/Profile/Post/${artistId}`,
@@ -47,11 +53,12 @@ console.log(currentUser,'ghjklljk');
       console.log("Error posting:", error.message);
     }
   };
-
+  console.log(currentUser, "ghjklljk");
   const getAllPosts = () => {
-    const artistId = 1;
+    // const artistId = 1;
+    const artistId= localStorage.getItem()
     axios
-      .get(`http://localhost:5001/artist/getAllPosts/${artistId}`)
+      .get(`http://localhost:5000/artist/getAllPosts/${artistId}`)
       .then((res) => {
         setPosts(res.data);
         console.log("Get all posts successfully");
@@ -64,27 +71,30 @@ console.log(currentUser,'ghjklljk');
   useEffect(() => {
     getAllPosts();
   }, []);
-
+  // console.log(posts);
   return (
     <div className="mb-10 relative">
-    {/* Background Image and Edit Button */}
-    <div className="flex justify-center h-[450px] md:h-[550px] lg:h-[600px] relative">
-      <img
-        src="https://www.ionos.fr/digitalguide/fileadmin/DigitalGuide/Teaser/instagram-fuer-unternehmen-t.jpg"
-        alt="Background"
-        className="object-cover w-full h-full"
-      />
-      <button onClick={() => openModal('editProfile')} className="rounded-full h-9 w-9 bg-violet-700 p-3 flex absolute top-[79%] left-[95%] md:top-[85%]  transform -translate-y-1/2">
-        <MdEdit className="text-white" />
-      </button>
-      {/* New Edit Profile Button, adjusted to be under the cover picture */}
-      <Link href="/Profil/EditProfil">
-        <button  className="bg-violet-700 text-white rounded-full py-2 px-4 flex items-center gap-2 absolute bottom-[-60px] right-[10px] transform -translate-x-1/2">
-          <MdEdit />
-          Edit Profile
+      {/* Background Image and Edit Button */}
+      <div className="flex justify-center h-[450px] md:h-[550px] lg:h-[600px] relative">
+        <img
+          src="https://www.ionos.fr/digitalguide/fileadmin/DigitalGuide/Teaser/instagram-fuer-unternehmen-t.jpg"
+          alt="Background"
+          className="object-cover w-full h-full"
+        />
+        <button
+          onClick={() => openModal("editProfile")}
+          className="rounded-full h-9 w-9 bg-violet-700 p-3 flex absolute top-[79%] left-[95%] md:top-[85%]  transform -translate-y-1/2"
+        >
+          <MdEdit className="text-white" />
         </button>
-      </Link>
-    </div>
+        {/* New Edit Profile Button, adjusted to be under the cover picture */}
+        <Link href="/Profil/EditProfil">
+          <button className="bg-violet-700 text-white rounded-full py-2 px-4 flex items-center gap-2 absolute bottom-[-60px] right-[10px] transform -translate-x-1/2">
+            <MdEdit />
+            Edit Profile
+          </button>
+        </Link>
+      </div>
       {/* Avatar Section */}
       <div className="flex items-center justify-center mb-5 md:mb-10">
         <div className="bg-white w-24 h-24 md:w-32 md:h-32 rounded-full p-2 relative">
@@ -93,73 +103,66 @@ console.log(currentUser,'ghjklljk');
             alt="Avatar"
             className="rounded-full w-full h-full cursor-pointer"
           />
-          <button   onClick={() => openModal('camera')} className="bg-violet-700 w-6 h-6 rounded-full flex absolute left-[70%] top-[80%] justify-center items-center">
-            <FaCamera className="text-white"  />
+          <button
+            onClick={() => {
+              openModal("camera");
+            }}
+            className="bg-violet-700 w-6 h-6 rounded-full flex absolute left-[70%] top-[80%] justify-center items-center"
+          >
+            <FaCamera className="text-white" />
           </button>
           <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Modal 1"
-        className="bg-white"
-      >
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            contentLabel="Modal 1"
+            className="bg-white"
+          >
             <div className="p-4 flex flex-col space-y-4">
               <button
-               
                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-[50px]"
-                onClick={()=>closeModal()}
+                onClick={() => closeModal()}
               >
                 x
               </button>
-              <h2
-                className="text-2xl font-bold mb-5 text-center font-sans"
-                style={{
-                  fontFamily: "'SF Pro Display Regular', Helvetica, sans-serif",
-                }}
-              >
-                add the picture
-              </h2>
+
               <input
                 type="file"
                 accept="image/png"
                 className="self-center mb-5"
-              
               />
-              
-                <button
+
+              {/* <button
                  
                   className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
                 >
                   Upload
-                </button>
-            
-              
+                </button> */}
+
+              { modalContentType==='editProfile'&&
                 <>
                   <button
                     // onClick={() => uploadCoverImage(cover)}
-                    className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
+                    className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]"
                   >
                     Upload Cover Picture
                   </button>
-                  <button
-                    
-                    className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]"
-                  >
+                  <button className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]">
                     Up-date Cover Picture
                   </button>
                 </>
-            
-              
-                <button
-                  
-                  className="mb-5 bg-indigo-500 rounded-[150px] self-center justify-center gap-2.5 inline-flex w-1/12"
-                >
+              }
+
+              {modalContentType === "camera" && (<>
+                <button className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]">
                   Upload Profile Picture
                 </button>
-              
-              
-              
+                <button className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]">
+                    Update Profile Picture
+                  </button>
+                </>
+              )}
             </div>
-    </Modal>
+          </Modal>
         </div>
       </div>
 
@@ -173,12 +176,14 @@ console.log(currentUser,'ghjklljk');
             {/* User info and privacy setting */}
             <div className="flex space-x-3 items-center">
               <div className="w-12 h-12 rounded-full overflow-hidden">
-                <img src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg" alt="" className="w-full h-full" />
-                
+                <img
+                  src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
+                  alt=""
+                  className="w-full h-full"
+                />
               </div>
               <div className="flex flex-col">
-                <h2 className="font-semibold text-sm">{posts.name
-                }</h2>
+                <h2 className="font-semibold text-sm">{posts.name}</h2>
                 <div className="bg-gray-700 rounded-md px-2 py-1 flex items-center cursor-pointer">
                   <span className="font-semibold text-xs">Public</span>
                   {/* Add dropdown icon or component here */}
@@ -224,7 +229,7 @@ console.log(currentUser,'ghjklljk');
             <div className="flex items-center justify-between">
               <div className="flex space-x-2 items-center">
                 <img
-                  src={post.ProfilePic}
+                  src={artist.ProfilePic}
                   alt="Profile picture"
                   className="w-10 h-10 rounded-full cursor-pointer"
                 />
