@@ -3,7 +3,7 @@ import { SiNike } from "react-icons/si";
 import { SiAdidas } from "react-icons/si";
 import { SiNewbalance } from "react-icons/si";
 import { SiPuma } from "react-icons/si";
-
+import { GiWrappingStar } from "react-icons/gi";
 
 
 function firstDesc() {
@@ -79,6 +79,7 @@ function firstDesc() {
            
 
             <div className="relative mt-8 md:mt-20 pb-12">
+            <br /><br /><br /><br /><br />
                 <div className="text-center text-white text-4xl md:text-6xl font-extrabold font-sans leading-10 md:leading-14 tracking-wide">Our Makers</div>
                 <div className="text-center text-slate-900 text-opacity-50 text-lg md:text-xl font-medium font-sans leading-7 md:leading-9 mt-8">Our community at <strong> E-street</strong>{" "} is a diverse tapestry of trendsetters and fashion enthusiasts. Whether you're a creator shaping the scene or a discerning shopper, our members form the core of a shared love for style and luxury. Join us in the celebration of individuality and expression at FancyMama, where every member contributes to the vibrant world of fashion.</div>
                 <div className="flex justify-center space-x-4">
@@ -107,20 +108,20 @@ function firstDesc() {
 </div>
 <br /><br /><br /><br /><br /><br /><br /><br /><br />
               
-<div className="absolute top-[-400px] flex flex-col items-center">
-  <div className="transform -rotate-0 origin-center text-6xl font-bold text-gray-800">
+<div className="absolute top-[-300px] flex flex-col items-center">
+  <div className="transform -rotate-0 origin-center text-6xl font-bold text-gray-800">*
+  <GiWrappingStar />
     Elegance Present Us 
   </div>
   <br />
 
-  <div className="ml-[500px] flex items-center space-x-10 mt-2">
+  <div className="ml-[500px] flex items-center space-x-40 mt-2">
     <SiNike className="w-20 h-20 text-gray-500 transition-transform transform hover:scale-110" />
     <SiAdidas className="w-20 h-20 text-gray-500 transition-transform transform hover:scale-110" />
     <SiNewbalance className="w-20 h-20 text-gray-500 transition-transform transform hover:scale-110" />
     <SiPuma className="w-20 h-20 text-gray-500 transition-transform transform hover:scale-110" />
   </div>
 </div>
-
 
             </div>
         </>
