@@ -1,7 +1,8 @@
 import express from "express";
-import {followBrand} from "../controller/followBrandController"
+import {followBrand,unfollowBrand} from "../controller/followBrandController"
 const router = express.Router()
 
-router.post("/:brandId/userId",followBrand)
+router.put("unfollow/:brandId/:userId",unfollowBrand)
+router.put("/:brandId/:userId",followBrand)
 
 export default router
