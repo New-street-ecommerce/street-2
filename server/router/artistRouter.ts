@@ -1,15 +1,15 @@
-import  express  from "express";
-import { addpost,updateName,updateBio,updatePfp,updateCoverPic,signIn,getAllPosts } from "../controller/artistController";
-const router=express.Router()
 
-router.post("/Profile/Post/:artistId",addpost)
-router.put("/Profile/updateName/:artistId",updateName)
-router.put("/Profile/updateBio/:artistId",updateBio)
+import  express  from "express";
+const router=express.Router()
+import { signUp,updateProfil,updatePfp,updateCoverPic,signIn} from "../controller/artistController";
+
+
+router.put("/Profile/updateProfil/:artistId",updateProfil)
 router.put("/Profile/updatePfp/:artistId",updatePfp)
 router.put("/Profile/updateCoverPic/:artistId",updateCoverPic)
-// router.post("/signUp",signUp)
+router.post("/signUp",signUp)
 router.post("/signIn",signIn)
-router.get("/getAllPosts/:artistId",getAllPosts)
+
 
 
 export default router

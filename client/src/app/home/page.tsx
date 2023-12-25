@@ -1,12 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { FcLikePlaceholder, FcLike } from "react-icons/fc";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import Brand from "./brand";
-import { addToCart } from "../Providers/useApi";
+import { addToCart, addToFavList } from "../Providers/useApi";
 import Questions from "./questions";
+import { FcLikePlaceholder, FcLike } from "react-icons/fc";
+
 
 interface Product {
   id: number;
@@ -22,9 +23,9 @@ interface Product {
 }
 
 const Home = () => {
-  const mutation = addToCart()
- 
   const [like, setLike] = useState(false);
+  const mutationFav = addToFavList()
+  const mutation = addToCart();
   const {
     data: products,
     isLoading,
@@ -49,10 +50,12 @@ const Home = () => {
     );
   }
 
-  
-  const handleBuyNowClick = () => {
-    mutation.mutate({ userId: 1, productId: 1 });
+  const handleBuyNowClick = async () => {
+    await mutation.mutate({ userId: 1, productId: 1 });
   };
+  const handleFavListClick = async ()=>{
+    await mutationFav.mutate({ userId: 1, productId: 1 });
+  }
   return (
     <>
       <div className="flex justify-center pt-[104px] ">
@@ -313,16 +316,26 @@ const Home = () => {
               </div>
             </div>
             <div className="flex items-center">
+              {/* like */}
               <div
                 className="mr-4 "
                 onClick={() => {
                   setLike(!like);
                 }}
               >
-                {like ? <FcLikePlaceholder /> : <FcLike />}
+                {like ? (
+                  <FcLike
+                    onClick={handleFavListClick}
+                  />
+                ) : (
+                  <FcLikePlaceholder />
+                )}
               </div>
+              
               <button className="mt-2 ml-2 bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md self-center">
-                <Link onClick={handleBuyNowClick} href={"/basket"}>Buy Now</Link>
+                <Link onClick={handleBuyNowClick} href={"/basket"}>
+                  Buy Now
+                </Link>
               </button>
             </div>
           </div>
@@ -338,8 +351,7 @@ const Home = () => {
           <Brand />
         </div>
       </div>
-      <Questions/>
-
+      <Questions />
     </>
   );
 };

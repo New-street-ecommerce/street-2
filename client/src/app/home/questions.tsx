@@ -53,9 +53,9 @@ const Questions = () => {
         
       </div>
       {
-        data?.map((ques) => (
-        <ul>
-            <li className=' text-white border-2 mt-2 p-2  '>{ques.question}</li>
+        data?.map((ques , key) => (
+        <ul key={key}>
+            <li className=' text-white border-2 mt-2 p-2  '> {key +1} {ques.question}</li>
         </ul>
   ))
 }

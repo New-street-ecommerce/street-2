@@ -121,3 +121,15 @@ export const addQuestion = ()=> {
   })
   return query
 }
+export const addToFavList = ()=>{
+  const query= useMutation({
+    mutationFn: async(object: {userId: number, productId: number})=>{
+         const  res :any = await axios.post(`http://localhost:5001/favlist`,object)
+         return res
+    },
+    onError: (error) => {
+        console.log(error)
+    }
+})
+return query
+}
