@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } f
 import axios from "axios"
 import {app} from "../firebase/config";
 
+
 // import { useQueryClient } from "react-query";
 interface User {
   id: number;
@@ -52,6 +53,7 @@ export const login = () => {
     })
     return query
 }
+
 
 export const registerDb = (input:string)=> {
     const query= useMutation({

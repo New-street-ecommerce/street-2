@@ -4,8 +4,9 @@ import Link from "next/link";
 import { login, loginDb } from "../Providers/useApi";
 import { useState } from "react";
 import main from "../../../assets/main.png";
-
+import { useRouter } from 'next/navigation'
 const SignIn = () => {
+  const router = useRouter()
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [passwordHidden, setPasswordHidden] = useState(true);
@@ -36,6 +37,7 @@ const SignIn = () => {
                 event.preventDefault();
                 mutation.mutate({ email: loginEmail, password: loginPassword });
                 mutationdB.mutate({ email: loginEmail });
+                router.push('/home')
               }}
               className="self-stretch flex flex-col px-9 max-md:max-w-full max-md:px-5"
             >

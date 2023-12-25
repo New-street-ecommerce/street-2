@@ -3,10 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import artist from "../../../assets/artist.png"
-
-import { register, registerDb } from "../Providers/useApi";
+import { useRouter } from "next/navigation";
+import { register, registerDb, login,loginDb } from "../Providers/useApi";
 
 const signUpA = () => {
+  const router = useRouter()
   const [registerEmail, setRegisterEmail] = useState("");
   const [registeruserName, setRegisterUserName] = useState("");
   const [registerName, setRegisterName] = useState("");
@@ -15,6 +16,9 @@ const signUpA = () => {
 
   const mutation = register();
   const mutation2 = registerDb("artist");
+  const mutation3 = login()
+  const mutation4 = loginDb("artist")
+  
     
   return (
     
@@ -44,7 +48,9 @@ const signUpA = () => {
                   mutation.mutate({ email: registerEmail
                   , password: registerPassword });
                   mutation2.mutate({email:registerEmail,name:registerName,username:registeruserName,dateOfBirth:dateOfB})
-                  
+                  mutation3.mutate({ email: registerEmail, password: registerPassword })
+                  mutation4.mutate({email: registerEmail})
+                  router.push('/home')
                 
                 }}
               >
@@ -161,7 +167,7 @@ const signUpA = () => {
                 <div className="mt-6 flex items-center justify-between"></div>
                 <button
                   type="submit"
-                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[linear-gradient(214deg,#200100_10%,#C3141D_90%)] mt-6 px-5 py-1 rounded-[121px] self-end"
+                  className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
                 >
                   Create Account
                 </button>
