@@ -3,33 +3,34 @@ import Image from "next/image";
 import Link from "next/link";
 import { login, loginDb } from "../Providers/useApi";
 import { useState } from "react";
-import main from "../../../assets/main.png";
+import artist from "../../../assets/artist.png";
 
-const SignIn = () => {
+const SignInA = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [passwordHidden, setPasswordHidden] = useState(true);
   const mutation = login();
-  const mutationdB = loginDb("user");
+  const mutationdB = loginDb("artist");
 
   return (
     <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
-      <div className="gap-5 flex max-md:flex-col max-md:items-center max-md:gap-0">
+      <div className="gap-5 md: flex max-md:flex-col max-md:items-center max-md:gap-0">
         <div className="flex flex-col items-center w-[49%] max-md:w-full max-md:ml-0">
-          <div className="flex flex-col items-center max-md:max-w-full max-md:mt-10">
+          <div className="flex flex-col items-center mt-8 max-md:max-w-full max-md:mt-10">
             <Image
-              src={main}
-              width={300}
-              height={300}
+              src={artist}
+              width={400}
+              height={400}
               alt="taswira"
               priority={false}
+              className=""
             />
             <div className="text-white text-center text-3xl font-bold leading-10 tracking-wide self-stretch mt-14 max-md:max-w-full max-md:mt-10">
               Explore the world of meta fashion
             </div>
-          </div>  
+          </div>
         </div>
-        <div className="flex flex-col items-stretch w-[36%] h-[36%]  ml-5 max-md:w-full max-md:ml-0 mt-8">
+        <div className="flex flex-col items-stretch w-[36%] h-[36%] ml-5 max-md:w-full max-md:ml-0 mt-[-10%]">
           <div className="bg-login bg-opacity-20 flex grow flex-col w-full py-7 rounded-xl max-md:max-w-full max-md:mt-10">
             <form
               onSubmit={(event) => {
@@ -45,7 +46,7 @@ const SignIn = () => {
               <div className="text-white-500 text-lg tracking-wide self-stretch mt-16 max-md:max-w-full max-md:mt-10">
                 <span className="text-white">New user?</span>
                 <Link
-                  href={"/signUp"}
+                  href={"/signUpA"}
                   className="font-medium text-CornellRed-500"
                 >
                   {" "}
@@ -53,9 +54,9 @@ const SignIn = () => {
                 </Link>
               </div>
               <div className="text-white-500 text-lg tracking-wide self-stretch mt-16 max-md:max-w-full max-md:mt-10">
-                <span className="text-white">Are you an Artist?</span>
+                <span className="text-white">You're not an artist?</span>
                 <Link
-                  href={"/signInA"}
+                  href={"/signIn"}
                   className="font-medium text-CornellRed-500"
                 >
                   {" "}
@@ -141,20 +142,16 @@ const SignIn = () => {
                   className="w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                 />
               </div>
-
               <button
                 type="submit"
                 className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
               >
                 Login
               </button>
-
               <div className="text-white text-lg tracking-wide self-center whitespace-nowrap mt-1 max-md:mt-4">
                 Or
               </div>
-
               <br />
-
               <div className="space-y-4 text-sm font-medium">
                 <button
                   onClick={() => {}}
@@ -221,11 +218,11 @@ const SignIn = () => {
                 </button>
               </div>
               <br />
+              <div className="space-y-4 text-sm font-medium">
+              </div>
               <button
                 className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
-                onClick={() => {
-                  localStorage.clear();
-                }}
+                onClick={() => { localStorage.clear()}}
               >
                 {" "}
                 Sign Out
@@ -238,4 +235,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignInA;

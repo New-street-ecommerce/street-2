@@ -2,6 +2,7 @@ import { useMutation, useQuery,useQueryClient } from "@tanstack/react-query";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import axios from "axios"
 import {app} from "../firebase/config";
+
 // import { useQueryClient } from "react-query";
 interface User {
   id: number;
@@ -25,7 +26,6 @@ export const register = () => {
         object.password
       );
       
-      localStorage.setItem("user", JSON.stringify(res));
       return res;
     },
     onError: (error, variables, context) => {
@@ -42,7 +42,7 @@ export const login = () => {
         mutationFn: async(object: {email:string,password:string})=>{
             const auth= getAuth(app)
             const res:any = await signInWithEmailAndPassword(auth, object.email, object.password)
-            localStorage.setItem("user", JSON.stringify(res))
+            
             console.log(res)
             return res
         },
@@ -53,12 +53,13 @@ export const login = () => {
     return query
 }
 
-export const registerDb = ()=> {
+export const registerDb = (input:string)=> {
     const query= useMutation({
         mutationFn: async(object: {email:string,name:string,username:string,dateOfBirth:string})=>{
-             const  res :any = await axios.post("http://localhost:5000/user/signup",object)
+             const  res :any = await axios.post(`http://localhost:5000/${input}/signup`,object)
              console.log(res)
              console.log(object)
+             localStorage.setItem("user", JSON.stringify(res))
              return res
         },
         onError: (error,variables,context) => {
@@ -68,11 +69,11 @@ export const registerDb = ()=> {
     return query
 }
 
-export const loginDb = ()=> {
+export const loginDb = (input:string)=> {
     const query= useMutation({
         mutationFn: async(object: {email:string})=>{
-             const  res :any = await axios.post("http://localhost:5000/user/signin",object)
-             console.log(res)
+             const  res :any = await axios.post(`http://localhost:5000/${input}/signin`,object)
+             localStorage.setItem("user", JSON.stringify(res))
              return res
         },
         onError: (error,variables,context) => {
