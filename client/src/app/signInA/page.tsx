@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { login, loginDb } from "../Providers/useApi";
+import { login, loginDb, signInWithGoogle } from "../Providers/useApi";
 import { useState } from "react";
 import artist from "../../../assets/artist.png";
 import { useRouter } from 'next/navigation'
@@ -13,6 +13,7 @@ const SignInA = () => {
   const [passwordHidden, setPasswordHidden] = useState(true);
   const mutation = login();
   const mutationdB = loginDb("artist");
+  const mutationG = signInWithGoogle("artist")
 
   return (
     <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">

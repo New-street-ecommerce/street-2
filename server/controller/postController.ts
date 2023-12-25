@@ -11,14 +11,14 @@ interface Post {
   }
 
 
-export const addpost = async (req: Request, res: Response) => {
-    const { content, picture }: Post = req.body;
+  export const addpost = async (req: Request, res: Response) => {
+    const { content, picture } = req.body;
     const { artistId } = req.params;
     try {
-      const post: Post = await prisma.post.create({
+      const post = await prisma.post.create({
         data: {
-          content: content,
-          picture: picture,
+          content,
+          picture,
           artistId: Number(artistId),
         },
       });
@@ -26,7 +26,7 @@ export const addpost = async (req: Request, res: Response) => {
     } catch (error: any) {
       res.status(400).json({ msg: error.message });
     }
-  };
+};
 
   export const getAllPosts = async (req: Request, res: Response) => {
     try {
