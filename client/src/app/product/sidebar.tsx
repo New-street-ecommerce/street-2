@@ -63,10 +63,6 @@ interface Product {
       refetch();
     };
 
-
-    
-  
-
   
     return (
       <div className="w-full md:w-64 h-screen bg-gray-200 border-r border-gray-300 flex flex-col md:flex-row">
