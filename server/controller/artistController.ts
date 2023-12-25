@@ -112,5 +112,18 @@ export const signIn = async (req: Request, res: Response) => {
     res.status(500).send(error);
   }
 };
-
+export const getArtistByEmail = async (req: Request, res: Response) =>{
+  
+  try {
+    const getemail=await prisma.artist.findUnique({
+      where:{email:req.body}
+    })
+    if (!getemail) {
+      res.status(409).send("Artist does not exist");
+  }else{
+    res.status(200).send(getemail)
+  }} catch (error:any) {
+    res.status(500).send(error)
+  }
+}
 

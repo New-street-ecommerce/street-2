@@ -32,10 +32,12 @@ const Profil = () => {
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       const userDetails = parsedUser.user;
-      const userId = userDetails.uid;
-      const userEmail = userDetails.email;
+      // const userId = userDetails.uid;
+
+       
+      // const userEmail = userDetails.email;
       // const userProfilePic = userDetails.photoURL;
-      setId(userId);
+      // setId(userId);
     }
   }, []);
 
