@@ -8,11 +8,11 @@ import userRouter from "./router/userRouter"
 // import ProductRoute from './routes/ProductRoute.js'
 import brandRouter from "./router/brandRouter"
 import cartRouter from "./router/cartRouter"
-
+import followBrandRouter from "./router/followBrand"
 dotenv.config()
 
 const app = express()
-const port = process.env.APP_PORT || 5001
+const port = process.env.APP_PORT || 5000
 
 app.use(cors())
 app.use(express.json())
@@ -30,6 +30,7 @@ app.use('/product',routeProd)
 
 import routecol from "./router/collection"
 app.use('/collection',routecol)
+app.use("/follow/brand",followBrandRouter)
 
 
 
