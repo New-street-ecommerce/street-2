@@ -1,8 +1,12 @@
 'use client'
 
-import { useQuery,useIsFetching } from '@tanstack/react-query';
+// import { useQuery,useIsFetching } from '@tanstack/react-query';
 import {  useState} from "react";
 import React from 'react';
+import { FaBorderAll } from "react-icons/fa6";
+import { BsFilterLeft } from "react-icons/bs";
+import { ImPriceTags } from "react-icons/im";
+import { MdNewReleases } from "react-icons/md";
 
 
 interface Product {
@@ -17,11 +21,11 @@ interface Product {
     clients: any[];
     users: any[];
   }
-  const Sidebar = ({ isNewRelease,setNewRelease,fetchNew,setMinPrice, setMaxPrice, refetch }:any) => {
+  const Sidebar = ({ setNewRelease,fetchNew,setMinPrice, setMaxPrice, refetch ,setCategory}:any) => {
     const [isCategoryOpen, setCategoryOpen] = useState(false);
     const [isPriceFilterOpen, setPriceFilterOpen] = useState(false);
     const [min, setMin] = useState(0);
-    const [max, setMax] = useState(0);
+    const [max, setMax] = useState(10000);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
    
   
@@ -41,93 +45,92 @@ interface Product {
   
     const handleNewRelease = () => {
       setNewRelease((prevIsNewRelease:any) => !prevIsNewRelease);
+      
     };
   
     const fetchProductsByCategory = (category: string) => {
+      console.log('Selected Category:', category);
       setMinPrice(min);
       setMaxPrice(1000);
-      setSelectedCategory(category);
-      refetch();
+      setCategory(category);
     };
   
     const fetchAllProducts = () => {
       setMinPrice(min);
-      setMaxPrice(1000);
-      setNewRelease(false); // Fix the typo here
+      setMaxPrice(10000);
+      setNewRelease(false); 
+      setCategory("")
       refetch();
     };
 
-
-    
-  
-
   
     return (
-      <div className="w-full md:w-64 h-screen bg-white border-r border-gray-300 flex flex-col md:flex-row">
-        <div className="md:w-64 md:flex-shrink-0">
-          <div className="px-6 py-4">
-            <h2 className="text-2xl font-bold text-gray-800">Filter</h2>
-          </div>
-          <nav className="md:block hidden">
-            <ul className="space-y-4 text-gray-800">
-              <li>
-                <a href="#" className="flex items-center px-4 py-2 rounded hover:bg-gray-100" onClick={fetchAllProducts}>
-                  <svg className="w-6 h-6"></svg>
-                  <span className="ml-4">All Products</span>
-                </a>
-              </li>
-              <br />
-              <br />
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center px-4 py-2 rounded hover:bg-gray-100"
-                  onClick={togglePriceFilter}
-                >
-                  <svg className="w-6 h-6"></svg>
-                  <span className="ml-4">price</span>
-                </a>
-                {isPriceFilterOpen && (
-                  <div className="p-4">
-                    <div className="flex items-center space-x-4">
-                      <label className="mr-2">Min Price:</label>
-                      <input
-                        className="border border-gray-400 px-2 py-1 w-16"
-                        type="number"
-                        value={min}
-                        onChange={(e) => setMin(Number(e.target.value))}
-                      />
-                    </div>
-                    <div className="flex items-center space-x-4 mt-2">
-                      <label className="mr-2">Max Price:</label>
-                      <input
-                        className="border border-gray-400 px-2 py-1 w-16"
-                        type="number"
-                        value={max}
-                        onChange={(e) => setMax(Number(e.target.value))}
-                      />
-                    </div>
-                    <button
-                      className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
-                      onClick={() => applyFilter()}
-                    >
-                      Apply
-                    </button>
+      <div className="w-full md:w-64 h-screen bg-gray-200 border-r border-gray-300 flex flex-col md:flex-row">
+      <div className="md:w-64 md:flex-shrink-0">
+        <div className="px-4 py-3">
+          <BsFilterLeft />
+          <h2 className="text-2xl font-bold text-gray-800">Filter</h2>
+        </div>
+        <nav className="md:block hidden">
+          <ul className="space-y-4 text-gray-800">
+            <li>
+              <a href="#" className="flex items-center px-4 py-2 rounded hover:bg-gray-100" onClick={fetchAllProducts}>
+                <FaBorderAll className="w-6 h-6" />
+                <span className="ml-2">All Products</span>
+              </a>
+            </li>
+            <br />
+            <br />
+            <li>
+              <a
+                href="#"
+                className="flex items-center px-4 py-2 rounded hover:bg-gray-100"
+                onClick={togglePriceFilter}
+              >
+                <ImPriceTags className="w-6 h-6" />
+                <span className="ml-2">price</span>
+              </a>
+              {isPriceFilterOpen && (
+                <div className="p-4">
+                  <div className="flex items-center space-x-4">
+                    <label className="mr-2">Min Price:</label>
+                    <input
+                      className="border border-gray-400 px-2 py-1 w-16"
+                      type="number"
+                      value={min}
+                      onChange={(e) => setMin(Number(e.target.value))}
+                    />
                   </div>
-                )}
+                  <div className="flex items-center space-x-4 mt-2">
+                    <label className="mr-2">Max Price:</label>
+                    <input
+                      className="border border-gray-400 px-2 py-1 w-16"
+                      type="number"
+                      value={max}
+                      onChange={(e) => setMax(Number(e.target.value))}
+                    />
+                  </div>
+                  <button
+                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+                    onClick={() => applyFilter()}
+                  >
+                    Apply
+                  </button>
+                </div>
+              )}
+            </li>
+            <br />
+            <br />
+            <li>
+              <a href='javascript:void(0)' className="flex items-center px-4 py-2 rounded hover:bg-gray-100" onClick={() => handleNewRelease()}>
+                <MdNewReleases className="w-6 h-6" />
+                <span className="ml-2">New Release</span>
+              </a>
               </li>
               <br />
               <br />
               <li>
-                <a href="#" className="flex items-center px-4 py-2 rounded hover:bg-gray-100" onClick={()=>handleNewRelease()} >
-                  <svg className="w-6 h-6"></svg>
-                  <span className="ml-4">New Release</span>
-                </a>
-              </li>
-              <br />
-              <br />
-              <li>
-                <a href="#" className="flex items-center px-4 py-2 rounded hover:bg-gray-100" onClick={toggleCategoryOptions}>
+                <a href='javascript:void(0)' className="flex items-center px-4 py-2 rounded hover:bg-gray-100" onClick={toggleCategoryOptions}>
                   <svg className="w-6 h-6">
                     <path
                       strokeLinecap="round"
@@ -141,37 +144,36 @@ interface Product {
                 {isCategoryOpen && (
                   <ul>
                     <li>
-                      <a
-                        href='#'
+                      <p
+                       
                         className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
                           selectedCategory === 'Hoodies' ? 'bg-gray-100' : ''
                         }`}
-                        onClick={() => fetchProductsByCategory('Hoodies')}
+                        onClick={() => fetchProductsByCategory('?category=hoodies')}
+                      
                       >
                         <span className='ml-4'>Hoodies</span>
-                      </a>
+                      </p>
                     </li>
                     <li>
-                      <a
-                        href='#'
-                        className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
+                      <p
+                      className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
                           selectedCategory === 'Pants' ? 'bg-gray-100' : ''
                         }`}
-                        onClick={() => fetchProductsByCategory('Pants')}
+                        onClick={() => fetchProductsByCategory('?category=pants')}
                       >
                         <span className='ml-4'>Pants</span>
-                      </a>
+                      </p>
                     </li>
                     <li>
-                      <a
-                        href='#'
+                      <p
                         className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
                           selectedCategory === 'Sneakers' ? 'bg-gray-100' : ''
                         }`}
-                        onClick={() => fetchProductsByCategory('Sneakers')}
+                        onClick={() => fetchProductsByCategory('?category=sneakers')}
                       >
                         <span className='ml-4'>Sneakers</span>
-                      </a>
+                      </p>
                     </li>
                   </ul>
                 )}
