@@ -25,11 +25,14 @@ const Questions = () => {
           </main>
         );
       }
+      const getStorage = localStorage.getItem("user") || "1"
+      const storage = JSON.parse(getStorage)
       const handleAddQuestion = async () => {
-        await mutation.mutate({ userId: 1, question });
+        await mutation.mutate({ userId: storage.data.id, question });
         queryClient.invalidateQueries({queryKey: ["question"]})
       };
 
+     
   return (
     <div className="p-4 mx-auto flex flex-col gap-8 items-center mt-[65px] ">
     <h1 className="text-white text-4xl font-bold whitespace-nowrap">

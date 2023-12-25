@@ -49,12 +49,14 @@ const Home = () => {
       </main>
     );
   }
-
-  const handleBuyNowClick = async () => {
-    await mutation.mutate({ userId: 1, productId: 1 });
+  const getStorage = localStorage.getItem("user") || "1"
+  const storage = JSON.parse(getStorage)
+  const user = storage.data.id
+  const handleBuyNowClick = async (id:any) => {
+    await mutation.mutate({ userId: user, productId: id });
   };
-  const handleFavListClick = async ()=>{
-    await mutationFav.mutate({ userId: 1, productId: 1 });
+  const handleFavListClick = async (id:any)=>{
+    await mutationFav.mutate({ userId: user, productId: id });
   }
   return (
     <>
@@ -325,15 +327,15 @@ const Home = () => {
               >
                 {like ? (
                   <FcLike
-                    onClick={handleFavListClick}
+                    onClick={()=>handleFavListClick(product.id)}
                   />
                 ) : (
                   <FcLikePlaceholder />
                 )}
+           
               </div>
-              
               <button className="mt-2 ml-2 bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md self-center">
-                <Link onClick={handleBuyNowClick} href={"/basket"}>
+                <Link onClick={()=>handleBuyNowClick(product.id)} href={"/basket"}>
                   Buy Now
                 </Link>
               </button>
