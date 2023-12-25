@@ -8,7 +8,7 @@ import userRouter from "./router/userRouter"
 // import ProductRoute from './routes/ProductRoute.js'
 import brandRouter from "./router/brandRouter"
 import cartRouter from "./router/cartRouter"
-
+import followBrandRouter from "./router/followBrand"
 dotenv.config()
 
 const app = express()
@@ -30,6 +30,7 @@ app.use('/product',routeProd)
 
 import routecol from "./router/collection"
 app.use('/collection',routecol)
+app.use("/follow/brand",followBrandRouter)
 
 
 
