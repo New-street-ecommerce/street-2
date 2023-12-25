@@ -11,7 +11,7 @@ const hundleUpdate:Function=async()=>{
 
     const artistId=1
     try {
-        await axios.put(`http://localhost:5001/artist/Profile/updateProfil/${artistId}`,{
+        await axios.put(`http://localhost:5000/artist/Profile/updateProfil/${artistId}`,{
             name: userName,
             bio: bio,
         })

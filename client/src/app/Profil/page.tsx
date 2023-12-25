@@ -8,6 +8,7 @@ import { jwtDecode } from "jwt-decode";
 import { getStorage } from "firebase/storage";
 import Modal from "react-modal";
 import EditProfil from "./EditProfil/page";
+import PostsPictures from "./components/PostsPictures";
 const Profil = () => {
   const [postContent, setPostContent] = useState("");
   const [postPicture, setPostPicture] = useState("");
@@ -16,7 +17,7 @@ const Profil = () => {
   const [currentUser, setCurrentUser] = useState<any>();
   const [modalIsOpen, setModalIsOpen] = useState<any>(false);
   const [modalContentType, setModalContentType] = useState<any>("");
-
+  const [id, setId] = useState<string>("");
   const openModal = (type: string) => {
     setModalContentType(type);
     setModalIsOpen(true);
@@ -25,27 +26,28 @@ const Profil = () => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      const userDetails = parsedUser.user;
+      const userId = userDetails.uid;
+      const userEmail = userDetails.email;
+      // You can add more properties here as needed
+      // For example, if the profile picture URL is stored under 'photoURL', you can extract it as follows:
+      // const userProfilePic = userDetails.photoURL;
+
+      // Set the extracted information to your state or use them as needed
+      setId(userId);
+    }
+  }, []);
+  console.log(id, "ghjklljk");
   const handlePost = async () => {
-    useEffect(() => {
-      if (JSON.parse(window.localStorage.getItem("user") as string)) {
-        setCurrentUser(
-          jwtDecode(
-            JSON.parse(window.localStorage.getItem("user") as string)
-          )
-        );
-      }
-    });
-    
-    const artistId = 1;
-    
     try {
-      await axios.post(
-        `http://localhost:5001/artist/Profile/Post/${artistId}`,
-        {
-          content: postContent,
-          picture: postPicture,
-        }
-      );
+      await axios.post(`http://localhost:5000/artist/Profile/Post/${id}`, {
+        content: postContent,
+        picture: postPicture,
+      });
       console.log("Post successful");
       // After posting, fetch all posts again
       getAllPosts();
@@ -53,12 +55,10 @@ const Profil = () => {
       console.log("Error posting:", error.message);
     }
   };
-  console.log(currentUser, "ghjklljk");
+
   const getAllPosts = () => {
-    // const artistId = 1;
-    const artistId= localStorage.getItem()
     axios
-      .get(`http://localhost:5000/artist/getAllPosts/${artistId}`)
+      .get(`http://localhost:5000/artist/getAllPosts/${id}`)
       .then((res) => {
         setPosts(res.data);
         console.log("Get all posts successfully");
@@ -75,7 +75,7 @@ const Profil = () => {
   return (
     <div className="mb-10 relative">
       {/* Background Image and Edit Button */}
-      <div className="flex justify-center h-[450px] md:h-[550px] lg:h-[600px] relative">
+      <div className="flex justify-between h-[450px] md:h-[550px] lg:h-[600px] relative">
         <img
           src="https://www.ionos.fr/digitalguide/fileadmin/DigitalGuide/Teaser/instagram-fuer-unternehmen-t.jpg"
           alt="Background"
@@ -138,7 +138,7 @@ const Profil = () => {
                   Upload
                 </button> */}
 
-              { modalContentType==='editProfile'&&
+              {modalContentType === "editProfile" && (
                 <>
                   <button
                     // onClick={() => uploadCoverImage(cover)}
@@ -150,13 +150,14 @@ const Profil = () => {
                     Up-date Cover Picture
                   </button>
                 </>
-              }
+              )}
 
-              {modalContentType === "camera" && (<>
-                <button className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]">
-                  Upload Profile Picture
-                </button>
-                <button className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]">
+              {modalContentType === "camera" && (
+                <>
+                  <button className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]">
+                    Upload Profile Picture
+                  </button>
+                  <button className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]">
                     Update Profile Picture
                   </button>
                 </>
@@ -167,57 +168,62 @@ const Profil = () => {
       </div>
 
       {/* Post Creation Area */}
-      <div className="mb-10 mt-10 lg:mt-20">
-        <div className="bg-gray-500 bg-opacity-10 p-4 lg:p-10 text-white max-w-full border border-gray-700 mx-auto rounded-lg">
-          <div className="px-3 py-3 flex justify-center items-center border-b border-gray-700">
-            <h2 className="text-xl font-bold text-center">Create Post</h2>
-          </div>
-          <div className="px-3 py-3">
-            {/* User info and privacy setting */}
-            <div className="flex space-x-3 items-center">
-              <div className="w-12 h-12 rounded-full overflow-hidden">
-                <img
-                  src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
-                  alt=""
-                  className="w-full h-full"
-                />
-              </div>
-              <div className="flex flex-col">
-                <h2 className="font-semibold text-sm">{posts.name}</h2>
-                <div className="bg-gray-700 rounded-md px-2 py-1 flex items-center cursor-pointer">
-                  <span className="font-semibold text-xs">Public</span>
-                  {/* Add dropdown icon or component here */}
+      <div className="flex justify-center gap-[50px]" >
+      <div className="">
+          <PostsPictures />
+        </div>
+        <div className=" mb-10 mt-10 lg:mt-20 w-[700px] ">
+          <div className=" bg-gray-500 bg-opacity-10 p-4 lg:p-10 text-white max-w-full border border-gray-700 mx-auto rounded-lg">
+            <div className="px-3 py-3 flex justify-center items-center border-b border-gray-700">
+              <h2 className="text-xl font-bold text-center">Create Post</h2>
+            </div>
+            <div className="px-3 py-3">
+              {/* User info and privacy setting */}
+              <div className="flex space-x-3 items-center">
+                <div className="w-12 h-12 rounded-full overflow-hidden">
+                  <img
+                    src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
+                    alt=""
+                    className="w-full h-full"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <h2 className="font-semibold text-sm">{posts.name}</h2>
+                  <div className="bg-gray-700 rounded-md px-2 py-1 flex items-center cursor-pointer">
+                    <span className="font-semibold text-xs">Public</span>
+                    {/* Add dropdown icon or component here */}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Textarea for post content */}
-            <div className="my-4">
-              <textarea
-                id="content"
-                placeholder="What's on your mind?"
-                onChange={(e) => setPostContent(e.target.value)}
-                className="w-full bg-transparent resize-none text-2xl text-white outline-none placeholder-gray-400 focus:placeholder-gray-500"
-              ></textarea>
-              {/* Optionally, display the selected image for the post here */}
-            </div>
+              {/* Textarea for post content */}
+              <div className="my-4">
+                <textarea
+                  id="content"
+                  placeholder="What's on your mind?"
+                  onChange={(e) => setPostContent(e.target.value)}
+                  className="w-full bg-transparent resize-none text-2xl text-white outline-none placeholder-gray-400 focus:placeholder-gray-500"
+                ></textarea>
+                {/* Optionally, display the selected image for the post here */}
+              </div>
 
-            {/* Post interaction icons */}
-            <div className="flex justify-between items-center">
-              {/* Add icons for adding photos, videos, etc. */}
-            </div>
+              {/* Post interaction icons */}
+              <div className="flex justify-between items-center">
+                {/* Add icons for adding photos, videos, etc. */}
+              </div>
 
-            {/* Button to submit the post */}
-            <button
-              className="w-full bg-violet-500 mt-3 rounded-full py-4 text-white font-bold text-xl"
-              onClick={handlePost}
-            >
-              Post
-            </button>
+              {/* Button to submit the post */}
+              <button
+                className="w-full bg-violet-500 mt-3 rounded-full py-4 text-white font-bold text-xl"
+                onClick={handlePost}
+              >
+                Post
+              </button>
+            </div>
           </div>
         </div>
+       
       </div>
-
       {/* Posts Display */}
       <>
         {posts.map((post) => (
@@ -227,6 +233,9 @@ const Profil = () => {
           >
             {/* Post Author */}
             <div className="flex items-center justify-between">
+              <div>
+                <PostsPictures />
+              </div>
               <div className="flex space-x-2 items-center">
                 <img
                   src={artist.ProfilePic}
@@ -254,6 +263,7 @@ const Profil = () => {
           </div>
         ))}
       </>
+      <br />
     </div>
   );
 };
