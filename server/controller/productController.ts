@@ -54,7 +54,7 @@ const  ProductController = {
  filterbyPrice : async (req: any, res: any) => {
   const minPrice = parseFloat(req.params.minprice);
   const maxPrice = parseFloat(req.params.maxprice);
-
+  const ctg=req.query.category
   try {
     const products = await prisma.product.findMany({
       where: {
@@ -62,6 +62,9 @@ const  ProductController = {
           gte: minPrice,
           lte: maxPrice,
         },
+        category:{
+          equals:ctg
+        }
       },
     });
 

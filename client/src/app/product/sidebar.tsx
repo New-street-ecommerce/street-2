@@ -21,7 +21,7 @@ interface Product {
     clients: any[];
     users: any[];
   }
-  const Sidebar = ({ isNewRelease,setNewRelease,fetchNew,setMinPrice, setMaxPrice, refetch }:any) => {
+  const Sidebar = ({ setNewRelease,fetchNew,setMinPrice, setMaxPrice, refetch ,setCategory}:any) => {
     const [isCategoryOpen, setCategoryOpen] = useState(false);
     const [isPriceFilterOpen, setPriceFilterOpen] = useState(false);
     const [min, setMin] = useState(0);
@@ -52,14 +52,14 @@ interface Product {
       console.log('Selected Category:', category);
       setMinPrice(min);
       setMaxPrice(1000);
-      setSelectedCategory(category);
-      refetch();
+      setCategory(category);
     };
   
     const fetchAllProducts = () => {
       setMinPrice(min);
       setMaxPrice(10000);
-      setNewRelease(false); // Fix the typo here
+      setNewRelease(false); 
+      setCategory("")
       refetch();
     };
 
@@ -69,7 +69,7 @@ interface Product {
 
   
     return (
-      <div className="w-full md:w-64 h-screen bg-white border-r border-gray-300 flex flex-col md:flex-row">
+      <div className="w-full md:w-64 h-screen bg-gray-200 border-r border-gray-300 flex flex-col md:flex-row">
       <div className="md:w-64 md:flex-shrink-0">
         <div className="px-4 py-3">
           <BsFilterLeft />
@@ -148,37 +148,36 @@ interface Product {
                 {isCategoryOpen && (
                   <ul>
                     <li>
-                      <a
-                       href='javascript:void(0)'
+                      <p
+                       
                         className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
                           selectedCategory === 'Hoodies' ? 'bg-gray-100' : ''
                         }`}
-                        onClick={() => fetchProductsByCategory('Hoodies')}
+                        onClick={() => fetchProductsByCategory('?category=hoodies')}
+                      
                       >
                         <span className='ml-4'>Hoodies</span>
-                      </a>
+                      </p>
                     </li>
                     <li>
-                      <a
-                        href='javascript:void(0)'
-                        className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
+                      <p
+                      className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
                           selectedCategory === 'Pants' ? 'bg-gray-100' : ''
                         }`}
-                        onClick={() => fetchProductsByCategory('Pants')}
+                        onClick={() => fetchProductsByCategory('?category=pants')}
                       >
                         <span className='ml-4'>Pants</span>
-                      </a>
+                      </p>
                     </li>
                     <li>
-                      <a
-                       href='javascript:void(0)'
+                      <p
                         className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
                           selectedCategory === 'Sneakers' ? 'bg-gray-100' : ''
                         }`}
-                        onClick={() => fetchProductsByCategory('Sneakers')}
+                        onClick={() => fetchProductsByCategory('?category=sneakers')}
                       >
                         <span className='ml-4'>Sneakers</span>
-                      </a>
+                      </p>
                     </li>
                   </ul>
                 )}

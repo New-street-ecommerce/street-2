@@ -26,39 +26,32 @@ const Page = () => {
   const [isNewRelease, setNewRelease] = useState();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-
+  const[category,setCategory]=useState("")
   const { data: newRelease, isError: rr, isLoading: load } = useQuery<Product[]>({
     queryKey: ["new", isNewRelease],
     queryFn: () =>
-      fetch(`http://localhost:5001/product/New?isNew=${isNewRelease}`).then(
+      fetch(`http://localhost:5000/product/New?isNew=${isNewRelease}`).then(
         (res) => res.json()
       ),
   });
 
-  useEffect(() => {
-    console.log('New Release Data:', newRelease);
-    console.log('Is Error:', rr);
-    console.log('Is Loading:', load);
-  }, [newRelease, rr, load]);
+  
 
   const { data: products, refetch, isError, isLoading } = useQuery<Product[]>({
     queryKey: ['products', minPrice, maxPrice],
     queryFn: () =>
-      fetch(`http://localhost:5001/product/${minPrice}/${maxPrice}`).then((res) =>
+      fetch(`http://localhost:5000/product/${minPrice}/${maxPrice}${category}`).then((res) =>
         res.json()
       ),
   });
 
   const [likedProducts, setLikedProducts] = useState<number[]>([]);
+
+  useEffect(() => {
   
-  // const { data: catg } = useQuery<Product[]>({
-  //   queryKey: ['category', category], // Assuming category is defined in your component
-  //   queryFn: () =>
-  //     fetch(`http://localhost:5001/product/${category}`).then((res) =>
-  //       res.json()
-  //     ),
-  // });
-    
+    refetch()
+  }, [newRelease, rr, load, category]);
+  
 
   if (isLoading) {
     return (
@@ -77,7 +70,6 @@ const Page = () => {
   }
 
   const handleLikeClick = (productId: number) => {
-    // Find the selected product from either newRelease or products
     const selected =
       newRelease?.find((product) => product.id === productId) ||
       products?.find((product) => product.id === productId);
@@ -102,7 +94,7 @@ const Page = () => {
 
   return (
     <div className='flex'>
-      <Sidebar isNewRelease={isNewRelease} setMinPrice={setMinPrice} setMaxPrice={setMaxPrice} refetch={refetch} minPrice={minPrice} maxPrice={maxPrice} setNewRelease={setNewRelease} />
+      <Sidebar category={category} setCategory={setCategory} isNewRelease={isNewRelease} setMinPrice={setMinPrice} setMaxPrice={setMaxPrice} refetch={refetch} minPrice={minPrice} maxPrice={maxPrice} setNewRelease={setNewRelease} />
       <div className='container mx-auto p-4 lg:h-screen flex items-center justify-center mt-[-150px]'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[70px]'>
           {isNewRelease &&
@@ -139,7 +131,7 @@ const Page = () => {
               </div>
             ))}
           {!isNewRelease &&
-            Array.isArray(products) &&
+            Array.isArray(products)  &&
             products.map((product: Product, index: number) => (
               <div
                 key={index}
@@ -166,7 +158,7 @@ const Page = () => {
                  
                   <p className='mt-2 font-light font-semibold text-2xl italic text-black'>{product.category}</p>
 
-                  <p className='mt-[-220px] ml-[300px] text-xl font-bold text-pink-900'>
+                  <p className='mt-[-330px] ml-[300px] mb-[100px] text-xl font-bold text-pink-900'>
                     ${product.price}
                   </p>
                   
