@@ -133,3 +133,17 @@ export const addToFavList = ()=>{
 })
 return query
 }
+export const deleteItemFav = () => {
+  const queryClient = useQueryClient();
+  const query = useMutation({
+    mutationKey: ["favList"],
+    mutationFn: (id :any) => {
+      return axios.delete(`http://localhost:5001/favlist/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['favList'] });
+    },
+  });
+
+  return query;
+};
