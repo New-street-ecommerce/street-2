@@ -27,20 +27,20 @@ const  ProductController = {
     }
   },
 
-  // getCat: async (req: any, res: any) => {
-  //   const catg = req.params.catg;
-  //   try {
-  //     const allcat = await prisma.product.findMany({ where: { category: catg } });
-  //     if (allcat.length > 0) {
-  //       res.status(200).send(allcat);
-  //     } else {
-  //       res.status(200).send([]);
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //     res.status(500).send(err);
-  //   }
-  // },
+  getCat: async (req: any, res: any) => {
+    const catg = req.params.catg;
+    try {
+      const allcat = await prisma.product.findMany({ where: { category: catg } });
+      if (allcat.length > 0) {
+        res.status(200).send(allcat);
+      } else {
+        res.status(200).send([]);
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send(err);
+    }
+  },
 
   getNew: async (req: any, res: any) => {
     try {
@@ -54,7 +54,7 @@ const  ProductController = {
  filterbyPrice : async (req: any, res: any) => {
   const minPrice = parseFloat(req.params.minprice);
   const maxPrice = parseFloat(req.params.maxprice);
-
+  const ctg=req.query.category
   try {
     const products = await prisma.product.findMany({
       where: {
@@ -62,6 +62,9 @@ const  ProductController = {
           gte: minPrice,
           lte: maxPrice,
         },
+        category:{
+          equals:ctg
+        }
       },
     });
 
@@ -83,8 +86,8 @@ const  ProductController = {
             price,
             isNew,
             pictures,
-            category,
             collection: { connect: { id: collectionId } },
+            category,
           },
         });
         res.status(200).json(response);

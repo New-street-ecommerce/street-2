@@ -46,12 +46,15 @@ const Footer = () => {
             </li>
             <li className="mt-2">
             <FaDiscord className="text-white" /> 
+             wo E-street
             </li>
             <li className="mt-2">
             <FaInstagram className="text-white" />
+             E-street
             </li >
             <li className="mt-2">
             <FaTiktok className="text-white" />
+            street-day
             </li>
           </ul>
         </div>
