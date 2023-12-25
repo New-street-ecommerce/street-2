@@ -1,7 +1,8 @@
 
 import  express  from "express";
+import {signUp,updatePfp,updateCoverPic,signIn,updateProfil} from "../controller/artistController";
 const router=express.Router()
-import { signUp,updateProfil,updatePfp,updateCoverPic,signIn} from "../controller/artistController";
+
 
 
 router.put("/Profile/updateProfil/:artistId",updateProfil)
