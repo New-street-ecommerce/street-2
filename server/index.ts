@@ -11,6 +11,8 @@ import cartRouter from "./router/cartRouter"
 import followBrandRouter from "./router/followBrand"
 import followArtistRouter from "./router/followArtists"
 import postRoutes from  "./router/postRouter"
+import questionRouter from "./router/questionRouter"
+import favListRouter from "./router/favListRouter"
 dotenv.config()
 
 const app = express()
@@ -46,6 +48,8 @@ app.use('/comment',routecomment)
 //khalil
 app.use("/brand", brandRouter)
 app.use("/cart", cartRouter)
+app.use("/question", questionRouter)
+app.use("/favlist",favListRouter)
 
 
 app.listen(port, () => {
