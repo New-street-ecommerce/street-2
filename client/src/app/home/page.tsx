@@ -117,30 +117,56 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="w-full  items-center justify-center grid  mt-8 ">
-            <img
-              className="w-48 h-56  rounded-lg"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWTStMfvc1_3lm43YOoCXGaWLl5007Vkd4O9mN9jbgaM4wq0vHDyp8o5yqCJMWpOfGfJI&usqp=CAU"
-              alt=""
-            />
-            <img
-              className="w-48  h-[160px]  row-start-2 rounded-lg"
-              src="https://i.ebayimg.com/images/g/JesAAOSwtqxjNFaR/s-l1600.jpg"
-              alt=""
-            />
-            <img
-              className="w-48 h-    rounded-lg"
-              src="https://static.zara.net/photos///2023/I/0/2/p/4432/415/401/2/w/287/4432415401_6_1_1.jpg?ts=1689085205387"
-              alt=""
-            />
+          <div>
+          <div className="w-[40rem] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid gap-4">
+              <div>
+                <img
+                  className="h-auto max-w-full rounded-lg"
+                  src="https://i.pinimg.com/564x/2a/92/85/2a92857e154fcef5e9cb933dc2f77634.jpg"
+                  alt=""
+                />
+              </div>
+              <div>
+                <img
+                  className="h-auto max-w-full rounded-lg"
+                  src="https://i.pinimg.com/564x/6d/19/d0/6d19d08a63be5d15aa1ae0bc397f0aca.jpg"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div className="grid gap-4">
+              <div>
+                <img
+                  className="h-auto max-w-full rounded-lg"
+                  src="https://i.pinimg.com/564x/b2/20/f5/b220f501ebf4651e2e36a67d75c2c8c7.jpg"
+                  alt=""
+                />
+              </div>
 
-            <img
-              className="w-48 h-56  row-span-2 rounded-lg"
-              src="https://static.bershka.net/4/photos2/2023/I/0/1/p/9313/702/800/91d54691f2230dc4b5be9cabc2455353-9313702800_1_1_0.jpg?imwidth=850&impolicy=bershka-itxmedium&imformat=generic"
-              alt=""
-            />
+              <div>
+                <img
+                  className="h-auto max-w-full rounded-lg"
+                  src="https://i.pinimg.com/564x/e0/3b/6e/e03b6e1d6383de92284b4512d93fed74.jpg"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div className="grid gap-4  mt-20 ">
+              <div>
+                <img
+                  className=" h-80 max-w-full rounded-lg "
+                  src="https://i.pinimg.com/564x/5c/77/df/5c77df5404a69834f29ed4a1131363ad.jpg"
+                  alt=""
+                />
+              </div>
+
+
+            </div>
+
           </div>
         </div>
+      </div>
         <div className="w-full h-20 flex justify-evenly mt-8 mb-[100px]">
           <div className="w-16 h-20">
             <h1 className="text-white text-3xl font-bold font-['Poppins']">
@@ -313,8 +339,8 @@ const Home = () => {
               >
                 {like ? <FcLikePlaceholder /> : <FcLike />} 
               </div>
-              <button className="mt-2 ml-2 bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md self-center">
-                Buy Now
+              <button  className="mt-2 ml-2 bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md self-center">
+                <Link href={"/basket"}>Buy Now</Link>
               </button>
             </div>
           </div>
