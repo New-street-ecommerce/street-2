@@ -9,6 +9,7 @@ import { getStorage } from "firebase/storage";
 import Modal from "react-modal";
 import EditProfil from "./EditProfil/page";
 import PostsPictures from "./components/PostsPictures";
+
 const Profil = () => {
   const [postContent, setPostContent] = useState("");
   const [postPicture, setPostPicture] = useState("");
@@ -33,15 +34,14 @@ const Profil = () => {
       const userDetails = parsedUser.user;
       const userId = userDetails.uid;
       const userEmail = userDetails.email;
-      // You can add more properties here as needed
-      // For example, if the profile picture URL is stored under 'photoURL', you can extract it as follows:
+      
       // const userProfilePic = userDetails.photoURL;
-
-      // Set the extracted information to your state or use them as needed
       setId(userId);
     }
   }, []);
   console.log(id, "ghjklljk");
+  
+  
   const handlePost = async () => {
     try {
       await axios.post(`http://localhost:5000/artist/Profile/Post/${id}`, {
@@ -49,29 +49,15 @@ const Profil = () => {
         picture: postPicture,
       });
       console.log("Post successful");
-      // After posting, fetch all posts again
+      
       getAllPosts();
     } catch (error: any) {
       console.log("Error posting:", error.message);
     }
   };
 
-  const getAllPosts = () => {
-    axios
-      .get(`http://localhost:5000/artist/getAllPosts/${id}`)
-      .then((res) => {
-        setPosts(res.data);
-        console.log("Get all posts successfully");
-        console.log(res.data);
-      })
-      .catch((error) => console.log("Error getting all posts:", error));
-  };
+   
 
-  // Call getAllPosts when the component mounts
-  useEffect(() => {
-    getAllPosts();
-  }, []);
-  // console.log(posts);
   return (
     <div className="mb-10 relative">
       {/* Background Image and Edit Button */}
