@@ -1,16 +1,18 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { login, loginDb } from "../Providers/useApi";
+import { login, loginDb, signInWithGoogle } from "../Providers/useApi";
 import { useState } from "react";
 import main from "../../../assets/main.png";
-
+import { useRouter } from 'next/navigation'
 const SignIn = () => {
+  const router = useRouter()
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [passwordHidden, setPasswordHidden] = useState(true);
   const mutation = login();
   const mutationdB = loginDb("user");
+  const mutationG = signInWithGoogle("user")
 
   return (
     <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
@@ -36,6 +38,7 @@ const SignIn = () => {
                 event.preventDefault();
                 mutation.mutate({ email: loginEmail, password: loginPassword });
                 mutationdB.mutate({ email: loginEmail });
+                router.push('/home')
               }}
               className="self-stretch flex flex-col px-9 max-md:max-w-full max-md:px-5"
             >
@@ -157,7 +160,7 @@ const SignIn = () => {
 
               <div className="space-y-4 text-sm font-medium">
                 <button
-                  onClick={() => {}}
+                  onClick={() => {mutationG.mutate()}}
                   className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100"
                 >
                   <svg
