@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-// import { Artist } from '../types.d.ts';
 const prisma = new PrismaClient();
 
 

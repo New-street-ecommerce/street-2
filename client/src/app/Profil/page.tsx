@@ -114,6 +114,7 @@ const Profil = () => {
           <Modal
             isOpen={modalIsOpen}
             onRequestClose={closeModal}
+            
             contentLabel="Modal 1"
             className="bg-white"
           >

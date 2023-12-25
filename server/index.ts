@@ -32,6 +32,9 @@ import routecol from "./router/collection"
 app.use('/collection',routecol)
 app.use("/follow/brand",followBrandRouter)
 
+import routecomment from "./router/commentRouter"
+app.use('/comment',routecomment)
+
 
 
 
