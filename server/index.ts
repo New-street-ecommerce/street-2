@@ -34,6 +34,9 @@ app.use('/collection',routecol)
 app.use("/follow/brand",followBrandRouter)
 app.use("/follow/artist",followArtistRouter)
 
+import routecomment from "./router/commentRouter"
+app.use('/comment',routecomment)
+
 
 
 
