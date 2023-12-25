@@ -9,6 +9,7 @@ import userRouter from "./router/userRouter"
 import brandRouter from "./router/brandRouter"
 import cartRouter from "./router/cartRouter"
 import followBrandRouter from "./router/followBrand"
+import questionRouter from "./router/questionRouter"
 dotenv.config()
 
 const app = express()
@@ -39,6 +40,7 @@ app.use("/follow/brand",followBrandRouter)
 //khalil
 app.use("/brand", brandRouter)
 app.use("/cart", cartRouter)
+app.use("/question", questionRouter)
 
 
 app.listen(port, () => {
