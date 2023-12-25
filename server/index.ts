@@ -10,6 +10,7 @@ import brandRouter from "./router/brandRouter"
 import cartRouter from "./router/cartRouter"
 import followBrandRouter from "./router/followBrand"
 import followArtistRouter from "./router/followArtists"
+import postRoutes from  "./router/postRouter"
 dotenv.config()
 
 const app = express()
@@ -28,6 +29,7 @@ app.use("/user",userRouter)
 // products
  import routeProd from "./router/products"
 app.use('/product',routeProd)
+app.use('/posts',postRoutes)
 
 import routecol from "./router/collection"
 app.use('/collection',routecol)
