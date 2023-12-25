@@ -29,7 +29,7 @@ const ShoppingCart = () => {
   var { isError, isLoading, data } = useQuery<Cart[]>({
     queryKey: ["cart"],
     queryFn: () =>
-      fetch("http://localhost:5001/cart/1").then((res) => res.json()),
+      fetch("http://localhost:5000/cart/1").then((res) => res.json()),
   });
   if (isLoading) {
     return (

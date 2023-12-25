@@ -11,7 +11,7 @@ const Brand = () => {
   var  { isError,isLoading, data: brand } = useQuery<Brand[]>({
     queryKey: ["brand"], 
     queryFn: () =>
-      fetch("http://localhost:5001/brand").then((res) => res.json()),
+      fetch("http://localhost:5000/brand").then((res) => res.json()),
   });
   if (isLoading) {
     return (

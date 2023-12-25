@@ -87,7 +87,7 @@ export const useDeleteCart = (id : any) => {
   const query = useMutation({
     mutationKey: ["cart"],
     mutationFn: (id :any) => {
-      return axios.delete(`http://localhost:5001/cart/${id}`);
+      return axios.delete(`http://localhost:5000/cart/${id}`);
     },
     onSuccess: () => {
       // Invalidate and refetch the "cart" query
@@ -100,7 +100,7 @@ export const useDeleteCart = (id : any) => {
 export const addToCart = ()=> {
   const query= useMutation({
       mutationFn: async(object: {userId: number, productId: number})=>{
-           const  res :any = await axios.post(`http://localhost:5001/cart`,object)
+           const  res :any = await axios.post(`http://localhost:5000/cart`,object)
            return res
       },
       onError: (error) => {
@@ -112,7 +112,7 @@ export const addToCart = ()=> {
 export const addQuestion = ()=> {
   const query= useMutation({
       mutationFn: async(object: {userId: number, question: string})=>{
-           const  res :any = await axios.post(`http://localhost:5001/question`,object)
+           const  res :any = await axios.post(`http://localhost:5000/question`,object)
            return res
       },
       onError: (error) => {
@@ -124,7 +124,7 @@ export const addQuestion = ()=> {
 export const addToFavList = ()=>{
   const query= useMutation({
     mutationFn: async(object: {userId: number, productId: number})=>{
-         const  res :any = await axios.post(`http://localhost:5001/favlist`,object)
+         const  res :any = await axios.post(`http://localhost:5000/favlist`,object)
          return res
     },
     onError: (error) => {
@@ -138,7 +138,7 @@ export const deleteItemFav = () => {
   const query = useMutation({
     mutationKey: ["favList"],
     mutationFn: (id :any) => {
-      return axios.delete(`http://localhost:5001/favlist/${id}`);
+      return axios.delete(`http://localhost:5000/favlist/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['favList'] });

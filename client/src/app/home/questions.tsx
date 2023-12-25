@@ -16,7 +16,7 @@ const Questions = () => {
     const {data, isLoading, isError} = useQuery<Question[]>({
         queryKey: ["question"],
         queryFn : ()=>
-            fetch("http://localhost:5001/question").then((res) => res.json()),
+            fetch("http://localhost:5000/question").then((res) => res.json()),
     })
     if (isError) {
         return (

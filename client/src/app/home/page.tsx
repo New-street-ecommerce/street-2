@@ -33,7 +33,7 @@ const Home = () => {
   } = useQuery<Product[]>({
     queryKey: ["products"], // Change the query key to 'products'
     queryFn: () =>
-      fetch("http://localhost:5001/product/all").then((res) => res.json()),
+      fetch("http://localhost:5000/product/all").then((res) => res.json()),
   });
   if (isLoading) {
     return (

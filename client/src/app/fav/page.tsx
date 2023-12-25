@@ -22,7 +22,7 @@ const Page = () => {
   const {data, isError, isLoading} = useQuery<favList[]>({
     queryKey:  ["favList"],
     queryFn : ()=>
-    fetch("http://localhost:5001/favlist/1").then((res) => res.json()),
+    fetch("http://localhost:5000/favlist/1").then((res) => res.json()),
   })
   if (isLoading) {
     return (
