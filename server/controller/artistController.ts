@@ -110,30 +110,30 @@ export const updateCoverPic = async (req: Request, res: Response) => {
   }
 };
 
-// export const signUp = async (req: Request, res: Response) => {
-//   try {
-//     const { email, name, username, dateOfBirth }: Artist = req.body;
-//     const Artist = await prisma.artist.findUnique({
-//       where: {
-//         email,
-//       },
-//     });
-//     if (Artist !== null) {
-//       return res.status(409).send("Artist Already Exist");
-//     }
-//     await prisma.artist.create({
-//       data : {
-//         email,
-//         name,
-//         username,
-//         dateOfBirth,
-//       },
-//     });
-//     return res.status(201).send("succesful");
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// };
+export const signUp = async (req: Request, res: Response) => {
+  try {
+    const { email, name, username, dateOfBirth }: Artist = req.body;
+    const Artist = await prisma.artist.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (Artist !== null) {
+      return res.status(409).send("Artist Already Exist");
+    }
+    await prisma.artist.create({
+      data : {
+        email,
+        name,
+        username,
+        dateOfBirth,
+      },
+    });
+    return res.status(201).send("succesful");
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
 export const signIn = async (req: Request, res: Response) => {
   try {
