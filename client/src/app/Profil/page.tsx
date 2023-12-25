@@ -13,7 +13,7 @@ import PostsPictures from "./components/PostsPictures";
 const Profil = () => {
   const [postContent, setPostContent] = useState("");
   const [postPicture, setPostPicture] = useState("");
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<any>([]);
   const [artist, setArtist] = useState({});
   const [currentUser, setCurrentUser] = useState<any>();
   const [modalIsOpen, setModalIsOpen] = useState<any>(false);
@@ -32,29 +32,33 @@ const Profil = () => {
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       const userDetails = parsedUser.user;
-      const userId = userDetails.uid;
-      const userEmail = userDetails.email;
-      
+      // const userId = userDetails.uid;
+
+       
+      // const userEmail = userDetails.email;
       // const userProfilePic = userDetails.photoURL;
-      setId(userId);
+      // setId(userId);
     }
   }, []);
-  console.log(id, "ghjklljk");
+
   
   
+ 
   const handlePost = async () => {
     try {
-      await axios.post(`http://localhost:5000/artist/Profile/Post/${id}`, {
-        content: postContent,
-        picture: postPicture,
-      });
-      console.log("Post successful");
-      
-      getAllPosts();
+        const response = await axios.post(`http://localhost:5000/posts/Profile/Post/1`, {
+            content: postContent,
+            picture: postPicture,
+        });
+
+        console.log("Post successful:", response.data);
+        setPosts( [...posts, response.data]);
+
     } catch (error: any) {
-      console.log("Error posting:", error.message);
+        console.error("Error posting:", error.response ? error.response.data : error.message);
     }
-  };
+};
+
 
    
 
@@ -202,7 +206,7 @@ const Profil = () => {
               {/* Button to submit the post */}
               <button
                 className="w-full bg-violet-500 mt-3 rounded-full py-4 text-white font-bold text-xl"
-                onClick={handlePost}
+                onClick={()=> handlePost()}
               >
                 Post
               </button>

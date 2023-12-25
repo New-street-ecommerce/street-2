@@ -87,11 +87,61 @@ export const useDeleteCart = (id : any) => {
   const query = useMutation({
     mutationKey: ["cart"],
     mutationFn: (id :any) => {
-      return axios.delete(`http://localhost:5001/cart/${id}`);
+      return axios.delete(`http://localhost:5000/cart/${id}`);
     },
     onSuccess: () => {
       // Invalidate and refetch the "cart" query
       queryClient.invalidateQueries({ queryKey: ['cart'] });
+    },
+  });
+
+  return query;
+};
+export const addToCart = ()=> {
+  const query= useMutation({
+      mutationFn: async(object: {userId: number, productId: number})=>{
+           const  res :any = await axios.post(`http://localhost:5000/cart`,object)
+           return res
+      },
+      onError: (error) => {
+          console.log(error)
+      }
+  })
+  return query
+}
+export const addQuestion = ()=> {
+  const query= useMutation({
+      mutationFn: async(object: {userId: number, question: string})=>{
+           const  res :any = await axios.post(`http://localhost:5000/question`,object)
+           return res
+      },
+      onError: (error) => {
+          console.log(error)
+      }
+  })
+  return query
+}
+export const addToFavList = ()=>{
+  const query= useMutation({
+    mutationFn: async(object: {userId: number, productId: number})=>{
+         const  res :any = await axios.post(`http://localhost:5000/favlist`,object)
+         return res
+    },
+    onError: (error) => {
+        console.log(error)
+    }
+})
+return query
+}
+export const deleteItemFav = () => {
+  const queryClient = useQueryClient();
+  const query = useMutation({
+    mutationKey: ["favList"],
+    mutationFn: (id :any) => {
+      return axios.delete(`http://localhost:5000/favlist/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['favList'] });
     },
   });
 

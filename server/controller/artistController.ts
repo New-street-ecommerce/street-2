@@ -82,7 +82,7 @@ export const signUp = async (req: Request, res: Response) => {
       },
     });
     if (Artist !== null) {
-      return res.status(409).send("Artist Already Exist");
+      return res.status(409).send(Artist);
     }
     await prisma.artist.create({
       data : {
@@ -92,7 +92,7 @@ export const signUp = async (req: Request, res: Response) => {
         dateOfBirth,
       },
     });
-    return res.status(201).send("succesful");
+    return res.status(201).send(Artist);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -112,5 +112,19 @@ export const signIn = async (req: Request, res: Response) => {
     res.status(500).send(error);
   }
 };
-
+export const getArtistByEmail = async (req: Request, res: Response) =>{
+  
+  let artistId= Number(req.params.artistId)
+  try {
+    const getemail=await prisma.artist.findUnique({
+      where:{id:artistId},
+    })
+    if (!getemail) {
+      res.status(409).send("Artist does not exist");
+  }else{
+    res.status(200).send(getemail)
+  }} catch (error:any) {
+    res.status(500).send(error)
+  }
+}
 

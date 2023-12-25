@@ -4,8 +4,7 @@ import axios from "axios";
 import { GrCart } from "react-icons/gr";
 import { useQuery } from "@tanstack/react-query";
 // import { useMutation } from "react-query";
-import {useDeleteCart  } from "../Providers/useApi"
-
+import { useDeleteCart } from "../Providers/useApi";
 
 interface Cart {
   id: number;
@@ -25,13 +24,12 @@ interface Cart {
 const ShoppingCart = () => {
   const [quantity, setQuantity] = useState(1);
   const [cartVisible, setCartVisible] = useState(true);
-  
-  
+
   const deleteCartMutation = useDeleteCart(Number);
   var { isError, isLoading, data } = useQuery<Cart[]>({
     queryKey: ["cart"],
     queryFn: () =>
-      fetch("http://localhost:5001/cart/1").then((res) => res.json()),
+      fetch("http://localhost:5000/cart/1").then((res) => res.json()),
   });
   if (isLoading) {
     return (
@@ -49,20 +47,19 @@ const ShoppingCart = () => {
     );
   }
 
+  const getTotalPrice = (ele: any) => {
+    return (ele.product.price * quantity).toFixed(2);
+  };
 
-    const getTotalPrice = (ele: any) => {
-      return (ele.product.price * quantity).toFixed(2);
-    };
+  const incrementQuantity = () => {
+    setQuantity(quantity + 1);
+  };
 
-    const incrementQuantity = () => {
-      setQuantity(quantity + 1);
-    };
-
-    const decrementQuantity = () => {
-      if (quantity > 1) {
-        setQuantity(quantity - 1);
-      }
-    };
+  const decrementQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
   //   const toggleCartVisibility = () => {
   //     setCartVisible(!cartVisible);
@@ -72,7 +69,7 @@ const ShoppingCart = () => {
     <div className="relative">
       <div>
         <GrCart
-            // onClick={toggleCartVisibility}
+          // onClick={toggleCartVisibility}
           className="cursor-pointer text-3xl"
         />
       </div>
@@ -107,14 +104,14 @@ const ShoppingCart = () => {
               <div className="flex items-center">
                 <button
                   className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
-                    onClick={decrementQuantity}
+                  onClick={decrementQuantity}
                 >
                   -
                 </button>
                 <span className="text-xl font-bold">{quantity}</span>
                 <button
                   className="bg-blue-500 text-white px-3 py-1 rounded ml-2"
-                    onClick={incrementQuantity}
+                  onClick={incrementQuantity}
                 >
                   +
                 </button>
@@ -122,7 +119,7 @@ const ShoppingCart = () => {
 
               <button
                 className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
-                onClick={()=>deleteCartMutation.mutate(ele.id)}
+                onClick={() => deleteCartMutation.mutate(ele.id)}
               >
                 Delete
               </button>

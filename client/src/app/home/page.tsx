@@ -1,10 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { FcLikePlaceholder, FcLike } from "react-icons/fc";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import Brand from "./brand"
+import Brand from "./brand";
+import { addToCart, addToFavList } from "../Providers/useApi";
+import Questions from "./questions";
+import { FcLikePlaceholder, FcLike } from "react-icons/fc";
+
+
 interface Product {
   id: number;
   name: string;
@@ -18,10 +22,10 @@ interface Product {
   users: any[];
 }
 
-
 const Home = () => {
-  const [question, setQuestion] = useState("");
   const [like, setLike] = useState(false);
+  const mutationFav = addToFavList()
+  const mutation = addToCart();
   const {
     data: products,
     isLoading,
@@ -29,45 +33,31 @@ const Home = () => {
   } = useQuery<Product[]>({
     queryKey: ["products"], // Change the query key to 'products'
     queryFn: () =>
-      fetch("http://localhost:5001/product/all").then((res) => res.json()),
-    });
-    if (isLoading) {
-      return (
-        <main className="mt-4 flex min-h-screen flex-col items-center">
-          Fetching data currently
-        </main>
-      );
-    }
-    if (isError) {
-      return (
-        <main className="mt-4 flex min-h-screen flex-col items-center">
-          Error fetching data
-        </main>
-      );
-    }
+      fetch("http://localhost:5000/product/all").then((res) => res.json()),
+  });
+  if (isLoading) {
+    return (
+      <main className="mt-4 flex min-h-screen flex-col items-center">
+        Fetching data currently
+      </main>
+    );
+  }
+  if (isError) {
+    return (
+      <main className="mt-4 flex min-h-screen flex-col items-center">
+        Error fetching data
+      </main>
+    );
+  }
 
-
-  const questionPosting = async () => {
-    try {
-      if (question.trim() === "") {
-        return;
-      }
-      const response = await axios.post(
-        "http://localhost:3000/api/Question/Ask",
-        {
-          question: question,
-        }
-      );
-      console.log("Question posted successfully:", response.data);
-      setQuestion("");
-    } catch (error) {
-      console.error("Error posting question:", error);
-    }
+  const handleBuyNowClick = async () => {
+    await mutation.mutate({ userId: 1, productId: 1 });
   };
-
+  const handleFavListClick = async ()=>{
+    await mutationFav.mutate({ userId: 1, productId: 1 });
+  }
   return (
     <>
-      
       <div className="flex justify-center pt-[104px] ">
         <div className="flex w-full   justify-around">
           <div className="flex items-center justify-center gap-4 p-4 bg-purple-600 rounded-full w-[164px] h-[45px]">
@@ -85,10 +75,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="mx-auto mt-8 flex flex-col items-center justify-evenly pt-20 gap-20 ">
         <div className="flex justify-evenly ">
-          
           <div className="w-full text-white text-6xl font-extrabold font-['SF Pro Display'] leading-[81px] tracking-wide">
             Clothes are the
             <br />
@@ -117,28 +106,51 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="w-full  items-center justify-center grid  mt-8 ">
-            <img
-              className="w-48 h-56  rounded-lg"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWTStMfvc1_3lm43YOoCXGaWLl5007Vkd4O9mN9jbgaM4wq0vHDyp8o5yqCJMWpOfGfJI&usqp=CAU"
-              alt=""
-            />
-            <img
-              className="w-48  h-[160px]  row-start-2 rounded-lg"
-              src="https://i.ebayimg.com/images/g/JesAAOSwtqxjNFaR/s-l1600.jpg"
-              alt=""
-            />
-            <img
-              className="w-48 h-    rounded-lg"
-              src="https://static.zara.net/photos///2023/I/0/2/p/4432/415/401/2/w/287/4432415401_6_1_1.jpg?ts=1689085205387"
-              alt=""
-            />
+          <div>
+            <div className="w-[40rem] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid gap-4">
+                <div>
+                  <img
+                    className="h-auto max-w-full rounded-lg"
+                    src="https://i.pinimg.com/564x/2a/92/85/2a92857e154fcef5e9cb933dc2f77634.jpg"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <img
+                    className="h-auto max-w-full rounded-lg"
+                    src="https://i.pinimg.com/564x/6d/19/d0/6d19d08a63be5d15aa1ae0bc397f0aca.jpg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div className="grid gap-4">
+                <div>
+                  <img
+                    className="h-auto max-w-full rounded-lg"
+                    src="https://i.pinimg.com/564x/b2/20/f5/b220f501ebf4651e2e36a67d75c2c8c7.jpg"
+                    alt=""
+                  />
+                </div>
 
-            <img
-              className="w-48 h-56  row-span-2 rounded-lg"
-              src="https://static.bershka.net/4/photos2/2023/I/0/1/p/9313/702/800/91d54691f2230dc4b5be9cabc2455353-9313702800_1_1_0.jpg?imwidth=850&impolicy=bershka-itxmedium&imformat=generic"
-              alt=""
-            />
+                <div>
+                  <img
+                    className="h-auto max-w-full rounded-lg"
+                    src="https://i.pinimg.com/564x/e0/3b/6e/e03b6e1d6383de92284b4512d93fed74.jpg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div className="grid gap-4  mt-20 ">
+                <div>
+                  <img
+                    className=" h-80 max-w-full rounded-lg "
+                    src="https://i.pinimg.com/564x/5c/77/df/5c77df5404a69834f29ed4a1131363ad.jpg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="w-full h-20 flex justify-evenly mt-8 mb-[100px]">
@@ -169,7 +181,6 @@ const Home = () => {
         </div>
       </div>
 
-    
       <div className="flex justify-evenly mb-[100px]">
         <div className="max-w-[994px] ">
           <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
@@ -197,7 +208,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="p-4 mx-auto flex flex-col gap-8 items-center mb-[100px]">
         <h1 className="text-white text-5xl font-bold ">About Us</h1>
         <p className="text-gray-500 text-center">
@@ -305,16 +316,26 @@ const Home = () => {
               </div>
             </div>
             <div className="flex items-center">
+              {/* like */}
               <div
                 className="mr-4 "
-                 onClick={() => {
+                onClick={() => {
                   setLike(!like);
                 }}
               >
-                {like ? <FcLikePlaceholder /> : <FcLike />} 
+                {like ? (
+                  <FcLike
+                    onClick={handleFavListClick}
+                  />
+                ) : (
+                  <FcLikePlaceholder />
+                )}
               </div>
+              
               <button className="mt-2 ml-2 bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md self-center">
-                Buy Now
+                <Link onClick={handleBuyNowClick} href={"/basket"}>
+                  Buy Now
+                </Link>
               </button>
             </div>
           </div>
@@ -327,32 +348,10 @@ const Home = () => {
       </div>
       <div>
         <div className="p-20 mx-10 mt-8 flex justify-around gap-5">
-
-            <Brand />
+          <Brand />
         </div>
       </div>
-      <div className="p-4 mx-auto flex flex-col gap-8 items-center mt-[65px] ">
-        <h1 className="text-white text-4xl font-bold whitespace-nowrap">
-          Ask us
-        </h1>
-        <div className="flex max-w-[590px] flex-col items-stretch">
-          <div className="flex w-full items-stretch justify-between gap-5 px-5 max-md:max-w-full max-md:flex-wrap">
-          <input
-              className="text-white bg-transparent  text-opacity-50 text-xl font-medium w-[500px] "
-              placeholder="Ask us something we will get to you "
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-            />
-
-            <button
-              className="text-white text-opacity-50 text-xl font-medium self-start"
-              onClick={questionPosting}
-            >
-              +
-            </button>
-          </div>
-        </div>
-      </div>
+      <Questions />
     </>
   );
 };
