@@ -49,6 +49,7 @@ interface Product {
     };
   
     const fetchProductsByCategory = (category: string) => {
+      console.log('Selected Category:', category);
       setMinPrice(min);
       setMaxPrice(1000);
       setSelectedCategory(category);

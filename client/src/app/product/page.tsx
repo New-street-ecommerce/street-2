@@ -50,6 +50,15 @@ const Page = () => {
   });
 
   const [likedProducts, setLikedProducts] = useState<number[]>([]);
+  
+  // const { data: catg } = useQuery<Product[]>({
+  //   queryKey: ['category', category], // Assuming category is defined in your component
+  //   queryFn: () =>
+  //     fetch(`http://localhost:5001/product/${category}`).then((res) =>
+  //       res.json()
+  //     ),
+  // });
+    
 
   if (isLoading) {
     return (
@@ -165,6 +174,7 @@ const Page = () => {
                   <button className='mt-[150px] bg-blue-500 text-white py-2 px-4 rounded hover:bg-pink-900 ml-[150px]'>
                     Buy
                   </button>
+                
                 </div>
               </div>
             ))}
