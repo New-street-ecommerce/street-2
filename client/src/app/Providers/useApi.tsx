@@ -109,3 +109,15 @@ export const addToCart = ()=> {
   })
   return query
 }
+export const addQuestion = ()=> {
+  const query= useMutation({
+      mutationFn: async(object: {userId: number, question: string})=>{
+           const  res :any = await axios.post(`http://localhost:5001/question`,object)
+           return res
+      },
+      onError: (error) => {
+          console.log(error)
+      }
+  })
+  return query
+}

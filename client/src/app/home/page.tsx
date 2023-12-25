@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import Brand from "./brand";
 import { addToCart } from "../Providers/useApi";
+import Questions from "./questions";
+
 interface Product {
   id: number;
   name: string;
@@ -21,7 +23,7 @@ interface Product {
 
 const Home = () => {
   const mutation = addToCart()
-  const [question, setQuestion] = useState("");
+ 
   const [like, setLike] = useState(false);
   const {
     data: products,
@@ -47,23 +49,7 @@ const Home = () => {
     );
   }
 
-  const questionPosting = async () => {
-    try {
-      if (question.trim() === "") {
-        return;
-      }
-      const response = await axios.post(
-        "http://localhost:3000/api/Question/Ask",
-        {
-          question: question,
-        }
-      );
-      console.log("Question posted successfully:", response.data);
-      setQuestion("");
-    } catch (error) {
-      console.error("Error posting question:", error);
-    }
-  };
+  
   const handleBuyNowClick = () => {
     mutation.mutate({ userId: 1, productId: 1 });
   };
@@ -352,28 +338,8 @@ const Home = () => {
           <Brand />
         </div>
       </div>
-      <div className="p-4 mx-auto flex flex-col gap-8 items-center mt-[65px] ">
-        <h1 className="text-white text-4xl font-bold whitespace-nowrap">
-          Ask us
-        </h1>
-        <div className="flex max-w-[590px] flex-col items-stretch">
-          <div className="flex w-full items-stretch justify-between gap-5 px-5 max-md:max-w-full max-md:flex-wrap">
-            <input
-              className="text-white bg-transparent  text-opacity-50 text-xl font-medium w-[500px] "
-              placeholder="Ask us something we will get to you "
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-            />
+      <Questions/>
 
-            <button
-              className="text-white text-opacity-50 text-xl font-medium self-start"
-              onClick={questionPosting}
-            >
-              +
-            </button>
-          </div>
-        </div>
-      </div>
     </>
   );
 };
