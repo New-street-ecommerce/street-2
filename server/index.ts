@@ -10,6 +10,7 @@ import brandRouter from "./router/brandRouter"
 import cartRouter from "./router/cartRouter"
 import followBrandRouter from "./router/followBrand"
 import followArtistRouter from "./router/followArtists"
+import postRoutes from  "./router/postRouter"
 import questionRouter from "./router/questionRouter"
 import favListRouter from "./router/favListRouter"
 dotenv.config()
@@ -30,6 +31,7 @@ app.use("/user",userRouter)
 // products
  import routeProd from "./router/products"
 app.use('/product',routeProd)
+app.use('/posts',postRoutes)
 
 import routecol from "./router/collection"
 app.use('/collection',routecol)
