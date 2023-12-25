@@ -97,3 +97,15 @@ export const useDeleteCart = (id : any) => {
 
   return query;
 };
+export const addToCart = (input:string)=> {
+  const query= useMutation({
+      mutationFn: async(object: {userId:string, productId: string})=>{
+           const  res :any = await axios.post(`http://localhost:5001/cart`,object)
+           return res
+      },
+      onError: (error,variables,context) => {
+          console.log(error)
+      }
+  })
+  return query
+}

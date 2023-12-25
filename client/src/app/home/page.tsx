@@ -21,6 +21,7 @@ interface Product {
 
 const Home = () => {
   const [question, setQuestion] = useState("");
+  
   const [like, setLike] = useState(false);
   const {
     data: products,
