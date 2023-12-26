@@ -39,3 +39,21 @@ interface Post {
   };
   
 
+  export const updatePostPic = async (req:Request, res: Response) =>{
+    const {picture} = req.body;
+    const {artistId}=req.params
+    try {
+      const updatedPostPic = await prisma.post.update({
+        where:{
+          id: Number(artistId)
+        },
+        data:{
+          picture:picture
+        }
+      })
+      res.status(201).json(updatedPostPic)
+    } catch (error:any) {
+      console.log(error);
+      res.status(404).send(error);
+    }
+    }
