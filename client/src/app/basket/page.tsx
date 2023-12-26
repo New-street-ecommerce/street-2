@@ -128,7 +128,7 @@ const ShoppingCart = () => {
 
               <div className="flex items-center">
                 <button
-                  className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
+                  className="bg-Charcoal text-white px-3 py-1 rounded mr-2"
                   onClick={() => decrementQuantity(ele.id)}
                 >
                   -
@@ -138,7 +138,7 @@ const ShoppingCart = () => {
                   {productQuantities[ele.id] || 1}
                 </span>
                 <button
-                  className="bg-blue-500 text-white px-3 py-1 rounded ml-2"
+                  className="bg-Charcoal text-white px-3 py-1 rounded ml-2"
                   onClick={() => incrementQuantity(ele.id)}
                 >
                   +
