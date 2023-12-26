@@ -62,12 +62,12 @@ const Home = () => {
     <>
       <div className="flex justify-center pt-[104px] ">
         <div className="flex w-full   justify-around">
-          <div className="flex items-center justify-center gap-4 p-4 bg-purple-600 rounded-full w-[164px] h-[45px]">
+          <div className=" py-6 flex items-center justify-center gap-4 p-4 bg-CornellRed rounded-full w-[190px] h-[45px]">
             <Link href={"/Drops"} className="text-white text-lg font-semibold">
               Main Collection
             </Link>
           </div>
-          <div className="flex items-center justify-center gap-4 p-4 bg-zinc-700 rounded-full w-[164px] h-[45px]">
+          <div className="flex items-center justify-center gap-4 p-4 bg-CornellRed rounded-full py-6 w-[190px] h-[45px]">
             <Link
               href={"/Profiles"}
               className="text-white text-lg font-semibold"
@@ -78,18 +78,20 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="mx-auto mt-8 flex flex-col items-center justify-evenly pt-20 gap-20 ">
+      <div className=" ml-9 mx-auto mt-8 flex flex-col items-center justify-evenly pt-20 gap-20 ">
         <div className="flex justify-evenly ">
-          <div className="w-full text-white text-6xl font-extrabold font-['SF Pro Display'] leading-[81px] tracking-wide">
+          <div className="w-full text-white text-6xl font-extrabold font-['SF Pro Display'] leading-[81px] tracking-wide mr-5 ">
             Clothes are the
             <br />
             Spirit of Fashion
             <div className="w-90 text-white text-opacity-50 text-xs font-medium font-['SF Pro Display'] leading-7">
-              fashion meets creativity in the digital realm! At E-Street, we
-              strive to redefine the online shopping experience
+              <p className=" w-96 ">
+                fashion meets creativity in the digital realm! At E-Street, we
+                strive to redefine the online shopping experience
+              </p>
             </div>
             <div className=" ">
-              <div className="w-fit h-11 px-5 py-2.5 bg-gradient-to-bl from-purple-500 to-violet-700 rounded-lg  gap-2.5 inline-flex mr-[50px]    ">
+              <div className="w-fit h-11 px-5 py-2.5 bg-gradient-to-bl bg-CornellRed rounded-lg  gap-2.5 inline-flex mr-[50px]    ">
                 <Link
                   href={"/Drops"}
                   className="text-white text-xl font-medium font-['Poppins']"
@@ -253,10 +255,10 @@ const Home = () => {
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/6a95e74757b623baa50f411bb5afce6fc4154d843db7d74e71034621b02c4591?"
-                  className="aspect-square object-contain object-center w-[75px] overflow-hidden max-w-full"
+                  className="aspect-square object-contain object-center w-[75px] overflow-hidden max-w-full "
                   alt=""
                 />
-                <div className="text-white text-center text-xl font-semibold leading-10 tracking-wide self-stretch whitespace-nowrap mt-7">
+                <div className="text-white  text-center text-xl font-semibold leading-10 tracking-wide self-stretch whitespace-nowrap mt-7">
                   No Gas Fees
                 </div>
               </div>

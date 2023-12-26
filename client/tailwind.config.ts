@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
@@ -8,15 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      theme: {
-        colors: {
-          Licorice: '#200100',
-          CornellRed: '#C3141D',
-          Gunmetal: '#102632',
-          Charcoal: '#25414E',
-          CadetGray: '#A1A1A1'
-
-        }
+      colors: {
+        Licorice: '#200100',
+        CornellRed: '#C3141D',
+        Gunmetal: '#102632',
+        Charcoal: '#25414E',
+        CadetGray: '#A1A1A1',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -26,5 +23,6 @@ const config: Config = {
     },
   },
   plugins: [],
-}
-export default config
+};
+
+export default config;

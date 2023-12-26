@@ -45,6 +45,7 @@ const Page = () => {
 console.log(data)
   return (
     <div>
+      <h1 className=' text-center text-white text-5xl mt-14'>Your Favorite List</h1>
         {data?.map((product,key)=>(
             <div>
               <ProductDetails data ={product}/>  
