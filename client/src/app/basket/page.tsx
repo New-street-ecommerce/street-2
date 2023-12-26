@@ -25,7 +25,7 @@ const ShoppingCart = () => {
   const [quantity, setQuantity] = useState(1);
   const [cartVisible, setCartVisible] = useState(true);
   const deleteCartMutation = useDeleteCart(Number);
-  const getStorage = localStorage.getItem("user") || "1"
+  const getStorage = localStorage.getItem("user") || '{"data": {"id": "1"}}'
   const storage = JSON.parse(getStorage)
   const user = storage.data.id
   var { isError, isLoading, data } = useQuery<Cart[]>({
@@ -63,21 +63,21 @@ const ShoppingCart = () => {
     }
   };
 
-  //   const toggleCartVisibility = () => {
-  //     setCartVisible(!cartVisible);
-  //   };
+    const toggleCartVisibility = () => {
+      setCartVisible(!cartVisible);
+    };
 
   return (
     <div className="relative">
       <div>
         <GrCart
-          // onClick={toggleCartVisibility}
+          onClick={toggleCartVisibility}
           className="cursor-pointer text-3xl"
         />
       </div>
 
       {cartVisible && (
-        <div className="top-30 right-4 bg-white p-4 rounded shadow-md w-80 float-right">
+        <div className="top-30 right-4 bg-white p-4 rounded shadow-md w-[1300px] mr-7 float-right">
           <h2 className="text-xl font-semibold mb-4"> Cart</h2>
 
           {data?.map((ele, i) => (
@@ -120,7 +120,7 @@ const ShoppingCart = () => {
               </div>
 
               <button
-                className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
+                className=" bg-CornellRed  text-white font-bold py-2 px-7  border-red-700 hover:border-red-500 rounded hover:bg-red-950 "
                 onClick={() => deleteCartMutation.mutate(ele.id)}
               >
                 Delete

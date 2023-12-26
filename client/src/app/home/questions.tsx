@@ -25,9 +25,10 @@ const Questions = () => {
           </main>
         );
       }
-      const getStorage = localStorage.getItem("user") || "1"
+      const getStorage = localStorage.getItem("user") || '{"data": {"id": "1"}}';
       const storage = JSON.parse(getStorage)
       const handleAddQuestion = async () => {
+        setQuestion("")
         await mutation.mutate({ userId: storage.data.id, question });
         queryClient.invalidateQueries({queryKey: ["question"]})
       };
