@@ -19,10 +19,13 @@ interface favList {
   }
 
 const Page = () => {
+  const getStorage = localStorage.getItem("user") || "1"
+  const storage = JSON.parse(getStorage)
+  const user = storage.data.id
   const {data, isError, isLoading} = useQuery<favList[]>({
     queryKey:  ["favList"],
     queryFn : ()=>
-    fetch("http://localhost:5000/favlist/1").then((res) => res.json()),
+    fetch(`http://localhost:5000/favlist/${user}`).then((res) => res.json()),
   })
   if (isLoading) {
     return (
@@ -42,6 +45,7 @@ const Page = () => {
 console.log(data)
   return (
     <div>
+      <h1 className=' text-center text-white text-5xl mt-14'>Your Favorite List</h1>
         {data?.map((product,key)=>(
             <div>
               <ProductDetails data ={product}/>  
