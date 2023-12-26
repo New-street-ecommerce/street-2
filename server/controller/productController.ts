@@ -27,20 +27,20 @@ const  ProductController = {
     }
   },
 
-  getCat: async (req: any, res: any) => {
-    const catg = req.params.catg;
-    try {
-      const allcat = await prisma.product.findMany({ where: { category: catg } });
-      if (allcat.length > 0) {
-        res.status(200).send(allcat);
-      } else {
-        res.status(200).send([]);
-      }
-    } catch (err) {
-      console.error(err);
-      res.status(500).send(err);
-    }
-  },
+  // getCat: async (req: any, res: any) => {
+  //   const catg = req.params.catg;
+  //   try {
+  //     const allcat = await prisma.product.findMany({ where: { category: catg } });
+  //     if (allcat.length > 0) {
+  //       res.status(200).send(allcat);
+  //     } else {
+  //       res.status(200).send([]);
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     res.status(500).send(err);
+  //   }
+  // },
 
   getNew: async (req: any, res: any) => {
     try {

@@ -109,10 +109,10 @@ function firstDesc() {
 <br /><br /><br /><br /><br /><br /><br /><br /><br />
               
 <div className="absolute top-[-300px] flex flex-col items-center">
-  <div className="transform -rotate-0 origin-center text-6xl font-bold text-gray-800">*
-  <GiWrappingStar />
-    Elegance Present Us 
-  </div>
+<div className="transform -rotate-0 origin-center text-6xl font-bold text-gray-800 hover:scale-110 transition-transform">
+  <GiWrappingStar className="inline-block  align-middle" /><br />
+  Elegance Present Us 
+</div>
   <br />
 
   <div className="ml-[500px] flex items-center space-x-40 mt-2">

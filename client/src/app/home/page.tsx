@@ -49,23 +49,25 @@ const Home = () => {
       </main>
     );
   }
-
-  const handleBuyNowClick = async () => {
-    await mutation.mutate({ userId: 1, productId: 1 });
+  const getStorage = localStorage.getItem("user") || '{"data": {"id": "1"}}';
+  const storage = JSON.parse(getStorage)
+  const user = storage.data.id
+  const handleBuyNowClick = async (id:any) => {
+    await mutation.mutate({ userId: user, productId: id });
   };
-  const handleFavListClick = async ()=>{
-    await mutationFav.mutate({ userId: 1, productId: 1 });
+  const handleFavListClick = async (id:any)=>{
+    await mutationFav.mutate({ userId: user, productId: id });
   }
   return (
     <>
       <div className="flex justify-center pt-[104px] ">
         <div className="flex w-full   justify-around">
-          <div className="flex items-center justify-center gap-4 p-4 bg-purple-600 rounded-full w-[164px] h-[45px]">
+          <div className=" py-6 flex items-center justify-center gap-4 p-4 bg-CornellRed rounded-full w-[190px] h-[45px]">
             <Link href={"/Drops"} className="text-white text-lg font-semibold">
               Main Collection
             </Link>
           </div>
-          <div className="flex items-center justify-center gap-4 p-4 bg-zinc-700 rounded-full w-[164px] h-[45px]">
+          <div className="flex items-center justify-center gap-4 p-4 bg-CornellRed rounded-full py-6 w-[190px] h-[45px]">
             <Link
               href={"/Profiles"}
               className="text-white text-lg font-semibold"
@@ -76,18 +78,20 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="mx-auto mt-8 flex flex-col items-center justify-evenly pt-20 gap-20 ">
+      <div className=" ml-9 mx-auto mt-8 flex flex-col items-center justify-evenly pt-20 gap-20 ">
         <div className="flex justify-evenly ">
-          <div className="w-full text-white text-6xl font-extrabold font-['SF Pro Display'] leading-[81px] tracking-wide">
+          <div className="w-full text-white text-6xl font-extrabold font-['SF Pro Display'] leading-[81px] tracking-wide mr-5 ">
             Clothes are the
             <br />
             Spirit of Fashion
             <div className="w-90 text-white text-opacity-50 text-xs font-medium font-['SF Pro Display'] leading-7">
-              fashion meets creativity in the digital realm! At E-Street, we
-              strive to redefine the online shopping experience
+              <p className=" w-96 ">
+                fashion meets creativity in the digital realm! At E-Street, we
+                strive to redefine the online shopping experience
+              </p>
             </div>
             <div className=" ">
-              <div className="w-fit h-11 px-5 py-2.5 bg-gradient-to-bl from-purple-500 to-violet-700 rounded-lg  gap-2.5 inline-flex mr-[50px]    ">
+              <div className="w-fit h-11 px-5 py-2.5 bg-gradient-to-bl bg-CornellRed rounded-lg  gap-2.5 inline-flex mr-[50px]    ">
                 <Link
                   href={"/Drops"}
                   className="text-white text-xl font-medium font-['Poppins']"
@@ -107,8 +111,8 @@ const Home = () => {
             </div>
           </div>
           <div>
-            <div className="w-[40rem] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="grid gap-4">
+            <div className=" iphone:hidden w-[40rem] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className=" grid gap-4">
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg"
@@ -141,10 +145,10 @@ const Home = () => {
                   />
                 </div>
               </div>
-              <div className="grid gap-4  mt-20 ">
+              <div className="grid gap-4  mt-20 w-48 ">
                 <div>
                   <img
-                    className=" h-80 max-w-full rounded-lg "
+                    className=" h-80 max-w-full rounded-lg  "
                     src="https://i.pinimg.com/564x/5c/77/df/5c77df5404a69834f29ed4a1131363ad.jpg"
                     alt=""
                   />
@@ -251,10 +255,10 @@ const Home = () => {
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/6a95e74757b623baa50f411bb5afce6fc4154d843db7d74e71034621b02c4591?"
-                  className="aspect-square object-contain object-center w-[75px] overflow-hidden max-w-full"
+                  className="aspect-square object-contain object-center w-[75px] overflow-hidden max-w-full "
                   alt=""
                 />
-                <div className="text-white text-center text-xl font-semibold leading-10 tracking-wide self-stretch whitespace-nowrap mt-7">
+                <div className="text-white  text-center text-xl font-semibold leading-10 tracking-wide self-stretch whitespace-nowrap mt-7">
                   No Gas Fees
                 </div>
               </div>
@@ -290,7 +294,7 @@ const Home = () => {
       </div>
       <div className="justify-center  flex gap-5 max-md:flex-wrap">
         <button className="text-white bg-CornellRed text-xl font-medium whitespace-nowrap justify-center  bg-[linear-gradient(214deg,#B75CFF_6.04%,#671AE4_92.95%)]  px-8 py-1.5 rounded-xl max-md:px-5 mt-[100px]">
-          All Collections
+        <Link  href={"/product"}> All Collections </Link>
         </button>
       </div>
       <div className=" p-20 mx-10 mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
@@ -311,7 +315,7 @@ const Home = () => {
               <div className="text-sm text-white font-extralight mb-1 mr-20">
                 {product.name}
               </div>
-              <div className="text-sm font-bold text-green-600">
+              <div className="text-sm font-bold  text-purple-600">
                 ${product.price}
               </div>
             </div>
@@ -325,15 +329,15 @@ const Home = () => {
               >
                 {like ? (
                   <FcLike
-                    onClick={handleFavListClick}
+                    onClick={()=>handleFavListClick(product.id)}
                   />
                 ) : (
                   <FcLikePlaceholder />
                 )}
+           
               </div>
-              
-              <button className="mt-2 ml-2 bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md self-center">
-                <Link onClick={handleBuyNowClick} href={"/basket"}>
+              <button className="mt-2 ml-2 bg-gradient-to-bl from-purple-500 to-violet-700 text-white px-4 py-1 rounded-md self-center">
+                <Link onClick={()=>handleBuyNowClick(product.id)} href={"/basket"}>
                   Buy Now
                 </Link>
               </button>
