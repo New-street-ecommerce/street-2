@@ -76,13 +76,16 @@ export const updateCoverPic = async (req: Request, res: Response) => {
 export const signUp = async (req: Request, res: Response) => {
   try {
     const { email, name, username, dateOfBirth }: Artist = req.body;
-    const Artist = await prisma.artist.findUnique({
+    const artist = await prisma.artist.findUnique({
       where: {
         email,
       },
     });
-    if (Artist !== null) {
-      return res.status(409).send(Artist);
+    if (artist !== null) {
+      const artist = await prisma.user.findUnique({
+        where: { email: req.body.email },
+      });
+     return  res.send(artist);
     }
     await prisma.artist.create({
       data : {
@@ -92,7 +95,7 @@ export const signUp = async (req: Request, res: Response) => {
         dateOfBirth,
       },
     });
-    return res.status(201).send(Artist);
+    return res.status(201).send(artist);
   } catch (error) {
     res.status(500).send(error);
   }

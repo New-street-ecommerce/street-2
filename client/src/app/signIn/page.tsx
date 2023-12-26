@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { login, loginDb, signInWithGoogle } from "../Providers/useApi";
+import { login, loginDb, signInWithGoogle, deleteUser } from "../Providers/useApi";
 import { useState } from "react";
 import main from "../../../assets/main.png";
 import { useRouter } from 'next/navigation'
@@ -13,10 +13,13 @@ const SignIn = () => {
   const mutation = login();
   const mutationdB = loginDb("user");
   const mutationG = signInWithGoogle("user")
+  const mutationD = deleteUser()
+  mutationG.isSuccess && router.push("/home")
+
 
   return (
     <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
-      <div className="gap-5 flex max-md:flex-col max-md:items-center max-md:gap-0">
+      <div className="gap-5 flex max-md:flex-col md:justify-center w-screen max-md:items-center max-md:gap-0">
         <div className="flex flex-col items-center w-[49%] max-md:w-full max-md:ml-0">
           <div className="flex flex-col items-center max-md:max-w-full max-md:mt-10">
             <Image
@@ -38,7 +41,7 @@ const SignIn = () => {
                 event.preventDefault();
                 mutation.mutate({ email: loginEmail, password: loginPassword });
                 mutationdB.mutate({ email: loginEmail });
-                router.push('/home')
+                
               }}
               className="self-stretch flex flex-col px-9 max-md:max-w-full max-md:px-5"
             >
@@ -139,6 +142,7 @@ const SignIn = () => {
                   type={passwordHidden ? "password" : "text"}
                   placeholder="Enter your password"
                   onChange={(event) => {
+                    
                     setLoginPassword(event.target.value);
                   }}
                   className="w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
@@ -151,16 +155,27 @@ const SignIn = () => {
               >
                 Login
               </button>
-
-              <div className="text-white text-lg tracking-wide self-center whitespace-nowrap mt-1 max-md:mt-4">
-                Or
-              </div>
-
               <br />
 
-              <div className="space-y-4 text-sm font-medium">
-                <button
-                  onClick={() => {mutationG.mutate()}}
+              {/* <div className="space-y-4 text-sm font-medium">
+                
+              </div> */}
+              <br />
+              <br />
+              <button
+                className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
+                onClick={() => {
+                  localStorage.removeItem("user");
+                }}
+              >
+                {" "}
+                Sign Out
+              </button>
+            </form>
+            <div className="mt-10">
+            <button
+                  onClick={() => {mutationG.mutate()
+                  }}
                   className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100"
                 >
                   <svg
@@ -193,47 +208,16 @@ const SignIn = () => {
                   </svg>
                   Continue with Google
                 </button>
-              </div>
-              <br />
-              <div className="space-y-4 text-sm font-medium">
-                <button
-                  onClick={() => {}}
-                  className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100"
-                >
-                  <svg
-                    className="w-8 h-8"
-                    viewBox="0 0 48 48"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g clip-path="url(#clip0_17_40)">
-                      <path
-                        fill="#1877F2"
-                        d="M24 0C10.745 0 0 10.745 0 24s10.745 24 24 24 24-10.745 24-24S37.255 0 24 0z"
-                      />
-                      <path
-                        fill="#fff"
-                        d="M32.91 16.29h-2.795c-1.58 0-1.89.753-1.89 1.857v2.43h4.784l-.5 4.857h-4.284V40H21.3V25.286H16.38v-4.857h4.922v-3.222c0-4.882 2.882-7.545 7.345-7.545 2.13 0 4.07.16 4.607.232v4.98z"
-                      />
-                    </g>
-                    <defs>
-                      <rect width="48" height="48" fill="white" />
-                    </defs>
-                  </svg>
-                  Continue With Facebook
-                </button>
-              </div>
-              <br />
-              <button
+            <button
                 className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
                 onClick={() => {
-                  localStorage.clear();
+                  mutationD.mutate() 
                 }}
               >
                 {" "}
-                Sign Out
+                DELETE ACCOUNT
               </button>
-            </form>
+            </div> 
           </div>
         </div>
       </div>

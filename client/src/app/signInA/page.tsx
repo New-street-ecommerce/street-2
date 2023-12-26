@@ -14,9 +14,9 @@ const SignInA = () => {
   const mutation = login();
   const mutationdB = loginDb("artist");
   const mutationG = signInWithGoogle("artist")
-
+  mutationG.isSuccess && router.push("/home")
   return (
-    <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
+    <div className="w-full h-screen max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
       <div className="gap-5 md: flex max-md:flex-col max-md:items-center max-md:gap-0">
         <div className="flex flex-col items-center w-[49%] max-md:w-full max-md:ml-0">
           <div className="flex flex-col items-center mt-8 max-md:max-w-full max-md:mt-10">
@@ -40,7 +40,7 @@ const SignInA = () => {
                 event.preventDefault();
                 mutation.mutate({ email: loginEmail, password: loginPassword });
                 mutationdB.mutate({ email: loginEmail });
-                router.push('/home')
+          
               }}
               className="self-stretch flex flex-col px-9 max-md:max-w-full max-md:px-5"
             >
@@ -157,8 +157,17 @@ const SignInA = () => {
               </div>
               <br />
               <div className="space-y-4 text-sm font-medium">
-                <button
-                  onClick={() => {}}
+               
+              </div>
+              <br />
+              <div className="space-y-4 text-sm font-medium">
+              
+              </div>
+              <br />
+              <div className="space-y-4 text-sm font-medium">
+              </div>
+              <button
+                  onClick={() => {mutationG.mutate()}}
                   className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100"
                 >
                   <svg
@@ -191,42 +200,9 @@ const SignInA = () => {
                   </svg>
                   Continue with Google
                 </button>
-              </div>
-              <br />
-              <div className="space-y-4 text-sm font-medium">
-                <button
-                  onClick={() => {}}
-                  className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100"
-                >
-                  <svg
-                    className="w-8 h-8"
-                    viewBox="0 0 48 48"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g clip-path="url(#clip0_17_40)">
-                      <path
-                        fill="#1877F2"
-                        d="M24 0C10.745 0 0 10.745 0 24s10.745 24 24 24 24-10.745 24-24S37.255 0 24 0z"
-                      />
-                      <path
-                        fill="#fff"
-                        d="M32.91 16.29h-2.795c-1.58 0-1.89.753-1.89 1.857v2.43h4.784l-.5 4.857h-4.284V40H21.3V25.286H16.38v-4.857h4.922v-3.222c0-4.882 2.882-7.545 7.345-7.545 2.13 0 4.07.16 4.607.232v4.98z"
-                      />
-                    </g>
-                    <defs>
-                      <rect width="48" height="48" fill="white" />
-                    </defs>
-                  </svg>
-                  Continue With Facebook
-                </button>
-              </div>
-              <br />
-              <div className="space-y-4 text-sm font-medium">
-              </div>
               <button
                 className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
-                onClick={() => { localStorage.clear()}}
+                onClick={() => { localStorage.removeItem("user")}}
               >
                 {" "}
                 Sign Out

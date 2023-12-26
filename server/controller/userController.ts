@@ -12,13 +12,18 @@ const signUp = async (req: Request, res: Response) => {
       },
     });
     if (user !== null) {
-      return res.status(409).send("userAlreadyExist");
+      const user = await prisma.user.findUnique({
+        where: { email: req.body.email },
+      });
+      return res.send(user);
+      
     }
     const users = await prisma.user.create({
       data:req.body,
     });
     return res.status(201).send(users);
   } catch (error) {
+    console.log("error");
     res.status(500).send(error);
   }
 };
@@ -38,4 +43,19 @@ const signIn = async (req: Request, res: Response) => {
   }
 };
 
-export { signIn, signUp };
+const deleteAccount =  async (req:Request,res:Response)=> {
+  try {
+    let id= Number(req.params.id)
+    const user = await prisma.user.delete({
+      where: {
+        id: id
+      }
+    })
+    res.send("deleted")
+  }
+  catch(error) {
+    res.send(error)
+  }
+}
+
+export { signIn, signUp,deleteAccount };
