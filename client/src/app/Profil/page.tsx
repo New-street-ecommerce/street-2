@@ -152,7 +152,18 @@ console.error(error);
       );
     }
   };
-
+  const uploadPostPic = async () => {
+    try {
+      await axios.put(`http://localhost:5000/posts/Profile/updatePostPic/${id}`, {
+        postPicture:postPicture
+      })
+      console.log("post image successfully uploaded");
+      
+    } catch (error:any) {
+      console.error("Error posting:",error.response ? error.response.data : error.message);
+      
+    }
+  }
 
   const handlePost = async () => {
     try {
