@@ -49,7 +49,7 @@ const Home = () => {
       </main>
     );
   }
-  const getStorage = localStorage.getItem("user") || "1"
+  const getStorage = localStorage.getItem("user") || '{"data": {"id": "1"}}';
   const storage = JSON.parse(getStorage)
   const user = storage.data.id
   const handleBuyNowClick = async (id:any) => {
@@ -111,8 +111,8 @@ const Home = () => {
             </div>
           </div>
           <div>
-            <div className="w-[40rem] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="grid gap-4">
+            <div className=" iphone:hidden w-[40rem] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className=" grid gap-4">
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg"
@@ -145,10 +145,10 @@ const Home = () => {
                   />
                 </div>
               </div>
-              <div className="grid gap-4  mt-20 ">
+              <div className="grid gap-4  mt-20 w-48 ">
                 <div>
                   <img
-                    className=" h-80 max-w-full rounded-lg "
+                    className=" h-80 max-w-full rounded-lg  "
                     src="https://i.pinimg.com/564x/5c/77/df/5c77df5404a69834f29ed4a1131363ad.jpg"
                     alt=""
                   />
@@ -315,7 +315,7 @@ const Home = () => {
               <div className="text-sm text-white font-extralight mb-1 mr-20">
                 {product.name}
               </div>
-              <div className="text-sm font-bold text-green-600">
+              <div className="text-sm font-bold  text-purple-600">
                 ${product.price}
               </div>
             </div>
@@ -336,7 +336,7 @@ const Home = () => {
                 )}
            
               </div>
-              <button className="mt-2 ml-2 bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md self-center">
+              <button className="mt-2 ml-2 bg-gradient-to-bl from-purple-500 to-violet-700 text-white px-4 py-1 rounded-md self-center">
                 <Link onClick={()=>handleBuyNowClick(product.id)} href={"/basket"}>
                   Buy Now
                 </Link>

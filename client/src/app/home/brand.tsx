@@ -78,7 +78,7 @@ const handleFollowClick = async (brandId: number) => {
           <img
             src={brand.picture}
             alt={brand.name}
-            className="w-full h-100 object-cover mb-2 rounded-md"
+            className=" h-72 w-72 object-cover mb-2 rounded-md"
           />
           <div className="text-xl font-medium font-['Poppins'] text-gray-500 mb-1">
             Brand
