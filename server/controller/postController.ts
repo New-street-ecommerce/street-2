@@ -29,9 +29,14 @@ interface Post {
 };
 
   export const getAllPosts = async (req: Request, res: Response) => {
+    const { artistId } = req.params;
     try {
-      const data = await prisma.post.findMany();
-      res.status(200).json(data);
+      const allPosts = await prisma.post.findMany({
+        where:{
+          artistId: Number(artistId)
+        }
+      });
+      res.status(200).json(allPosts);
     } catch (error) {
       console.error("Error:", error);
       res.status(500).send("Internal Server Error");

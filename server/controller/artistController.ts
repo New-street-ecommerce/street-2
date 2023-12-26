@@ -17,7 +17,7 @@ interface Artist {
 
 
 export const updateProfil = async (req: Request, res: Response) => {
-  const { name,bio }: { name: string,bio:string } = req.body;
+  const { username,bio }: { username: string,bio:string } = req.body;
   const { artistId } = req.params;
 
   try {
@@ -26,7 +26,7 @@ export const updateProfil = async (req: Request, res: Response) => {
         id: Number(artistId),
       },
       data: {
-        name: name,
+        username,
         bio: bio,
       },
     });

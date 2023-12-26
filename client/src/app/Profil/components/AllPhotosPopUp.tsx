@@ -4,7 +4,8 @@ interface AllPhotosPopUpProps {
     handleClosePopUp: () => void;
 }
 
-const AllPhotosPopUp: React.FC<AllPhotosPopUpProps> = ({ handleClosePopUp }) => {
+const AllPhotosPopUp: React.FC<AllPhotosPopUpProps> = ({ handleClosePopUp,posts }) => {
+console.log(posts,'gbhnhn');
 
 
   return (
@@ -19,13 +20,18 @@ const AllPhotosPopUp: React.FC<AllPhotosPopUpProps> = ({ handleClosePopUp }) => 
         <div className="px-4 mt-5 shadow w-auto self-center rounded-lg dark:bg-dark-second">
             <div className="p-2 border-b border-[#ffffff1a] dark:border-dark-third flex space-x-4">
             <img className='flex  h-[500px] mt-10 rounded-md p-1' src="" alt=""  />
-            <img src="" alt="" />
+            {posts.map(e=>{
+              return <div>
+<img src={e.picture} />
+              </div>
+            })}
+
             </div>
         </div>
     </React.Fragment>
   </div>
       </div>
-     
+
   )
 }
 
