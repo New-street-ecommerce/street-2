@@ -294,7 +294,7 @@ const Home = () => {
       </div>
       <div className="justify-center  flex gap-5 max-md:flex-wrap">
         <button className="text-white bg-CornellRed text-xl font-medium whitespace-nowrap justify-center  bg-[linear-gradient(214deg,#B75CFF_6.04%,#671AE4_92.95%)]  px-8 py-1.5 rounded-xl max-md:px-5 mt-[100px]">
-          All Collections
+        <Link  href={"/product"}> All Collections </Link>
         </button>
       </div>
       <div className=" p-20 mx-10 mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
