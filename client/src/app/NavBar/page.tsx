@@ -12,7 +12,7 @@ const NavBar = () => {
             href="/"
             className="[font-family:'SF_Pro_Display-Semibold',Helvetica] font-normal text-white text-2xl md:text-4xl tracking-[0] leading-[normal] whitespace-nowrap"
           >
-            Urban Vibe
+           E-street2
           </Link>
         </div>
 
@@ -27,7 +27,7 @@ const NavBar = () => {
 
         <div className="flex items-center mt-4 md:mt-0 md:ml-8 md:mr-4">
           <Link
-            href={"/"}
+            href={"/home"}
             className="[font-family:'SF_Pro_Display-Semibold',Helvetica] font-normal text-white text-base md:text-lg tracking-[0] leading-[normal] whitespace-nowrap hover:text-gray-300 flex items-center"
           >
             <FaHome className="mr-2" />
@@ -42,7 +42,7 @@ const NavBar = () => {
 
         <div className="flex items-center mt-4 md:mt-0 md:ml-20 md:mr-4">
           <Link
-            href={"/PersonalCollection"}
+            href={"/fav"}
             className="[font-family:'SF_Pro_Display-Semibold',Helvetica] font-normal text-white text-base md:text-lg tracking-[0] leading-[normal] whitespace-nowrap hover:text-gray-300 flex items-center"
           >
             <FaBook className="mr-2" />
@@ -63,7 +63,7 @@ const NavBar = () => {
 
         <div className="flex items-center mt-4 md:mt-0 md:ml-20 md:mr-4">
           <Link
-            href={"/Aboutus"}
+            href={"/About"}
             className="[font-family:'SF_Pro_Display-Semibold',Helvetica] font-normal text-white text-base md:text-lg tracking-[0] leading-[normal] whitespace-nowrap hover:text-gray-300 flex items-center"
           >
             <FaBook className="mr-2" />

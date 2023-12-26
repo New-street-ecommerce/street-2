@@ -87,21 +87,22 @@ const Page = () => {
   };
 
   return (
-    <div className='flex'>
+    <div className='flex '>
       <Sidebar category={category} setCategory={setCategory} isNewRelease={isNewRelease} setMinPrice={setMinPrice} setMaxPrice={setMaxPrice} refetch={refetch} minPrice={minPrice} maxPrice={maxPrice} setNewRelease={setNewRelease} />
-      <div className='container mx-auto p-4 lg:h-screen flex items-center justify-center mt-[-150px]'>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[70px]'>
+      <div className='container mx-auto p-4 lg:h-screen flex items-center justify-center mt-[60px]'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[60px]'>
+       
         {isNewRelease &&
   newRelease?.map((newProduct) => (
     <div
       key={newProduct.id}
-      className='w-full max-w-md mx-auto relative shadow-md rounded-lg cursor-pointer overflow-hidden group mb-4 p-4' // Add padding to the whole card
+      className='w-full max-w-md mx-auto mt- relative shadow-md rounded-lg cursor-pointer overflow-hidden group mb-4 p-4' // Add padding to the whole card
     >
       <div className='relative overflow-hidden group-hover:scale-110 transition-transform duration-300'>
         <img
           src={newProduct.pictures[0]}
           alt={newProduct.name}
-          className='w-100 h-100 object-cover rounded-lg'
+          className='w-[300px] h-[400px] object-cover rounded-lg'
         />
         <div className='absolute inset-0 bg-gradient-to-r from-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
       </div>
@@ -125,13 +126,13 @@ const Page = () => {
         </button>
       </div>
     </div>
-  ))}
+  ))} 
           {!isNewRelease &&
             Array.isArray(products) &&
             products.map((product: Product, index: number) => (
               <div
                 key={index}
-                className='w-full max-w-sm mx-auto relative shadow-md rounded-lg cursor-pointer overflow-hidden group'
+                className='w-full max-w-sm mx-auto  mt-[-20px]  relative shadow-md rounded-lg cursor-pointer overflow-hidden group'
               >
                 <div className='relative overflow-hidden group-hover:scale-110 transition-transform duration-300'>
                   <img
