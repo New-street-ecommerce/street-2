@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { FaSearch, FaHome, FaBook, FaChartBar } from "react-icons/fa";
-import ExploreDropDown from "./ExploreDropDown";
+import { FaSearch, FaHome, FaBook, FaChartBar, } from "react-icons/fa";
+// import ExploreDropDown from "./ExploreDropDown";
 
 const NavBar = () => {
   return (
