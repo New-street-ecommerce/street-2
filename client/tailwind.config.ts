@@ -15,6 +15,9 @@ const config: Config = {
         Charcoal: '#25414E',
         CadetGray: '#A1A1A1',
       },
+      screens: {
+        'iphone': {'min': '400px', 'max': '500px'},
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
