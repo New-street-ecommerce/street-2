@@ -113,7 +113,7 @@ export const signIn = async (req: Request, res: Response) => {
     res.status(500).send(error);
   }
 };
-export const getArtistByEmail = async (req: Request, res: Response) =>{
+export const getArtistById = async (req: Request, res: Response) =>{
   
   let artistId= Number(req.params.artistId)
   try {

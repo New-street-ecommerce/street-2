@@ -8,8 +8,7 @@ import { useEffect, useState } from "react";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Modal from "react-modal";
 import PostsPictures from "./components/PostsPictures";
-import { storage, storage, storage } from "../firebase/config";
-import { error } from "console";
+import { storage } from "../firebase/config";
 
 const Profil = () => {
   const [postContent, setPostContent] = useState("");
@@ -32,34 +31,29 @@ const Profil = () => {
       setCoverPic(files);
     }
   };
-
-
-  const uploadPostP=(file:File)=>{
-const storageRef = ref(storage,`Posts/${file.name}`)
-const uploadTask=uploadBytesResumable(storageRef,file)
-uploadTask.on(
-  "state_changed",
-  (snapshot)=>{
-    const progress= (snapshot.bytesTransferred/snapshot.totalBytes)*100
-  console.log(progress);
   
-  },
-  (error)=>{
-console.error(error);
 
-  },
-  ()=>{
-    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
-      console.log(downloadURL,"download");
-      setPostPicture(downloadURL)
-    })
-  }
-)
-  }
-
-
-
-
+  const uploadPostP = (file: File) => {
+    const storageRef = ref(storage, `Posts/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(progress);
+      },
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log(downloadURL, "download");
+          setPostPicture(downloadURL);
+        });
+      }
+    );
+  };
 
   const uploadCoverP = (file: File) => {
     const storageRef = ref(storage, `Cover/${file.name}`);
@@ -114,20 +108,13 @@ console.error(error);
     setModalIsOpen(false);
   };
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      setId(parsedUser.data.id);
-    }
-  }, []);
 
-  const uploadCoverImage = async () => {
+  const updateCoverImage = async () => {
     try {
       await axios.put(
         `http://localhost:5000/artist/Profile/updateCoverPic/${id}`,
         {
-          coverPic: "GHFJ.HF.",
+          coverPic: coverPic,
         }
       );
       console.log("Upload coverpic successful:");
@@ -138,8 +125,21 @@ console.error(error);
       );
     }
   };
+  const getOneArtist= () => {
+    
+      axios.get(`http://localhost:5000/artist/Profile/get/${id}`).then(response=>{
+        console.log(response.data);
+        
+        setArtist(response.data)
+      })
+  .catch (error=> {
+      console.error(
+        "Error posting:",
+        error.response ? error.response.data : error.message
+    )})
+  }
 
-  const uploadProfilPic = async () => {
+  const updateProfilPic = async () => {
     try {
       await axios.put(`http://localhost:5000/artist/Profile/updatePfp/${id}`, {
         profilePic: profilePic,
@@ -152,18 +152,22 @@ console.error(error);
       );
     }
   };
-  const uploadPostPic = async () => {
+  const updatePostPic = async () => {
     try {
-      await axios.put(`http://localhost:5000/posts/Profile/updatePostPic/${id}`, {
-        postPicture:postPicture
-      })
+      await axios.put(
+        `http://localhost:5000/posts/Profile/updatePostPic/${id}`,
+        {
+          postPicture: postPicture,
+        }
+      );
       console.log("post image successfully uploaded");
-      
-    } catch (error:any) {
-      console.error("Error posting:",error.response ? error.response.data : error.message);
-      
+    } catch (error: any) {
+      console.error(
+        "Error posting:",
+        error.response ? error.response.data : error.message
+      );
     }
-  }
+  };
 
   const handlePost = async () => {
     try {
@@ -176,19 +180,30 @@ console.error(error);
       );
       console.log("Post successful:", response.data);
       setPosts([...posts, response.data]);
-    } catch (error:any) {
+    } catch (error: any) {
       console.error(
         "Error posting:",
         error.response ? error.response.data : error.message
       );
     }
   };
-
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setId(parsedUser.data.id);
+    }
+    if(id){
+      getOneArtist()
+    }
+  }, [id]);
+  console.log(artist);
+  
   return (
     <div className="mb-10 relative">
       <div className="flex justify-between h-[450px] md:h-[550px] lg:h-[600px] relative">
         <img
-          src="https://www.ionos.fr/digitalguide/fileadmin/DigitalGuide/Teaser/instagram-fuer-unternehmen-t.jpg"
+          src={artist.coverPic}
           alt="Background"
           className="object-cover w-full h-full"
         />
@@ -208,7 +223,7 @@ console.error(error);
       <div className="flex items-center justify-center mb-5 md:mb-10">
         <div className="bg-white w-24 h-24 md:w-32 md:h-32 rounded-full p-2 relative">
           <img
-            src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
+            src={artist.profilePic}
             alt="Avatar"
             className="rounded-full w-full h-full cursor-pointer"
           />
@@ -236,16 +251,23 @@ console.error(error);
                 type="file"
                 accept="image/png"
                 className="self-center mb-5"
-                onChange={(e)=>handleImageChange(e)}
+                onChange={(e) => handleImageChange(e)}
               />
 
               {modalContentType === "editProfile" && (
                 <>
-                  <button className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]">
+                  <button
+                    className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]"
+                    onClick={() => uploadCoverP(coverPic)}
+                  >
                     Upload Cover Picture
                   </button>
                   <button
-                    className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]">
+                    className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]"
+                    onClick={() => {
+                      updateCoverImage(), window.location.reload();
+                    }}
+                  >
                     Up-date Cover Picture
                   </button>
                 </>
@@ -253,11 +275,16 @@ console.error(error);
 
               {modalContentType === "camera" && (
                 <>
-                  <button className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]">
+                  <button
+                    className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]"
+                    onClick={() => uploadProfilP(profilePic)}
+                  >
                     Upload Profile Picture
                   </button>
                   <button
-                    onClick={uploadProfilPic}
+                    onClick={() => {
+                      updateProfilPic(), window.location.reload();
+                    }}
                     className="mb-5 bg-indigo-500 rounded-[10px] self-center justify-center gap-2.5 inline-flex w-[150px]"
                   >
                     Update Profile Picture
@@ -281,13 +308,13 @@ console.error(error);
               <div className="flex space-x-3 items-center">
                 <div className="w-12 h-12 rounded-full overflow-hidden">
                   <img
-                    src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
+                    src={artist.profilePic}
                     alt=""
                     className="w-full h-full"
                   />
                 </div>
                 <div className="flex flex-col">
-                  <h2 className="font-semibold text-sm">{posts.name}</h2>
+                  <h2 className="font-semibold text-sm">{artist.name}</h2>
                   <div className="bg-gray-700 rounded-md px-2 py-1 flex items-center cursor-pointer">
                     <span className="font-semibold text-xs">Public</span>
                   </div>
@@ -302,13 +329,13 @@ console.error(error);
                 ></textarea>
               </div>
               <div className="flex justify-between items-center right-8">
-              <button
-            onClick={() => openModal("gallery")}
-            className="bg-violet-700 text-white  rounded-full p-3 mb-5"
-          >
-            <FaImages className="text-2xl" />
-          </button>
-          </div>
+                <button
+                  onClick={() => openModal("gallery")}
+                  className="bg-violet-700 text-white  rounded-full p-3 mb-5"
+                >
+                  <FaImages className="text-2xl" />
+                </button>
+              </div>
               <button
                 className="w-full bg-violet-500 mt-3 rounded-full py-4 text-white font-bold text-xl"
                 onClick={handlePost}
@@ -316,7 +343,6 @@ console.error(error);
                 Post
               </button>
             </div>
-          
           </div>
         </div>
       </div>
@@ -332,7 +358,7 @@ console.error(error);
               </div>
               <div className="flex space-x-2 items-center">
                 <img
-                  src={artist.ProfilePic}
+                  src={artist.profilePic}
                   alt="Profile picture"
                   className="w-10 h-10 rounded-full cursor-pointer"
                 />
