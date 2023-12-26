@@ -32,38 +32,37 @@ const Brand = () => {
 console.log(brand)
 const handleFollowClick = async (brandId: number) => {
   try {
-    // Check if the brand is already followed
+    
     const isFollowed = followedBrands.includes(brandId);
 
-    // Toggle follow status
+    
     const updatedFollowedBrands = isFollowed
       ? followedBrands.filter((id) => id !== brandId)
       : [...followedBrands, brandId];
 
-    // Update the state
+    
     setFollowedBrands(updatedFollowedBrands);
 
-    // Call your backend API to update follow status
-    const userId = 123; // Replace with the actual user ID
+    
+    const userId = 123;
     const response = await fetch(
       isFollowed
         ? `http://localhost:5000/follow/unfollow/${brandId}/${userId}`
         : `http://localhost:5000/follow/brand/${brandId}/${userId}`,
       {
-        method: 'POST', // Adjust the method based on your API
+        method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
-          // Include any other headers if required
         },
       }
     );
 
     if (!response.ok) {
-      // Handle error if needed
+      
       console.error('Error updating follow status:', response.statusText);
     }
   } catch (error) {
-    // Handle error if needed
+    
     console.error('Error:', error);
   }
 };
@@ -91,7 +90,7 @@ const handleFollowClick = async (brandId: number) => {
             <button
               className={`text-sm text-white px-3 py-1 rounded-md ${
                 followedBrands.includes(brand.id)
-                  ? 'bg-red-500' // Use a different color for unfollowed state
+                  ? 'bg-red-500' 
                   : 'bg-blue-500'
               } hover:bg-blue-700`}
               onClick={() => handleFollowClick(brand.id)}
