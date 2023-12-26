@@ -78,7 +78,7 @@ const handleFollowClick = async (brandId: number) => {
           <img
             src={brand.picture}
             alt={brand.name}
-            className=" h-72 w-72 object-cover mb-2 rounded-md"
+            className="w-full h-60 object-cover mb-2 rounded-md"
           />
           <div className="text-xl font-medium font-['Poppins'] text-gray-500 mb-1">
             Brand
@@ -91,7 +91,7 @@ const handleFollowClick = async (brandId: number) => {
               className={`text-sm text-white px-3 py-1 rounded-md ${
                 followedBrands.includes(brand.id)
                   ? 'bg-red-500' 
-                  : 'bg-blue-500'
+                  : 'bg-blue-500' 
               } hover:bg-blue-700`}
               onClick={() => handleFollowClick(brand.id)}
             >

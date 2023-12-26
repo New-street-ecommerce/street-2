@@ -102,7 +102,7 @@ const Home = () => {
 
               <div className="w-fit h-11 px-5 py-2.5 bg-white bg-opacity-10 rounded-lg justify-center items-center gap-2.5 inline-flex">
                 <Link
-                  href={""}
+                  href={"/create"}
                   className="text-white text-xl font-medium font-['Poppins']"
                 >
                   Create
