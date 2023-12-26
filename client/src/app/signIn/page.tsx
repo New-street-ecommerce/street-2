@@ -18,10 +18,11 @@ const SignIn = () => {
 
 
   return (
-    <div className="w-full max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
-      <div className="gap-5 flex max-md:flex-col md:justify-center w-screen max-md:items-center max-md:gap-0">
-        <div className="flex flex-col items-center w-[49%] max-md:w-full max-md:ml-0">
-          <div className="flex flex-col items-center max-md:max-w-full max-md:mt-10">
+    <div className="relative mt-6 flex w-full h-screen flex-col justify-center items-center px-16 py-12 max-md:max-w-full max-md:px-5">
+    <div className="w-full mb-20 max-md:max-w-full max-md:my-10">
+      <div className="gap-5 md:flex max-md:items-stretch max-md:gap-0">
+        <div className="flex flex-wrap justify-center md: w-1/2 max-md:ml-0">
+          <div className="items-center hidden md:block w-1/2 max-md:max-w-full max-md:mt-10">
             <Image
               src={main}
               width={300}
@@ -34,8 +35,8 @@ const SignIn = () => {
             </div>
           </div>  
         </div>
-        <div className="flex flex-col items-stretch w-[36%] h-[36%]  ml-5 max-md:w-full max-md:ml-0 mt-8">
-          <div className="bg-login bg-opacity-20 flex grow flex-col w-full py-7 rounded-xl max-md:max-w-full max-md:mt-10">
+        <div className="flex flex-col  h-[49%] ml-5">
+          <div className="">
             <form
               onSubmit={(event) => {
                 event.preventDefault();
@@ -43,12 +44,13 @@ const SignIn = () => {
                 mutationdB.mutate({ email: loginEmail });
                 
               }}
-              className="self-stretch flex flex-col px-9 max-md:max-w-full max-md:px-5"
+              className="bg-login bg-opacity-20 flex grow flex-col w-full py-7 rounded-xl"
             >
-              <div className="text-white text-center text-3xl font-extrabold tracking-wide self-stretch max-md:max-w-full">
+              <div className="self-stretch flex flex-col max-md:max-w-full max-md:px-5">
+              <div className="text-white text-center text-3xl font-extrabold tracking-wide self-stretch">
                 Sign In
               </div>
-              <div className="text-white-500 text-lg tracking-wide self-stretch mt-16 max-md:max-w-full max-md:mt-10">
+              <div className="font-medium  ml-1.5 md:ml-0 mt-[22px]  text-lg tracking-[0.36px]">
                 <span className="text-white">New user?</span>
                 <Link
                   href={"/signUp"}
@@ -58,7 +60,7 @@ const SignIn = () => {
                   Create an account
                 </Link>
               </div>
-              <div className="text-white-500 text-lg tracking-wide self-stretch mt-16 max-md:max-w-full max-md:mt-10">
+              <div className="font-medium  mb-2 ml-1.5 md:ml-0 mt-[22px]  text-lg tracking-[0.36px]">
                 <span className="text-white">Are you an Artist?</span>
                 <Link
                   href={"/signInA"}
@@ -68,7 +70,7 @@ const SignIn = () => {
                   Sign In
                 </Link>
               </div>
-              <div className="relative max-w-xs">
+              <div className="relative ">
                 <svg
                   className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto"
                   xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +96,7 @@ const SignIn = () => {
               </div>
               <br />
               <label className="text-gray-600"></label>
-              <div className="relative max-w-xs mt-2">
+              <div className="relative  mt-2">
                 <button
                   className="text-gray-400 absolute right-3 inset-y-0 my-auto active:text-gray-600"
                   onClick={() => {
@@ -148,22 +150,16 @@ const SignIn = () => {
                   className="w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                 />
               </div>
-
+              </div>
+              <div className="flex justify-around gap-3">
               <button
                 type="submit"
-                className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
+                className="text-white text-base whitespace-nowrap justify-center w-1/2 items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
               >
                 Login
               </button>
-              <br />
-
-              {/* <div className="space-y-4 text-sm font-medium">
-                
-              </div> */}
-              <br />
-              <br />
               <button
-                className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
+                className="text-white text-base whitespace-nowrap justify-center w-1/2 items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
                 onClick={() => {
                   localStorage.removeItem("user");
                 }}
@@ -171,12 +167,14 @@ const SignIn = () => {
                 {" "}
                 Sign Out
               </button>
+              </div>
+            
             </form>
-            <div className="mt-10">
+            <div className=" flex flex-col mt-10">
             <button
                   onClick={() => {mutationG.mutate()
                   }}
-                  className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100"
+                  className=" flex items-center justify-center px-4 py-1 gap-x-3  border rounded-2xl hover:bg-gray-50 duration-150 active:bg-gray-100"
                 >
                   <svg
                     className="w-8 h-8"
@@ -209,7 +207,7 @@ const SignIn = () => {
                   Continue with Google
                 </button>
             <button
-                className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
+                className="text-white w-full text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
                 onClick={() => {
                   mutationD.mutate() 
                 }}
@@ -221,6 +219,7 @@ const SignIn = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
