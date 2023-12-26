@@ -19,7 +19,7 @@ interface favList {
   }
 
 const Page = () => {
-  const getStorage = localStorage.getItem("user") || "1"
+  const getStorage = localStorage.getItem("user") || '{"data": {"id": "1"}}'
   const storage = JSON.parse(getStorage)
   const user = storage.data.id
   const {data, isError, isLoading} = useQuery<favList[]>({
@@ -44,13 +44,15 @@ const Page = () => {
   }
 console.log(data)
   return (
-    <div>
-      <h1 className=' text-center text-white text-5xl mt-14'>Your Favorite List</h1>
-        {data?.map((product,key)=>(
-            <div>
-              <ProductDetails data ={product}/>  
-            </div>
+    <div className="flex flex-col h-screen bg-gray-900">
+      <h1 className="text-center text-white text-5xl mt-14">Favorites</h1>
+      <div className="flex-grow overflow-y-auto p-8">
+        {data?.map((product, key) => (
+          <div key={key} className="mb-8">
+            <ProductDetails data={product} />
+          </div>
         ))}
+      </div>
     </div>
   )
 }

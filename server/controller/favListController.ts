@@ -4,6 +4,7 @@ const prisma = new PrismaClient()
 
 const addToFavList = async (req: Request, res: Response)=>{
     try{
+    console.log(req.body)
     const {userId, productId} : {userId: number, productId : number} = req.body
     const query = await prisma.favList.create({
         data : {
