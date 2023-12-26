@@ -24,10 +24,14 @@ interface Cart {
 const ShoppingCart = () => {
   const [quantity, setQuantity] = useState(1);
   const [cartVisible, setCartVisible] = useState(true);
+  const [productQuantities, setProductQuantities] = useState<
+    Record<number, number>
+  >({});
   const deleteCartMutation = useDeleteCart(Number);
-  const getStorage = localStorage.getItem("user") || '{"data": {"id": "1"}}'
-  const storage = JSON.parse(getStorage)
-  const user = storage.data.id
+  const getStorage = localStorage.getItem("user") || '{"data": {"id": "1"}}';
+  const storage = JSON.parse(getStorage);
+  const user = storage.data.id;
+  console.log(productQuantities);
   var { isError, isLoading, data } = useQuery<Cart[]>({
     queryKey: ["cart"],
     queryFn: () =>
@@ -53,20 +57,35 @@ const ShoppingCart = () => {
     return (ele.product.price * quantity).toFixed(2);
   };
 
-  const incrementQuantity = () => {
-    setQuantity(quantity + 1);
+  const incrementQuantity = (productId: number) => {
+    // Use the product ID to update the quantity for a specific product
+    setProductQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [productId]: (prevQuantities[productId] || 0) + 1,
+    }));
   };
-
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
+  const decrementQuantity = (productId: number) => {
+    // Use the product ID to update the quantity for a specific product
+    setProductQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [productId]: Math.max((prevQuantities[productId] || 0) - 1, 1),
+    }));
   };
-
-    const toggleCartVisibility = () => {
-      setCartVisible(!cartVisible);
-    };
-
+  const toggleCartVisibility = () => {
+    setCartVisible(!cartVisible);
+  };
+  const getTotalAmount = (ele: any) => {
+    const productQuantity = productQuantities[ele.id] || 1;
+    return (ele.product.price * productQuantity).toFixed(2);
+  };
+  const getOverallTotalAmount = () => {
+    let total = 0;
+    data?.forEach((ele) => {
+      const productQuantity = productQuantities[ele.id] || 1;
+      total += ele.product.price * productQuantity;
+    });
+    return total.toFixed(2);
+  };
   return (
     <div className="relative">
       <div>
@@ -96,37 +115,50 @@ const ShoppingCart = () => {
                 <div className="flex flex-col ml-4">
                   <p className="font-semibold">{ele.product.name}</p>
                   <p className="text-gray-500">
-                    ${(ele.product.price * quantity).toFixed(2)}
+                    ${ele.product.price.toFixed(2)}
                   </p>
                 </div>
+              </div>
+              <div>
                 <span className="text-gray-600">Total:</span>
-                <span className="text-xl font-bold">${getTotalPrice(ele)}</span>
+                <span className="text-xl font-bold">
+                  ${getTotalAmount(ele)}
+                </span>
               </div>
 
               <div className="flex items-center">
                 <button
                   className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
-                  onClick={decrementQuantity}
+                  onClick={() => decrementQuantity(ele.id)}
                 >
                   -
                 </button>
-                <span className="text-xl font-bold">{quantity}</span>
+                {/* Replace 'quantity' with 'productQuantities[ele.id]' */}
+                <span className="text-xl font-bold">
+                  {productQuantities[ele.id] || 1}
+                </span>
                 <button
                   className="bg-blue-500 text-white px-3 py-1 rounded ml-2"
-                  onClick={incrementQuantity}
+                  onClick={() => incrementQuantity(ele.id)}
                 >
                   +
                 </button>
               </div>
 
               <button
-                className=" bg-CornellRed  text-white font-bold py-2 px-7  border-red-700 hover:border-red-500 rounded hover:bg-red-950 "
+                className="bg-CornellRed text-white font-bold py-2 px-7 border-red-700 hover:border-red-500 rounded hover:bg-red-950"
                 onClick={() => deleteCartMutation.mutate(ele.id)}
               >
                 Delete
               </button>
             </div>
           ))}
+          <div className="mt-4">
+            <span className="text-gray-600">Overall Total:</span>
+            <span className="text-xl font-bold">
+              ${getOverallTotalAmount()}
+            </span>
+          </div>
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             commande
           </button>
