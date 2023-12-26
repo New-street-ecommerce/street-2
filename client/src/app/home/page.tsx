@@ -111,8 +111,8 @@ const Home = () => {
             </div>
           </div>
           <div>
-            <div className="w-[40rem] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="grid gap-4">
+            <div className=" iphone:hidden w-[40rem] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className=" grid gap-4">
                 <div>
                   <img
                     className="h-auto max-w-full rounded-lg"
@@ -145,10 +145,10 @@ const Home = () => {
                   />
                 </div>
               </div>
-              <div className="grid gap-4  mt-20 ">
+              <div className="grid gap-4  mt-20 w-48 ">
                 <div>
                   <img
-                    className=" h-80 max-w-full rounded-lg "
+                    className=" h-80 max-w-full rounded-lg  "
                     src="https://i.pinimg.com/564x/5c/77/df/5c77df5404a69834f29ed4a1131363ad.jpg"
                     alt=""
                   />
