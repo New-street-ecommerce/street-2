@@ -24,7 +24,7 @@ export const register = () => {
         auth,
         object.email,
         object.password
-      );
+      )
       
       return res;
     },
@@ -60,7 +60,7 @@ export const registerDb = (input:string)=> {
              const  res :any = await axios.post(`http://localhost:5000/${input}/signup`,object)
              console.log(res)
              console.log(object)
-             localStorage.setItem("user", JSON.stringify(res))
+            //  localStorage.setItem("user", JSON.stringify(res))
              return res
         },
         onError: (error,variables,context) => {
@@ -80,7 +80,9 @@ export const loginDb = (input:string)=> {
         onError: (error,variables,context) => {
             console.log(error)
         }
+        
     })
+    
     return query
 }
 export const useDeleteCart = (id : any) => {
@@ -106,14 +108,15 @@ export const signInWithGoogle =  (input:string) => {
         const provider = new GoogleAuthProvider();
         const userCredential = await signInWithPopup(auth, provider);
         const user = userCredential.user;
-        console.log(user)
+        // console.log(user)
         const object = {email:user.email,name:user.displayName,username:user.displayName}
         const  res :any = await axios.post(`http://localhost:5000/${input}/signup`,object)
+        console.log(res)
         localStorage.setItem("user", JSON.stringify(res))
 
       },
       onError: (error,variables,context) => {
-        console.log(error)
+      
     }} )
        return query 
     }
@@ -185,3 +188,31 @@ export const deleteItemFav = () => {
 
   return query;
 };
+
+export const deleteUser = ()=> {
+
+
+  const query= useMutation({
+    mutationFn: async ()=> {
+    const auth = getAuth(app);
+    const user  =   auth.currentUser;
+    if (user){
+      console.log(user)
+     user.delete()
+    }
+    const storedUser = localStorage.getItem("user");
+    console.log(storedUser)
+    if(storedUser){
+      const parsedUser = JSON.parse(storedUser);
+       await axios.delete(`http://localhost:5000/user/${parsedUser.data.id}`)
+       console.log("test 2")
+       localStorage.removeItem("user");
+    }
+  },
+  onError: (error,variables,context)=> {
+    console.log(error)
+  }
+ })
+ return query
+
+}
