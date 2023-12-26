@@ -132,13 +132,13 @@ const Page = () => {
             products.map((product: Product, index: number) => (
               <div
                 key={index}
-                className='w-full max-w-sm mx-auto  mt-[0px]  relative shadow-md rounded-lg cursor-pointer overflow-hidden group'
+                className='w-full max-w-sm mx-auto mb-10  mt-[-10px]  relative shadow-md rounded-lg cursor-pointer overflow-hidden group'
               >
                 <div className='relative overflow-hidden group-hover:scale-110 transition-transform duration-300'>
                   <img
                     src={product.pictures[0]}
                     alt={product.name}
-                    className='w-full h-74 object-cover rounded-lg'
+                    className='w-full h-65 object-cover rounded-lg'
                   />
                   <div className='absolute inset-0 bg-gradient-to-r from-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
                 </div>

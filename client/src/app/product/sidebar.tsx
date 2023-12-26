@@ -65,7 +65,7 @@ interface Product {
 
   
     return (
-      <div className="w-full md:w-64  h-screen bg-gray-200 border-r border-gray-300 flex flex-col md:flex-row">
+      <div className="w-full md:w-64  h-100 bg-gray-200 border-r border-gray-300 flex flex-col md:flex-row">
       <div className="md:w-64 md:flex-shrink-0">
         <div className="px-4 py-3">
           <BsFilterLeft />
