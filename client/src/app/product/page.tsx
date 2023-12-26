@@ -88,7 +88,11 @@ const Page = () => {
 
   return (
     <div className='flex '>
+     
       <Sidebar category={category} setCategory={setCategory} isNewRelease={isNewRelease} setMinPrice={setMinPrice} setMaxPrice={setMaxPrice} refetch={refetch} minPrice={minPrice} maxPrice={maxPrice} setNewRelease={setNewRelease} />
+     <p className='mr-[-70px] underline underline-offset-4 text-slate-400 font-light text-4xl '>
+      products
+      </p> 
       <div className='container mx-auto p-4 lg:h-screen flex items-center justify-center mt-[60px]'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[60px]'>
        
