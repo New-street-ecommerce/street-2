@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { FaSearch, FaHome, FaBook, FaChartBar, } from "react-icons/fa";
 // import ExploreDropDown from "./ExploreDropDown";
+import { SlBasketLoaded } from "react-icons/sl";
 
 const NavBar = () => {
   return (
@@ -88,6 +89,15 @@ const NavBar = () => {
           >
             <FaChartBar className="mr-2" />
             Stats
+          </Link>
+        </div>
+        <div className="flex items-center mt-4 md:mt-0 md:ml-[200px] md:mr-4">
+          <Link
+            href={"/basket"}
+            className="[font-family:'SF_Pro_Display-Semibold',Helvetica] font-normal text-white text-base md:text-lg tracking-[0] leading-[normal] whitespace-nowrap hover:text-gray-300 flex items-center"
+          >
+            <SlBasketLoaded className="mr-2" />
+            
           </Link>
         </div>
       </div>
