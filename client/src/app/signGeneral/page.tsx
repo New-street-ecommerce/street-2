@@ -1,7 +1,7 @@
-"use client"
-import Image from "next/image"
-import Link from "next/link"
-import art from "../../../assets/art.jpg"
+// "use client"
+// import Image from "next/image"
+// import Link from "next/link"
+// import art from "../../../assets/art.jpg"
 
 // const signGeneral = () => {
 //     return (
