@@ -96,7 +96,7 @@ export const signUp = async (req: Request, res: Response) => {
         dateOfBirth,
       },
     });
-     res.status(201).send(Artist);
+    return res.status(201).send(artist);
   } catch (error) {
     res.status(500).send(error);
   }
