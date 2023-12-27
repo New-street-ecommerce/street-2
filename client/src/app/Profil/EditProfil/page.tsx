@@ -2,20 +2,30 @@
 import React,{useState} from 'react'
 import axios from 'axios'
 import Link from 'next/link';
+import { useEffect } from 'react';
+import { set } from 'firebase/database';
 
 const EditProfil = () => {
 const [userName, setUsername] =useState<string>('')
 const [bio,setBio] = useState('')
+const [id,setId] = useState('')
 
+
+useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+  if (storedUser) {
+    const parsedUser = JSON.parse(storedUser);
+    setId(parsedUser.data.id);
+  }
+  
+}, [id]);
 const hundleUpdate:Function=async()=>{
-
-    const artistId=1
     try {
-        await axios.put(`http://localhost:5000/artist/Profile/updateProfil/${artistId}`,{
-            name: userName,
-            bio: bio,
+        await axios.put(`http://localhost:5000/artist/Profile/updateProfil/${id}`,{
+          username:userName,
+          bio : bio
         })
-        console.log('Profile updated successfully');
+        console.log(userName,'user',bio,'bio');
     } catch (error:any) {
         console.error('Error updating profile:', error.response?.data?.msg || 'Unknown error');
     }
@@ -32,13 +42,13 @@ return (
           className='p-3 rounded-full bg-transparent border text-white'
           type='text'
           placeholder='Username'
-          value={userName}
+          // value={userName}
           onChange={(e) => setUsername(e.target.value)}
         />
         <textarea
           className='p-3 rounded-full bg-transparent border text-white'
           placeholder='Bio'
-          value={bio}
+          // value={bio}
           onChange={(e) => setBio(e.target.value)}
         />
          <Link href="/Profil">

@@ -1,6 +1,9 @@
 import React,{useState} from 'react'
 import AllPhotosPopUp from './AllPhotosPopUp';
-const PostsPictures: React.FC = () => {
+// interface PostsPicturesProps {
+//   posts: [];
+// }
+const PostsPictures: React.FC = ({ posts }) => {
     const [openPopup, setOpenPopup] = useState<boolean>(false);
     const handleClosePopUp = () => {
         setOpenPopup(!openPopup);
@@ -27,11 +30,11 @@ const PostsPictures: React.FC = () => {
               See All Photos
             </span>
             {openPopup && (
-              <AllPhotosPopUp handleClosePopUp={handleClosePopUp} />
+              <AllPhotosPopUp  posts={posts} handleClosePopUp={handleClosePopUp} />
             )}
           </div>
           <div className="flex flex-wrap w-full h-full m-5 p-3 ">
-            {/* {data?.map(
+            {posts?.map(
               (post: {
                 id: React.Key | null | undefined;
                 imageUrl: string | undefined;
@@ -39,13 +42,13 @@ const PostsPictures: React.FC = () => {
                 return (
                   <img
                     key={post.id}
-                    src={post.imageUrl}
+                    src={post.picture}
                     className="flex w-[100px] h-[95px] m-1 rounded-md p-1 cursor-pointer"
                     alt=""
                   />
                 );
               }
-            )} */}
+            )}
           </div>
         </div>
     

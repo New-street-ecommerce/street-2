@@ -15,8 +15,9 @@ interface Artist {
 }
 
 
+
 export const updateProfil = async (req: Request, res: Response) => {
-  const { name,bio }: { name: string,bio:string } = req.body;
+  const { username,bio }: { username: string,bio:string } = req.body;
   const { artistId } = req.params;
 
   try {
@@ -25,7 +26,7 @@ export const updateProfil = async (req: Request, res: Response) => {
         id: Number(artistId),
       },
       data: {
-        name: name,
+        username,
         bio: bio,
       },
     });
@@ -109,13 +110,13 @@ export const signIn = async (req: Request, res: Response) => {
     if (!Artist) {
       res.status(409).send("Artist does not exist");
     } else {
-      res.status(200).send(Artist);
+      res.status(200).send( Artist);
     }
   } catch (error) {
     res.status(500).send(error);
   }
 };
-export const getArtistByEmail = async (req: Request, res: Response) =>{
+export const getArtistById = async (req: Request, res: Response) =>{
   
   let artistId= Number(req.params.artistId)
   try {
@@ -130,4 +131,5 @@ export const getArtistByEmail = async (req: Request, res: Response) =>{
     res.status(500).send(error)
   }
 }
+
 
