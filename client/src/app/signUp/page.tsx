@@ -23,10 +23,10 @@ const signUp = () => {
   return (
     <>
       <div className="relative mt-6 flex w-full h-screen flex-col justify-center items-center px-16 py-12 max-md:max-w-full max-md:px-5">
-        <div className="w-full max-w-[1131px]  mb-20 max-md:max-w-full max-md:my-10">
-          <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-            <div className="flex flex-col items-center w-[49%] max-md:w-full max-md:ml-0">
-              <div className="flex flex-col items-center mt-2 max-md:max-w-full max-md:mt-10">
+      <div className="w-full mb-20 max-md:max-w-full max-md:my-10">
+          <div className="gap-5 md:flex max-md:items-stretch max-md:gap-0">
+            <div className="flex flex-wrap justify-center w-1/2 max-md:ml-0">
+              <div className=" items-center hidden md:block w-1/2 max-md:max-w-full max-md:mt-10">
                 <Image
                   src={main}
                   width={300}
@@ -39,9 +39,9 @@ const signUp = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-stretch w-[36%] h-[36%] ml-5 max-md:w-full max-md:ml-0 ">
+            <div className="flex flex-col items-stretch h-[49%] ml-5">
               <form
-                className="bg-login bg-opacity-20 flex grow flex-col w-full py-7 rounded-xl max-md:max-w-full max-md:mt-10"
+                className="bg-login bg-opacity-20 flex grow flex-col w-full py-7 rounded-xl "
                 onSubmit={(event) => {  
                   event.preventDefault();
                   mutation.mutate({ email: registerEmail
@@ -53,11 +53,11 @@ const signUp = () => {
                 
                 }}
               >
-                <div className="self-stretch flex flex-col px-9 max-md:max-w-full max-md:px-5">
+                <div className="self-stretch flex flex-col max-md:max-w-full max-md:px-5">
                   <div className="text-white text-center text-3xl font-extrabold tracking-wide self-stretch">
                     Sign Up
                   </div>
-                  <div className="font-medium font-sfprodisplay ml-1.5 md:ml-0 mt-[22px] text-deep_purple-400 text-lg tracking-[0.36px]">
+                  <div className="font-medium font-sfprodisplay ml-1.5 md:ml-0 mt-[22px]  text-lg tracking-[0.36px]">
                     <span className="text-white-A700 text-left font-normal">
                       Already a Member?
                     </span>
@@ -71,7 +71,7 @@ const signUp = () => {
                       Sign In
                     </Link>
                   </div>
-                  <div className="font-medium font-sfprodisplay ml-1.5 md:ml-0 mt-[22px] text-deep_purple-400 text-lg tracking-[0.36px]">
+                  <div className="font-medium font-sfprodisplay ml-1.5 md:ml-0 mt-[22px]  text-lg tracking-[0.36px]">
                     <span className="text-white-A700 text-left font-normal">
                       Are you an artist?
                     </span>
@@ -86,7 +86,7 @@ const signUp = () => {
                     </Link>
                   </div>
                   <br />
-                  <div className="relative max-w-xs">
+                  <div className="relative">
                     <svg
                       className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto"
                       xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +124,6 @@ const signUp = () => {
                         className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                       />
                       <input
-                        // className="p-3 capitalize shadow-2xl  glass w-full placeholder:text-black outline-none focus:border-solid focus:border-[1px] border-[#035ec5]"
                         type="text"
                         placeholder="username"
                         id="userName"
@@ -135,7 +134,7 @@ const signUp = () => {
                     </div>
                   </div>
                   <div>
-                    <div className="relative max-w-xs mt-2">
+                    <div className="relative mt-2">
                       <input
                         type="password"
                         placeholder="Enter your password"
@@ -147,10 +146,8 @@ const signUp = () => {
                     </div>
                   </div>
                   <div className="mt-6">
-                  
                     <div className="mt-1">
                       <input
-                        // className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         type="date"
                         name="dob"
                         onChange={(e) => setDateOfB(e.target.value)}
@@ -160,10 +157,6 @@ const signUp = () => {
                     </div>
                   </div>
                 </div>
-                {/* <div className="flex items-center justify-center mt-6">
-                </div> */}
-
-                <div className="mt-6 flex items-center justify-between"></div>
                 <button
                   type="submit"
                   className="text-white text-base whitespace-nowrap justify-center items-stretch bg-[#C3141D] mt-6 px-5 py-1 rounded-[121px] self-end"
@@ -174,7 +167,6 @@ const signUp = () => {
             </div>
           </div>
         </div>
-        
       </div>
     </>
   );
