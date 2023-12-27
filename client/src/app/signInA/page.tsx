@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { login, loginDb, signInWithGoogle } from "../Providers/useApi";
 import { useState } from "react";
-import artist from "../../../assets/artist.png";
+import main from "../../../assets/main.png";
 import { useRouter } from 'next/navigation'
 
 const SignInA = () => {
@@ -16,12 +16,13 @@ const SignInA = () => {
   const mutationG = signInWithGoogle("artist")
   mutationG.isSuccess && router.push("/home")
   return (
-    <div className="w-full h-screen max-w-[1131px] mt-28 mb-20 max-md:max-w-full max-md:my-10">
-      <div className="gap-5 md: flex max-md:flex-col max-md:items-center max-md:gap-0">
-        <div className="flex flex-col items-center w-[49%] max-md:w-full max-md:ml-0">
-          <div className="flex flex-col items-center mt-8 max-md:max-w-full max-md:mt-10">
+    <div className="relative mt-6 flex w-full h-screen flex-col justify-center items-center px-16 py-12 max-md:max-w-full max-md:px-5">
+    <div className="w-full mb-20 max-md:max-w-full max-md:my-10">
+      <div className="gap-5 md:flex max-md:items-stretch max-md:gap-0">
+        <div className="flex flex-wrap justify-center w-1/2 max-md:ml-0">
+          <div className="items-center hidden md:block w-1/2 max-md:max-w-full max-md:mt-10">
             <Image
-              src={artist}
+              src={main}
               width={400}
               height={400}
               alt="taswira"
@@ -33,21 +34,19 @@ const SignInA = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-stretch w-[36%] h-[36%] ml-5 max-md:w-full max-md:ml-0 mt-[-10%]">
-          <div className="bg-login bg-opacity-20 flex grow flex-col w-full py-7 rounded-xl max-md:max-w-full max-md:mt-10">
+          <div className="flex flex-col items-stretch h-[49%] ml-5">
             <form
+            className="bg-login bg-opacity-20 flex grow flex-col w-full py-7 rounded-xl "
               onSubmit={(event) => {
                 event.preventDefault();
                 mutation.mutate({ email: loginEmail, password: loginPassword });
                 mutationdB.mutate({ email: loginEmail });
-          
               }}
-              className="self-stretch flex flex-col px-9 max-md:max-w-full max-md:px-5"
             >
               <div className="text-white text-center text-3xl font-extrabold tracking-wide self-stretch max-md:max-w-full">
                 Sign In
               </div>
-              <div className="text-white-500 text-lg tracking-wide self-stretch mt-16 max-md:max-w-full max-md:mt-10">
+              <div className="text-white-500 text-lg tracking-wide self-stretch mt-4 max-md:max-w-full max-md:mt-10">
                 <span className="text-white">New user?</span>
                 <Link
                   href={"/signUpA"}
@@ -57,7 +56,7 @@ const SignInA = () => {
                   Create an account
                 </Link>
               </div>
-              <div className="text-white-500 text-lg tracking-wide self-stretch mt-16 max-md:max-w-full max-md:mt-10">
+              <div className="text-white-500 text-lg tracking-wide self-stretch mt-2  mb-2 max-md:max-w-full max-md:mt-10">
                 <span className="text-white">You're not an artist?</span>
                 <Link
                   href={"/signIn"}
@@ -67,7 +66,7 @@ const SignInA = () => {
                   Sign In
                 </Link>
               </div>
-              <div className="relative max-w-xs">
+              <div className="relative ">
                 <svg
                   className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto"
                   xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +92,7 @@ const SignInA = () => {
               </div>
               <br />
               <label className="text-gray-600"></label>
-              <div className="relative max-w-xs mt-2">
+              <div className="relative  mt-2">
                 <button
                   className="text-gray-400 absolute right-3 inset-y-0 my-auto active:text-gray-600"
                   onClick={() => {
@@ -157,7 +156,6 @@ const SignInA = () => {
               </div>
               <br />
               <div className="space-y-4 text-sm font-medium">
-               
               </div>
               <br />
               <div className="space-y-4 text-sm font-medium">
@@ -209,8 +207,9 @@ const SignInA = () => {
               </button>
             </form>
           </div>
-        </div>
+        
       </div>
+    </div>
     </div>
   );
 };

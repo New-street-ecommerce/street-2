@@ -96,7 +96,7 @@ const ShoppingCart = () => {
       </div>
 
       {cartVisible && (
-        <div className="top-30 right-4 bg-white p-4 rounded shadow-md w-[1300px] mr-7 float-right">
+        <div className=" iphone:w-96 top-30 right-4 bg-white p-4 rounded shadow-md w-[1300px] mr-7 float-right">
           <h2 className="text-xl font-semibold mb-4"> Cart</h2>
 
           {data?.map((ele, i) => (
@@ -128,7 +128,7 @@ const ShoppingCart = () => {
 
               <div className="flex items-center">
                 <button
-                  className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
+                  className="bg-Charcoal text-white px-3 py-1 rounded mr-2"
                   onClick={() => decrementQuantity(ele.id)}
                 >
                   -
@@ -138,7 +138,7 @@ const ShoppingCart = () => {
                   {productQuantities[ele.id] || 1}
                 </span>
                 <button
-                  className="bg-blue-500 text-white px-3 py-1 rounded ml-2"
+                  className="bg-Charcoal text-white px-3 py-1 rounded ml-2"
                   onClick={() => incrementQuantity(ele.id)}
                 >
                   +
