@@ -18,7 +18,13 @@ const postQuestion  = async (req: Request, res: Response) =>{
 }
 const getQuestions = async (req: Request, res: Response) =>{
     try{
-        const query =  await prisma.question.findMany()
+        const query =  await prisma.question.findMany({
+            orderBy: [
+                {
+                  id: 'desc'
+                }
+              ]
+        })
         res.send(query)
     }catch(error){
         res.send(error)

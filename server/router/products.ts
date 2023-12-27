@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/all', product.getAll);
 
-router.get('/:catg', product.getCat);
+// router.get('/:catg', product.getCat);
 
 router.get('/New', product.getNew); 
 

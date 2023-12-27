@@ -21,7 +21,7 @@ useEffect(() => {
 }, [id]);
 const hundleUpdate:Function=async()=>{
     try {
-        await axios.put(`http://localhost:5000/artist/Profile/updateProfil/6`,{
+        await axios.put(`http://localhost:5000/artist/Profile/updateProfil/${id}`,{
           username:userName,
           bio : bio
         })

@@ -65,7 +65,7 @@ interface Product {
 
   
     return (
-      <div className="w-full md:w-64 h-screen bg-gray-200 border-r border-gray-300 flex flex-col md:flex-row">
+      <div className="w-full md:w-64  h-100 bg-gray-200 border-r border-gray-300 flex flex-col md:flex-row">
       <div className="md:w-64 md:flex-shrink-0">
         <div className="px-4 py-3">
           <BsFilterLeft />
@@ -149,7 +149,7 @@ interface Product {
                         className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
                           selectedCategory === 'Hoodies' ? 'bg-gray-100' : ''
                         }`}
-                        onClick={() => fetchProductsByCategory('?category=hoodies')}
+                        onClick={() => fetchProductsByCategory('?category=Hoodies')}
                       
                       >
                         <span className='ml-4'>Hoodies</span>
@@ -170,7 +170,7 @@ interface Product {
                         className={`flex items-center px-4 py-2 rounded hover:bg-gray-100 ${
                           selectedCategory === 'Sneakers' ? 'bg-gray-100' : ''
                         }`}
-                        onClick={() => fetchProductsByCategory('?category=sneakers')}
+                        onClick={() => fetchProductsByCategory('?category=Sneakers')}
                       >
                         <span className='ml-4'>Sneakers</span>
                       </p>

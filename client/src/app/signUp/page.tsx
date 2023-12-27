@@ -3,10 +3,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import main from "../../../assets/main.png"
+import { useRouter } from "next/navigation";
 
-import { register, registerDb } from "../Providers/useApi";
+import { register, registerDb , login, loginDb} from "../Providers/useApi";
 
 const signUp = () => {
+  const router = useRouter()
   const [registerEmail, setRegisterEmail] = useState("");
   const [registeruserName, setRegisterUserName] = useState("");
   const [registerName, setRegisterName] = useState("");
@@ -15,6 +17,8 @@ const signUp = () => {
 
   const mutation = register();
   const mutation2 = registerDb("user");
+  const mutation3 = login()
+  const mutation4 = loginDb("user")
     
   return (
     <>
@@ -43,7 +47,9 @@ const signUp = () => {
                   mutation.mutate({ email: registerEmail
                   , password: registerPassword });
                   mutation2.mutate({email:registerEmail,name:registerName,username:registeruserName,dateOfBirth:dateOfB})
-                  
+                  mutation3.mutate({ email: registerEmail, password: registerPassword })
+                  mutation4.mutate({email: registerEmail})
+                  router.push('/home')
                 
                 }}
               >
